@@ -9,7 +9,7 @@ target 'First Class And More' do
   pod 'AlamofireImage', '~> 3.4'
   pod 'SwiftyJSON'
   pod 'NVActivityIndicatorView'
-  pod 'PopupDialog', '~> 0.7.1'
+  pod 'PopupDialog', '~> 1.1.0'
   pod 'DZNEmptyDataSet'
   pod 'SwiftyGif'
 end
