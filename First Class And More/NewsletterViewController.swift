@@ -12,41 +12,19 @@ class NewsletterViewController: UIViewController {
 
     @IBOutlet weak var emailContainer: UIView!
     @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var nameContainer: UIView!
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var maleBtn: DLRadioButton!
-    @IBOutlet weak var femaleBtn: DLRadioButton!
     
     fileprivate var email: String?
-    fileprivate var name: String?
-    private var gender: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-        nameTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
         emailContainer.layer.cornerRadius = 32.0 / 2
         emailContainer.layer.borderColor  = #colorLiteral(red: 0, green: 0.3764705882, blue: 0.6, alpha: 1).cgColor
         emailContainer.layer.borderWidth  = 1.0
-        nameContainer.layer.cornerRadius = 32.0 / 2
-        nameContainer.layer.borderColor  = #colorLiteral(red: 0, green: 0.3764705882, blue: 0.6, alpha: 1).cgColor
-        nameContainer.layer.borderWidth  = 1.0
-    }
-    
-    @IBAction func maleBtnPressed(_ sender: DLRadioButton) {
-        maleBtn.isSelected = true
-        femaleBtn.isSelected = false
-        gender = 1
-    }
-    
-    @IBAction func femaleBtnPressed(_ sender: DLRadioButton) {
-        femaleBtn.isSelected = true
-        maleBtn.isSelected = false
-        gender = 2
     }
     
     @IBAction func subscribeBtnPressed() {
-        guard let email = email, let name = name, !email.isEmpty, !name.isEmpty, gender != -1 else {
+        guard let email = email, !email.isEmpty else {
             showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "Füllen Sie alle notwendigen Felder aus!", cancelBtn: false)
             return
         }
@@ -59,7 +37,7 @@ class NewsletterViewController: UIViewController {
         }
         startLoading()
         if isConnectedToNetwork(repeatedFunction: subscribeBtnPressed) {
-            Server.shared.subscribeNewsletter(email, name: name, gender: gender) { answer, error in
+            Server.shared.subscribeNewsletter(email) { answer, error in
                 DispatchQueue.main.async {
                     self.stopLoading()
                     if error != nil {
@@ -86,9 +64,7 @@ extension NewsletterViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailTextField {
-            nameTextField.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
+            emailTextField.resignFirstResponder()
         }
         return true
     }
@@ -97,8 +73,6 @@ extension NewsletterViewController: UITextFieldDelegate {
         let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
         if textField == emailTextField {
             email = text
-        } else {
-            name = text
         }
         return true
     }

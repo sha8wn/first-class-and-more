@@ -15,7 +15,7 @@ enum RouterOther: URLRequestConvertible {
     case updatePushNotificationSettings(setting: Int, token: String, deviceToken: String)
     case getAdvertisements(token: String)
     case getProfilesAndTests(token: String, id: Int, page: Int)
-    case subscribeNewsletter(email: String, name: String, gender: Int)
+    case subscribeNewsletter(email: String)
     case changeAdsSettings(ads: Int, pushToken: String)
     case sendMessage(email: String, name: String, surname: String, subject: String, message: String)
     
@@ -46,10 +46,8 @@ enum RouterOther: URLRequestConvertible {
                     "page": page,
                     "cat": id
                 ]
-            case .subscribeNewsletter(let email, let name, let gender):
+            case .subscribeNewsletter(let email):
                 let params: Parameters = [
-                    "title_id": gender,
-                    "name": name,
                     "email": email
                 ]
                 return params

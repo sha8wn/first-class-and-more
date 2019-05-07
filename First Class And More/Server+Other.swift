@@ -108,8 +108,8 @@ extension Server {
         }
     }
     
-    func subscribeNewsletter(_ email: String, name: String, gender: Int, сompletion: @escaping Completion) {
-        let subscribeNewsletterURL = RouterOther.subscribeNewsletter(email: email, name: name, gender: gender)
+    func subscribeNewsletter(_ email: String, сompletion: @escaping Completion) {
+        let subscribeNewsletterURL = RouterOther.subscribeNewsletter(email: email)
         Alamofire.request(subscribeNewsletterURL).responseObject { (response: DataResponse<StringResponse>) in
             let responseValue = response.result.value
             print(#file, #line, response.request ?? "")
