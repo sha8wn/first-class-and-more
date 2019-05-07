@@ -101,12 +101,14 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         
         switch dealType {
             case .Flüge, .Hotels, .Vielflieger_Status:
-                destinationsBtn = UIButton(type: .custom)
-                let image = (destinations?.filter({ !$0.selected }).isEmpty ?? true) ? #imageLiteral(resourceName: "globe_gold") : #imageLiteral(resourceName: "globe")
-                destinationsBtn!.setImage(image, for: .normal)
-                destinationsBtn!.frame = CGRect(x: UIScreen.main.bounds.width - (titleView.frame.height - 8.0 * 2) - 8.0, y: 8.0, width: (titleView.frame.height - 8.0 * 2), height: titleView.frame.height - 8.0 * 2)
-                destinationsBtn!.addTarget(self, action: #selector(destinationsBtnPressed), for: .touchUpInside)
-                titleView.addSubview(destinationsBtn!)
+                if UserModel.sharedInstance.membership == .platin {
+                    destinationsBtn = UIButton(type: .custom)
+                    let image = (destinations?.filter({ !$0.selected }).isEmpty ?? true) ? #imageLiteral(resourceName: "globe_gold") : #imageLiteral(resourceName: "globe")
+                    destinationsBtn!.setImage(image, for: .normal)
+                    destinationsBtn!.frame = CGRect(x: UIScreen.main.bounds.width - (titleView.frame.height - 8.0 * 2) - 8.0, y: 8.0, width: (titleView.frame.height - 8.0 * 2), height: titleView.frame.height - 8.0 * 2)
+                    destinationsBtn!.addTarget(self, action: #selector(destinationsBtnPressed), for: .touchUpInside)
+                    titleView.addSubview(destinationsBtn!)
+                }
             default:
                 break
         }
