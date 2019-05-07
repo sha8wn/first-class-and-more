@@ -593,14 +593,14 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                             let user = UserModel.sharedInstance
                             if let indexOfFavorite = user.favorites.index(of: id) {
                                 user.favorites.remove(at: indexOfFavorite)
-                                if self.dealType == .Favoriten {
-                                    self.deals.remove(at: indexPath.section)
-                                }
                                 let data     = NSKeyedArchiver.archivedData(withRootObject: user)
                                 let defaults = UserDefaults.standard
                                 defaults.set(data, forKey: kUDSharedUserModel)
                                 defaults.synchronize()
                                 self.dealsView.dealsTableView.reloadRows(at: [indexPath], with: .automatic)
+                                if self.dealType == .Favoriten {
+                                    self.deals.remove(at: indexPath.section)
+                                }
                             }
                         }
                     }
