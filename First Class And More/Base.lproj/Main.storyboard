@@ -1690,17 +1690,40 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                     </button>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPv-4Y-XIC">
+                                <rect key="frame" x="49" y="591" width="277.5" height="36"/>
+                                <color key="backgroundColor" red="0.85490196080000003" green="0.64705882349999999" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="zvl-SM-TzL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
+                                <state key="normal" title="Speichern">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="saveButtonPressed" destination="zvd-iJ-GLf" eventType="touchUpInside" id="4nc-Tc-i0a"/>
+                                    <action selector="saveButtonPressed:" destination="2zM-BG-TeY" eventType="touchUpInside" id="9AM-GN-VFP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Sd7-Kw-Jas" firstAttribute="width" secondItem="jpu-l6-VCW" secondAttribute="width" id="6J3-Qi-m9B"/>
+                            <constraint firstItem="Sog-ch-XQV" firstAttribute="top" secondItem="qPv-4Y-XIC" secondAttribute="bottom" constant="40" id="Kbf-4t-w0K"/>
                             <constraint firstItem="pbh-Ts-JBc" firstAttribute="top" secondItem="Wbs-D7-LrH" secondAttribute="bottom" id="Oe3-TP-sS5"/>
+                            <constraint firstItem="qPv-4Y-XIC" firstAttribute="width" secondItem="AHb-qX-6L7" secondAttribute="width" multiplier="0.74" id="P6X-gn-G8k"/>
                             <constraint firstItem="Sd7-Kw-Jas" firstAttribute="top" secondItem="jpu-l6-VCW" secondAttribute="bottom" constant="20" id="Via-LP-Mtk"/>
                             <constraint firstItem="Sd7-Kw-Jas" firstAttribute="centerX" secondItem="AHb-qX-6L7" secondAttribute="centerX" id="ZzV-Ni-jJN"/>
                             <constraint firstAttribute="trailing" secondItem="pbh-Ts-JBc" secondAttribute="trailing" id="cVp-Qn-eJW"/>
                             <constraint firstItem="pbh-Ts-JBc" firstAttribute="leading" secondItem="AHb-qX-6L7" secondAttribute="leading" id="kzk-Pa-xqu"/>
                             <constraint firstItem="jpu-l6-VCW" firstAttribute="top" secondItem="pbh-Ts-JBc" secondAttribute="bottom" constant="20" id="rZy-gB-Zu1"/>
                             <constraint firstItem="jpu-l6-VCW" firstAttribute="width" secondItem="AHb-qX-6L7" secondAttribute="width" multiplier="0.8" id="tYc-XJ-9Sx"/>
+                            <constraint firstItem="qPv-4Y-XIC" firstAttribute="centerX" secondItem="AHb-qX-6L7" secondAttribute="centerX" id="zZc-zJ-bSG"/>
                             <constraint firstItem="jpu-l6-VCW" firstAttribute="centerX" secondItem="AHb-qX-6L7" secondAttribute="centerX" id="zbf-Zs-Cp4"/>
                         </constraints>
                     </view>

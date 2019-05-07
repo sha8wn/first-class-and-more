@@ -93,6 +93,9 @@ class WebrungViewController: SFSidebarViewController {
         
         selectedPromotionsType = type
         selectRadioButton(for: type)
+    }
+    
+    @IBAction func saveButtonPressed() {
         sendAndSave()
     }
     
@@ -139,4 +142,5 @@ class WebrungViewController: SFSidebarViewController {
             }
         }
     }
+    
 }
