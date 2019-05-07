@@ -40,7 +40,7 @@ enum DealType: Int
             case .Favoriten: return "Favoriten"
             case .Endet_Bald: return "Endet bald"
             case .Flüge: return "Flüge"
-            case .Meilen_Programme: return "Meilen-programme"
+            case .Meilen_Programme: return "Meilenprogramme"
             case .Vielflieger_Status: return "Vielflieger-status"
             case .Hotels: return "Hotels"
             case .Hotel_Programme: return "Hotel-programme"
