@@ -1407,6 +1407,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="titleLabel" destination="AYl-sB-Bap" id="Mht-iv-QSa"/>
                         <outlet property="topLabel" destination="Pz2-Ht-ngJ" id="HMG-i0-WE9"/>
                         <outletCollection property="options" destination="fmq-ot-HOe" collectionClass="NSMutableArray" id="PaZ-oT-9Vi"/>
                         <outletCollection property="options" destination="tNc-W9-k5C" collectionClass="NSMutableArray" id="8k8-lz-QOz"/>
@@ -1565,27 +1566,37 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <constraint firstAttribute="height" constant="1" id="GZh-qq-Y2b"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promotions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b3l-Wt-Ia5" customClass="SFFCAMLabel" customModule="First_Class_And_More" customModuleProvider="target">
+                                        <rect key="frame" x="37.5" y="12" width="300" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.035294117649999998" green="0.29803921570000003" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="b3l-Wt-Ia5" firstAttribute="centerX" secondItem="pbh-Ts-JBc" secondAttribute="centerX" id="1j8-RT-AKE"/>
                                     <constraint firstAttribute="trailing" secondItem="rGB-dD-qzP" secondAttribute="trailing" id="FSP-tu-FCE"/>
+                                    <constraint firstItem="rGB-dD-qzP" firstAttribute="top" secondItem="b3l-Wt-Ia5" secondAttribute="bottom" constant="12" id="PBd-dg-SNi"/>
                                     <constraint firstAttribute="height" constant="45" id="TKB-wA-k8e"/>
                                     <constraint firstItem="rGB-dD-qzP" firstAttribute="leading" secondItem="pbh-Ts-JBc" secondAttribute="leading" id="VN5-iC-GYo"/>
+                                    <constraint firstItem="b3l-Wt-Ia5" firstAttribute="width" secondItem="pbh-Ts-JBc" secondAttribute="width" multiplier="0.8" id="gn6-Ya-ov2"/>
+                                    <constraint firstItem="b3l-Wt-Ia5" firstAttribute="top" secondItem="pbh-Ts-JBc" secondAttribute="top" constant="12" id="sRc-WV-XEf"/>
                                     <constraint firstAttribute="bottom" secondItem="rGB-dD-qzP" secondAttribute="bottom" id="wGD-vo-Yf9"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpu-l6-VCW">
-                                <rect key="frame" x="37.5" y="85" width="300" height="262.5"/>
-                                <string key="text">Mit Promotion Pop-ups informieren wir Sie innerhalb der App über besondere Angebote und Aktionen. 
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpu-l6-VCW">
+                                <rect key="frame" x="37.5" y="85" width="300" height="183"/>
+                                <mutableString key="text">Mit Promotion Pop-ups informieren wir Sie innerhalb der App über besondere Angebote und Aktionen. 
 Wenn Sie keine Promotion verpassen möchten, aktivieren Sie einfach „Alle Promotions“. 
 Wenn Sie nur über ausgewählte Top Promotions für unsere Premium-Mitglieder informiert werden möchten, wählen Sie „Nur Top Promotions“. 
-Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren.</string>
-                                <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
+Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren.</mutableString>
+                                <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.37647058820000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Sd7-Kw-Jas">
-                                <rect key="frame" x="37.5" y="367.5" width="300" height="125"/>
+                                <rect key="frame" x="37.5" y="288" width="300" height="125"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bh-ZN-7bA" customClass="DLRadioButton">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="35"/>
@@ -1694,6 +1705,8 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="textLabel" destination="jpu-l6-VCW" id="Om8-Et-fRh"/>
+                        <outlet property="titleLabel" destination="b3l-Wt-Ia5" id="4Kg-fW-lyo"/>
                         <outlet property="titleView" destination="pbh-Ts-JBc" id="uP5-QU-Djs"/>
                         <outletCollection property="radioButtons" destination="2Bh-ZN-7bA" collectionClass="NSMutableArray" id="2Dl-6W-YVP"/>
                         <outletCollection property="radioButtons" destination="Vut-Cv-b6m" collectionClass="NSMutableArray" id="RCy-3K-0D9"/>

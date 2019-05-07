@@ -40,6 +40,21 @@ class WebrungViewController: SFSidebarViewController {
     @IBOutlet private weak var titleLabel: SFFCAMLabel! {
         didSet { titleLabel.type = .Heading }
     }
+    @IBOutlet private weak var textLabel: UILabel! {
+        didSet {
+            let text = NSMutableAttributedString()
+            text
+                .normal("Mit Promotion Pop-ups informieren wir Sie innerhalb der App über besondere Angebote und Aktionen.\n\n")
+                .normal("Wenn Sie keine Promotion verpassen möchten, aktivieren Sie einfach ")
+                .bold("„Alle Promotions“.\n\n")
+                .normal("Wenn Sie nur über ausgewählte Top Promotions für unsere Premium-Mitglieder informiert werden möchten, wählen Sie ")
+                .bold("„Nur Top Promotions“.\n\n")
+                .normal("Alternativ können Sie die Promotion Pop-ups aber auch vollständig ")
+                .bold("deaktivieren")
+                .normal(".")
+            textLabel.attributedText = text
+        }
+    }
     @IBOutlet var radioButtons: [DLRadioButton]!
     
     override func viewDidLoad() {
@@ -50,8 +65,9 @@ class WebrungViewController: SFSidebarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addHomeBtn()
-        createTopTitle()
-        
+    }
+    
+    func setupUI() {
         var hasStoredValue = false
         if let dict = UserDefaults.standard.value(forKey: kUDAdsSettings) as? [String: Bool] {
             for type in PromotionsType.allCases {
@@ -66,17 +82,6 @@ class WebrungViewController: SFSidebarViewController {
         if !hasStoredValue {
             selectRadioButton(for: .all)
         }
-    }
-    
-    func createTopTitle() {
-        let titleLabel       = SFFCAMLabel()
-        titleLabel.type      = .Heading
-        titleLabel.textColor = fcamBlue
-        titleLabel.text      = "Promotions"
-        titleLabel.sizeToFit()
-        titleLabel.frame.origin.x = (UIScreen.main.bounds.width - titleLabel.frame.size.width) / 2
-        titleLabel.frame.origin.y = (titleView.frame.size.height - titleLabel.frame.size.height) / 2
-        titleView.addSubview(titleLabel)
     }
     
     @IBAction func radioBtnPressed(_ sender: DLRadioButton) {

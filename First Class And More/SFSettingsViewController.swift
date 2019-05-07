@@ -11,6 +11,9 @@ import UserNotifications
 
 class SFSettingsViewController: SFSidebarViewController, UNUserNotificationCenterDelegate {
 
+    @IBOutlet private weak var titleLabel: SFFCAMLabel! {
+        didSet { titleLabel.type = .Heading }
+    }
     @IBOutlet weak var topLabel: UILabel!
     
     @IBOutlet var options: [DLRadioButton]!
