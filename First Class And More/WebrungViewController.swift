@@ -37,6 +37,9 @@ class WebrungViewController: SFSidebarViewController {
     var selectedPromotionsType: PromotionsType = .all
 
     @IBOutlet weak var titleView: UIView!
+    @IBOutlet private weak var titleLabel: SFFCAMLabel! {
+        didSet { titleLabel.type = .Heading }
+    }
     @IBOutlet var radioButtons: [DLRadioButton]!
     
     override func viewDidLoad() {
@@ -44,7 +47,8 @@ class WebrungViewController: SFSidebarViewController {
         setupUI()
     }
     
-    func setupUI() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         addHomeBtn()
         createTopTitle()
         
@@ -85,6 +89,12 @@ class WebrungViewController: SFSidebarViewController {
         selectedPromotionsType = type
         selectRadioButton(for: type)
         sendAndSave()
+    }
+    
+    override func homeBtnTapped() {
+        if let navigationVC = navigationController as? SFSidebarNavigationController {
+            navigationVC.setViewControllers([navigationVC.homeVC], animated: true)
+        }
     }
 
     func selectRadioButton(for type: PromotionsType) {
