@@ -43,7 +43,7 @@ enum DealType: Int
             case .Meilen_Programme: return "Meilenprogramme"
             case .Vielflieger_Status: return "Vielfliegerstatus"
             case .Hotels: return "Hotels"
-            case .Hotel_Programme: return "Hotel-programme"
+            case .Hotel_Programme: return "Hotelprogramme"
             case .Kredit_Karten: return "Kreditkarten"
             case .Meine_Deals: return "Meine Deals"
             case .Ohne_Login: return "Ohne Login"
