@@ -532,8 +532,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 cell.dealsExpireDate.text = "Buchbar bis \(stringDate)"
                 cell.dealExpiredImageView.isHidden = true
             } else if compareForExpiration(date: date) {
-                cell.dealsExpireDate.textColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
-                cell.dealsExpireDate.text = "Abgelaufen"
+                cell.dealsExpireDate.isHidden = true
                 cell.dealExpiredImageView.isHidden = false
             }
         } else {
