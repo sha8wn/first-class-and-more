@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="roboto-condensed.regular.ttf">
+            <string>RobotoCondensed-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="SFHomeMeineDealsItemCell" customModule="First_Class_And_More" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="140" height="160"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="140" height="160"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lF5-GC-7VU">
+                        <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="lF5-GC-7VU" secondAttribute="height" multiplier="1:1" id="RPr-0H-C7e"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Lorem ipsum dolor sit amet" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="H7r-vi-494">
+                        <rect key="frame" x="0.0" y="140" width="140" height="20"/>
+                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="10"/>
+                        <color key="textColor" red="0.42745098039215684" green="0.43137254901960786" blue="0.44313725490196076" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="H7r-vi-494" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="F8b-an-sy7"/>
+                <constraint firstAttribute="trailing" secondItem="H7r-vi-494" secondAttribute="trailing" id="HPi-Ct-mmc"/>
+                <constraint firstAttribute="bottom" secondItem="H7r-vi-494" secondAttribute="bottom" id="QBg-6a-e8h"/>
+                <constraint firstAttribute="trailing" secondItem="lF5-GC-7VU" secondAttribute="trailing" id="dkr-H1-d7W"/>
+                <constraint firstItem="lF5-GC-7VU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="pQb-yC-FWf"/>
+                <constraint firstItem="lF5-GC-7VU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="puY-Gq-HAU"/>
+                <constraint firstItem="H7r-vi-494" firstAttribute="top" secondItem="lF5-GC-7VU" secondAttribute="bottom" id="vEn-Sp-RcU"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="262" height="186"/>
+            <connections>
+                <outlet property="dealImageView" destination="lF5-GC-7VU" id="HMi-jx-cnZ"/>
+                <outlet property="dealTitleLabel" destination="H7r-vi-494" id="sKw-f5-FBY"/>
+            </connections>
+            <point key="canvasLocation" x="107.2" y="191.6041979010495"/>
+        </collectionViewCell>
+    </objects>
+</document>

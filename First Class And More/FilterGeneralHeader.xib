@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="roboto-condensed.regular.ttf">
+            <string>RobotoCondensed-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FilterGeneralHeader" customModule="First_Class_And_More" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RCb-PL-cpL">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZQ-gX-Ccq">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Hauptkategorien" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="Z8s-Yl-GZS">
+                                    <rect key="frame" x="20" y="13" width="285" height="24"/>
+                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="20"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZD5-me-9Jy">
+                                    <rect key="frame" x="315" y="0.0" width="50" height="50"/>
+                                    <gestureRecognizers/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="ZD5-me-9Jy" secondAttribute="height" multiplier="1:1" id="DA1-Hl-xNa"/>
+                                    </constraints>
+                                    <state key="normal" image="arrowRight"/>
+                                    <connections>
+                                        <action selector="expandBtnPressed" destination="iN0-l3-epB" eventType="touchUpInside" id="591-5u-4hr"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.37647058823529411" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="Z8s-Yl-GZS" firstAttribute="leading" secondItem="fZQ-gX-Ccq" secondAttribute="leading" constant="20" id="0VC-8g-nHW"/>
+                                <constraint firstAttribute="bottom" secondItem="ZD5-me-9Jy" secondAttribute="bottom" id="8Gb-Zl-caj"/>
+                                <constraint firstItem="ZD5-me-9Jy" firstAttribute="top" secondItem="fZQ-gX-Ccq" secondAttribute="top" id="EhC-Wj-C88"/>
+                                <constraint firstItem="ZD5-me-9Jy" firstAttribute="leading" secondItem="Z8s-Yl-GZS" secondAttribute="trailing" constant="10" id="QEP-NA-sLF"/>
+                                <constraint firstItem="Z8s-Yl-GZS" firstAttribute="top" secondItem="fZQ-gX-Ccq" secondAttribute="top" constant="13" id="Uyy-Dt-vTM"/>
+                                <constraint firstAttribute="bottom" secondItem="Z8s-Yl-GZS" secondAttribute="bottom" constant="13" id="Whm-zm-Lqa"/>
+                                <constraint firstAttribute="trailing" secondItem="ZD5-me-9Jy" secondAttribute="trailing" constant="10" id="fUh-lt-vYc"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="fZQ-gX-Ccq" secondAttribute="bottom" id="EHo-4s-gMy"/>
+                        <constraint firstItem="fZQ-gX-Ccq" firstAttribute="leading" secondItem="RCb-PL-cpL" secondAttribute="leading" id="Gue-8q-opq"/>
+                        <constraint firstAttribute="trailing" secondItem="fZQ-gX-Ccq" secondAttribute="trailing" id="eK5-EC-Si2"/>
+                        <constraint firstItem="fZQ-gX-Ccq" firstAttribute="top" secondItem="RCb-PL-cpL" secondAttribute="top" id="qon-94-vip"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="RCb-PL-cpL" secondAttribute="trailing" id="Sz4-F8-nlX"/>
+                <constraint firstAttribute="bottom" secondItem="RCb-PL-cpL" secondAttribute="bottom" priority="999" id="Yuo-Td-a48"/>
+                <constraint firstItem="RCb-PL-cpL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="igv-Ty-dMC"/>
+                <constraint firstItem="RCb-PL-cpL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="laA-mo-0AV"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="expandBtn" destination="ZD5-me-9Jy" id="jq4-Ev-ecD"/>
+                <outlet property="nameLabel" destination="Z8s-Yl-GZS" id="0Ab-Vu-Z7p"/>
+            </connections>
+            <point key="canvasLocation" x="26.5" y="53"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrowRight" width="8" height="13"/>
+    </resources>
+</document>
