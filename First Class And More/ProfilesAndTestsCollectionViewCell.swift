@@ -12,5 +12,5 @@ class ProfilesAndTestsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dealImageView: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel?
 }

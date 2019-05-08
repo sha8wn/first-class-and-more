@@ -24,6 +24,7 @@ class ProfileAndTestsCategoriesViewController: SFSidebarViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        addHomeBtn()
         if !dealsLoaded {
             dealsLoaded = true
             loadDeals()
@@ -97,6 +98,15 @@ class ProfileAndTestsCategoriesViewController: SFSidebarViewController {
             loadDeals()
         }
     }
+    
+    // MARK: Actions
+    
+    override func homeBtnTapped() {
+        if let navigationVC = navigationController as? SFSidebarNavigationController {
+            navigationVC.setViewControllers([navigationVC.homeVC], animated: true)
+        }
+    }
+    
 }
 
 extension ProfileAndTestsCategoriesViewController: UICollectionViewDataSource, UICollectionViewDelegate,  UICollectionViewDelegateFlowLayout {
@@ -127,8 +137,8 @@ extension ProfileAndTestsCategoriesViewController: UICollectionViewDataSource, U
             )
         }
         cell.titleLabel.text = deal.title
-        if let date = deal.date?.date(format: "yyyy-MM-dd") {
-            cell.dateLabel.text = date.string(format: "dd. MMMM yyyy")
+        if let date = deal.date?.date(format: "yyyy-MM-dd"), let label = cell.dateLabel {
+            label.text = date.string(format: "dd. MMMM yyyy")
         }
         return cell
     }

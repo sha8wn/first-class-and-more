@@ -167,10 +167,11 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
 							case 2:
 								profileAndTestsVC.profileAndTest = pageDetailsObject.hoteltest
                                 profileAndTestsVC.orderBy = .none
-                                profileAndTestsVC.layout = .oneColumn
+                                profileAndTestsVC.layout = .twoColumns
 							case 3:
 								profileAndTestsVC.profileAndTest = pageDetailsObject.flughafenLounges
                                 profileAndTestsVC.orderBy = .none
+                                profileAndTestsVC.layout = .twoColumns
 							default:
 								break
 							}

@@ -77,7 +77,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEX-Yu-ecv">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="557"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="555.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eib-Zz-InC">
                                                 <rect key="frame" x="187.5" y="0.0" width="0.0" height="120"/>
@@ -93,7 +93,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="656-pn-iPy">
-                                                <rect key="frame" x="37.5" y="169.5" width="300" height="253.5"/>
+                                                <rect key="frame" x="37.5" y="169.5" width="300" height="252"/>
                                                 <string key="text">Im Bereich „Meine Deals“ haben Sie mit unserer Filterfunktion die Möglichkeit, genau die Deals zu definieren, die Sie sehen möchten. 
 Voreingestellt ist, dass Sie sich für alle Dealkategorien interessieren. Doch Sie können auch beliebig viele Kategorien abwählen, wenn Sie sich z. B. nur für Flugdeals, aber keine Hoteldeals etc. interessieren. 
 Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</string>
@@ -102,7 +102,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="4D3-8R-BeR">
-                                                <rect key="frame" x="49" y="453" width="277.5" height="84"/>
+                                                <rect key="frame" x="49" y="451.5" width="277.5" height="84"/>
                                                 <subviews>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gCy-9b-bUR">
                                                         <rect key="frame" x="0.0" y="0.0" width="277.5" height="36"/>
@@ -146,7 +146,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                                 </constraints>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8v-4s-8pU">
-                                                <rect key="frame" x="187.5" y="437" width="0.0" height="120"/>
+                                                <rect key="frame" x="187.5" y="435.5" width="0.0" height="120"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" id="feJ-AQ-RUI"/>
@@ -219,16 +219,16 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Che-eh-aj9">
-                                <rect key="frame" x="0.0" y="20" width="375" height="108"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="122.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Generelle Kategorien" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGt-5G-mfU">
-                                        <rect key="frame" x="37.5" y="24" width="300" height="21.5"/>
+                                        <rect key="frame" x="37.5" y="24" width="300" height="21"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.37647058823529411" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sie haben im Folgenden die Möglichkeit, die generellen Dealkategorien auszuwählen, für die Sie sich interessieren." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ti-9r-8uc">
-                                        <rect key="frame" x="37.5" y="53.5" width="300" height="30.5"/>
+                                        <rect key="frame" x="37.5" y="53" width="300" height="45.5"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="12.899999618530273"/>
                                         <color key="textColor" red="0.42745098039215684" green="0.43137254901960786" blue="0.44313725490196076" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -246,7 +246,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NWx-UD-irI">
-                                <rect key="frame" x="14" y="142" width="347" height="401"/>
+                                <rect key="frame" x="14" y="156.5" width="347" height="386.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -387,16 +387,16 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rZE-9g-jBn">
-                                <rect key="frame" x="0.0" y="20" width="375" height="108"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="107.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schritt 2 von X" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7l3-nY-WQs">
-                                        <rect key="frame" x="37.5" y="24" width="300" height="21.5"/>
+                                        <rect key="frame" x="37.5" y="24" width="300" height="21"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.37647058820000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bitte wählen Sie aus, für welche Flugangebote Sie sich interessieren:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jzn-bG-cac">
-                                        <rect key="frame" x="37.5" y="53.5" width="300" height="30.5"/>
+                                        <rect key="frame" x="37.5" y="53" width="300" height="30.5"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="12.899999618530273"/>
                                         <color key="textColor" red="0.42745098040000001" green="0.43137254899999999" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -414,7 +414,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wL1-vP-Tbk">
-                                <rect key="frame" x="14" y="198.5" width="347" height="365.5"/>
+                                <rect key="frame" x="14" y="216.5" width="347" height="347.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -432,7 +432,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kxN-1b-g5L">
-                                                    <rect key="frame" x="20" y="18" width="237" height="18"/>
+                                                    <rect key="frame" x="20" y="18" width="237" height="17.5"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -489,7 +489,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KEINE AIRLINE AUSWÄHLEN" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcl-yn-e5U">
-                                                    <rect key="frame" x="54.5" y="17" width="191.5" height="20"/>
+                                                    <rect key="frame" x="36.5" y="17" width="227.5" height="20"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -571,7 +571,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hinweis: Als DIAMANT-Mitglied haben Sie auch die Möglichkeit, spezifische Airlines auszuwählen, für die Sie sich interessieren." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8h5-B1-Red">
-                                <rect key="frame" x="49" y="128" width="277.5" height="56.5"/>
+                                <rect key="frame" x="49" y="127.5" width="277.5" height="75"/>
                                 <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
                                 <color key="textColor" red="0.42745098039215684" green="0.43137254901960786" blue="0.44313725490196076" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -802,7 +802,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genehmigung" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcW-9P-gQh">
-                                        <rect key="frame" x="124.5" y="70" width="98" height="21"/>
+                                        <rect key="frame" x="117" y="70" width="113.5" height="21"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.37647058820000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1268,14 +1268,14 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pz2-Ht-ngJ">
-                                <rect key="frame" x="18" y="63" width="339" height="107"/>
+                                <rect key="frame" x="18" y="63" width="339" height="121.5"/>
                                 <string key="text">Mit Push-Benachrichtigungen informieren wir Sie regelmäßig über aktuelle Deals, Insider Strategien und exklusive Promotions. Wenn Sie kein wichtiges Angebot verpassen wollen, aktivieren Sie einfach "Alle Push-Benachrichtigungen". Mit "Nur Top Push-Benachrichtigungen" werden Sie nur über ausgewählte Top-Angebote informiert. Natürlich können Sie Push-Benachrichtigungen aber auch vollständig deaktivieren.</string>
                                 <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="13"/>
                                 <color key="textColor" red="0.035294117647058823" green="0.29803921568627451" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fmq-ot-HOe" customClass="DLRadioButton">
-                                <rect key="frame" x="20" y="190" width="335" height="35"/>
+                                <rect key="frame" x="20" y="204.5" width="335" height="35"/>
                                 <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="19"/>
                                 <state key="normal" title="Alle Push-Benachrichtigungen">
                                     <color key="titleColor" red="0.0" green="0.37647058820000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1305,7 +1305,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tNc-W9-k5C" customClass="DLRadioButton">
-                                <rect key="frame" x="20" y="245" width="335" height="35"/>
+                                <rect key="frame" x="20" y="259.5" width="335" height="35"/>
                                 <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="19"/>
                                 <state key="normal" title="Nur Top Push-Benachrichtigungen">
                                     <color key="titleColor" red="0.0" green="0.37647058820000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1335,7 +1335,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svL-7A-uLL" customClass="DLRadioButton">
-                                <rect key="frame" x="20" y="300" width="335" height="35"/>
+                                <rect key="frame" x="20" y="314.5" width="335" height="35"/>
                                 <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="19"/>
                                 <state key="normal" title="Keine Push-Benachrichtigungen">
                                     <color key="titleColor" red="0.0" green="0.37647058820000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1586,17 +1586,17 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpu-l6-VCW">
-                                <rect key="frame" x="37.5" y="85" width="300" height="183"/>
-                                <mutableString key="text">Mit Promotion Pop-ups informieren wir Sie innerhalb der App über besondere Angebote und Aktionen. 
+                                <rect key="frame" x="37.5" y="85" width="300" height="197"/>
+                                <string key="text">Mit Promotion Pop-ups informieren wir Sie innerhalb der App über besondere Angebote und Aktionen. 
 Wenn Sie keine Promotion verpassen möchten, aktivieren Sie einfach „Alle Promotions“. 
 Wenn Sie nur über ausgewählte Top Promotions für unsere Premium-Mitglieder informiert werden möchten, wählen Sie „Nur Top Promotions“. 
-Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren.</mutableString>
+Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren.</string>
                                 <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.37647058820000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Sd7-Kw-Jas">
-                                <rect key="frame" x="37.5" y="288" width="300" height="125"/>
+                                <rect key="frame" x="37.5" y="302" width="300" height="125"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bh-ZN-7bA" customClass="DLRadioButton">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="35"/>
@@ -1798,7 +1798,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfz-DD-XOR">
-                                        <rect key="frame" x="24.5" y="238.5" width="277" height="51.500000000000028"/>
+                                        <rect key="frame" x="24.5" y="238.5" width="277" height="51.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="51.5" id="Apb-3D-ndF"/>
                                         </constraints>
@@ -1944,14 +1944,8 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="751" verticalCompressionResistancePriority="751" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bTO-6O-RMU">
                                                     <rect key="frame" x="161.5" y="65" width="20" height="20"/>
                                                 </activityIndicatorView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="9fy-53-VqO">
-                                                    <rect key="frame" x="319" y="162" width="24" height="13"/>
-                                                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
-                                                    <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y5S-X8-83D">
-                                                    <rect key="frame" x="0.0" y="179" width="343" height="19"/>
+                                                    <rect key="frame" x="0.0" y="154" width="343" height="19"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1960,18 +1954,15 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                         <constraints>
                                             <constraint firstItem="9sC-EO-buB" firstAttribute="leading" secondItem="QYg-9O-9Yr" secondAttribute="leading" id="0fv-KO-oid"/>
                                             <constraint firstAttribute="trailing" secondItem="9sC-EO-buB" secondAttribute="trailing" id="BiF-km-box"/>
-                                            <constraint firstItem="y5S-X8-83D" firstAttribute="top" secondItem="9fy-53-VqO" secondAttribute="bottom" constant="4" id="Euc-sh-rLn"/>
                                             <constraint firstItem="y5S-X8-83D" firstAttribute="leading" secondItem="QYg-9O-9Yr" secondAttribute="leading" id="IEe-Or-G9M"/>
-                                            <constraint firstItem="9fy-53-VqO" firstAttribute="top" secondItem="9sC-EO-buB" secondAttribute="bottom" constant="12" id="Pkk-4A-aqh"/>
-                                            <constraint firstAttribute="trailing" secondItem="9fy-53-VqO" secondAttribute="trailing" id="UGu-g8-ZtI"/>
                                             <constraint firstItem="bTO-6O-RMU" firstAttribute="centerX" secondItem="9sC-EO-buB" secondAttribute="centerX" id="dWk-0R-PYC"/>
                                             <constraint firstItem="y5S-X8-83D" firstAttribute="centerX" secondItem="QYg-9O-9Yr" secondAttribute="centerX" id="ibf-BV-5SY"/>
                                             <constraint firstItem="bTO-6O-RMU" firstAttribute="centerY" secondItem="9sC-EO-buB" secondAttribute="centerY" id="pSz-4a-ARd"/>
                                             <constraint firstItem="9sC-EO-buB" firstAttribute="top" secondItem="QYg-9O-9Yr" secondAttribute="top" id="rUE-na-eeN"/>
+                                            <constraint firstItem="y5S-X8-83D" firstAttribute="top" secondItem="9sC-EO-buB" secondAttribute="bottom" constant="4" id="znH-Gg-gh9"/>
                                         </constraints>
                                         <size key="customSize" width="343" height="200"/>
                                         <connections>
-                                            <outlet property="dateLabel" destination="9fy-53-VqO" id="Bkf-KI-tew"/>
                                             <outlet property="dealImageView" destination="9sC-EO-buB" id="6Vr-kx-eXH"/>
                                             <outlet property="spinner" destination="bTO-6O-RMU" id="v69-mE-mM6"/>
                                             <outlet property="titleLabel" destination="y5S-X8-83D" id="Sh9-CX-9XT"/>
@@ -2069,7 +2060,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HtW-3S-vgZ">
-                                <rect key="frame" x="14" y="165" width="347" height="337.5"/>
+                                <rect key="frame" x="14" y="158" width="347" height="351.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGu-3V-Zpt">
                                         <rect key="frame" x="305" y="0.0" width="40" height="40"/>
@@ -2084,19 +2075,19 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Newsletter abonnieren" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRS-rd-Kes">
-                                        <rect key="frame" x="93.5" y="70" width="160" height="21.5"/>
+                                        <rect key="frame" x="83" y="70" width="181" height="21"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.37647058820000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Melden Sie sich für unseren kostenlosen Newsletter an, um regelmäßig die besten Deals in Ihrem Posteingang zu erhalten." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KU1-ja-I6N">
-                                        <rect key="frame" x="34.5" y="95.5" width="278" height="46"/>
+                                        <rect key="frame" x="34.5" y="95" width="278" height="45.5"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="13"/>
                                         <color key="textColor" red="0.42745098040000001" green="0.43137254899999999" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OSd-j4-aqd">
-                                        <rect key="frame" x="43.5" y="157.5" width="260" height="32"/>
+                                        <rect key="frame" x="43.5" y="156.5" width="260" height="32"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email eingeben" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N6K-ps-FK0">
                                                 <rect key="frame" x="0.0" y="0.0" width="260" height="32"/>
@@ -2118,7 +2109,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afe-pu-ZLG">
-                                        <rect key="frame" x="87" y="205.5" width="173.5" height="30"/>
+                                        <rect key="frame" x="87" y="204.5" width="173.5" height="30"/>
                                         <color key="backgroundColor" red="0.85490196080000003" green="0.64705882349999999" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="qU8-al-x68"/>
@@ -2134,7 +2125,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7O-Gf-dRw">
-                                        <rect key="frame" x="34.5" y="260.5" width="278" height="46"/>
+                                        <rect key="frame" x="34.5" y="259.5" width="278" height="61"/>
                                         <string key="text">Mit dem Klick auf „Abonnieren" stimmen Sie unseren
 AGB zu und nehmen unsere Datenschutzbestimmungen zur Kenntnis.</string>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="13"/>
@@ -2142,7 +2133,7 @@ AGB zu und nehmen unsere Datenschutzbestimmungen zur Kenntnis.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XaK-Rf-5KS">
-                                        <rect key="frame" x="0.0" y="331.5" width="347" height="6"/>
+                                        <rect key="frame" x="0.0" y="345.5" width="347" height="6"/>
                                         <color key="backgroundColor" red="0.0" green="0.37647058820000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="6" id="x03-hF-a9e"/>
@@ -2699,6 +2690,6 @@ AGB zu und nehmen unsere Datenschutzbestimmungen zur Kenntnis.</string>
         <image name="repeat" width="87.5" height="87.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="h4n-a8-JCA"/>
+        <segue reference="LhH-We-wZs"/>
     </inferredMetricsTieBreakers>
 </document>
