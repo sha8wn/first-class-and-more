@@ -83,11 +83,11 @@ class SFSettingsViewController: SFSidebarViewController, UNUserNotificationCente
 		}
 		options.forEach { $0.isSelected = false }
 		sender.isSelected = true
-		selectedOptionIndex = (options.index(of: sender) ?? 0) + 1
+		selectedOptionIndex = (options.index(of: sender) ?? 0)
     }
 	
 	@IBAction func saveButtonPressed(_ sender: UIButton) {
-		updatePushNotificationSettings(with: selectedOptionIndex)
+		updatePushNotificationSettings(with: selectedOptionIndex + 1)
 	}
 
     func updatePushNotificationSettings(with setting: Int) {
