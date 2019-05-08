@@ -159,9 +159,11 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
 							case 0:
 								profileAndTestsVC.profileAndTest = pageDetailsObject.destinationsProfile
                                 profileAndTestsVC.orderBy = .title
+                                profileAndTestsVC.layout = .oneColumn
 							case 1:
 								profileAndTestsVC.profileAndTest = pageDetailsObject.airlineProfile
                                 profileAndTestsVC.orderBy = .title
+                                profileAndTestsVC.layout = .oneColumn
 							case 2:
 								profileAndTestsVC.profileAndTest = pageDetailsObject.hoteltest
                                 profileAndTestsVC.orderBy = .none
