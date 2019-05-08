@@ -168,7 +168,7 @@ extension ProfileAndTestsCategoriesViewController: UICollectionViewDataSource, U
         let deal = deals[index]
         if let access = deal.access {
             if access == 0 {
-                showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "Dieser Deal ist nicht für Ihr Mitgliedschafts-Level freigegeben", cancelBtn: false, okBtnCompletion: nil)
+                showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "Dieses Profil ist nicht für Ihr Mitgliedschaftslevel freigegeben.", cancelBtn: false, okBtnCompletion: nil)
             } else {
                 performSegue(withIdentifier: "showWKWebViewVC", sender: deal)
             }
