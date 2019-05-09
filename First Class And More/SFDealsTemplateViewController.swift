@@ -101,7 +101,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         
         switch dealType {
             case .Flüge, .Hotels, .Vielflieger_Status:
-                if UserModel.sharedInstance.membership == .platin {
+                if UserModel.sharedInstance.membership == .diamont {
                     destinationsBtn = UIButton(type: .custom)
                     let image = (destinations?.filter({ !$0.selected }).isEmpty ?? true) ? #imageLiteral(resourceName: "globe_gold") : #imageLiteral(resourceName: "globe")
                     destinationsBtn!.setImage(image, for: .normal)
