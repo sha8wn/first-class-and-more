@@ -342,8 +342,12 @@ extension AdvancedFiltersViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func configureCell(_ cell: FilterGeneralTableViewCell, atIndexPath indexPath: IndexPath) {
-        let index = indexPath.row
+        var index = indexPath.row
         let section = sections[indexPath.section]
+        if section.isAirlines {
+            index -= 1
+        }
+        
         if let item = section.items?[index] {
             cell.name.text                     = item.name?.html2String
             cell.filterSwitch.on               = item.selected
