@@ -135,9 +135,19 @@ class WebrungViewController: SFSidebarViewController {
             Server.shared.changeAdsSettings(ads) { response, error in
                 DispatchQueue.main.async {
                     self.stopLoading()
-                    if error != nil {
-                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                    
+                    var title = ""
+                    var message = ""
+                    
+                    if let description = error?.description {
+                        title = "Ein Fehler ist aufgetreten..."
+                        message = description
+                    } else {
+                        title = "Promotions"
+                        message = "Ihre Promotion Einstellungen wurden gespeichert."
                     }
+                    
+                    self.showPopupDialog(title: title, message: message)
                 }
             }
         }
