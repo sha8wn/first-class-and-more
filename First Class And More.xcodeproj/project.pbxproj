@@ -1021,6 +1021,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1407,7 +1408,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.test.first-class-and-more";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9b14571e-8850-4a67-a347-2b9250d56ebd";
-				PROVISIONING_PROFILE_SPECIFIER = "FCAM AdHoc";
+				PROVISIONING_PROFILE_SPECIFIER = "Miloš AdHoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "First Class And More/First Class And More-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -1432,7 +1433,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.test.first-class-and-more";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9b14571e-8850-4a67-a347-2b9250d56ebd";
-				PROVISIONING_PROFILE_SPECIFIER = "FCAM AdHoc";
+				PROVISIONING_PROFILE_SPECIFIER = "Miloš AdHoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "First Class And More/First Class And More-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
