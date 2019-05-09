@@ -379,34 +379,42 @@ extension AdvancedFiltersViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func filterSwitchTapped(cell: UITableViewCell, isOn: Bool) {
-        if let indexPath = tableView.indexPathForRow(at: cell.center) {
-            if let sectionName = sections[indexPath.section].name,
-                sectionsNamesAffecteByAlliance.contains(sectionName),
-                let id = sections[indexPath.section].items?[indexPath.row].id,
-                let allianceDict = self.allianceDict {
-                var identifiers: [Int] = []
-                for alliance in unselectedAlliances {
-                    if let ids = allianceDict[alliance] {
-                        identifiers.append(contentsOf: ids)
-                    }
+        guard let indexPath = tableView.indexPathForRow(at: cell.center) else {
+            return
+        }
+        
+        let section = sections[indexPath.section]
+        var index = indexPath.row
+        if section.isAirlines {
+            index -= 1
+        }
+        
+        if let sectionName = section.name,
+            sectionsNamesAffecteByAlliance.contains(sectionName),
+            let id = sections[indexPath.section].items?[index].id,
+            let allianceDict = self.allianceDict {
+            var identifiers: [Int] = []
+            for alliance in unselectedAlliances {
+                if let ids = allianceDict[alliance] {
+                    identifiers.append(contentsOf: ids)
                 }
-                if identifiers.contains(id), let cell = cell as? FilterGeneralTableViewCell {
-                    showPopupDialog(title: "Allianz-Fehler", message: "Bitte aktivieren Sie zunächst die jeweilige Allianz, wenn Sie eine Fluggesellschaft aus dieser auswählen möchten.", cancelBtn: false) {
-                        cell.filterSwitch.setOn(false, animated: true)
-                    }
-                }
-            } else if let sectionName = sections[indexPath.section].name, (sectionName == "Flugallianz" || sectionName == "Vielfliegerstatus Allianz") {
-                if let item = sections[indexPath.section].items?[indexPath.row] {
-                    item.selected = !item.selected
-                    if item.selected, let id = item.id, let index = unselectedAlliances.index(of: "\(id)") {
-                        unselectedAlliances.remove(at: index)
-                    } else if let id = item.id {
-                        unselectedAlliances.append("\(id)")
-                    }
-                }
-            } else if let item = sections[indexPath.section].items?[indexPath.row] {
-                item.selected = !item.selected
             }
+            if identifiers.contains(id), let cell = cell as? FilterGeneralTableViewCell {
+                showPopupDialog(title: "Allianz-Fehler", message: "Bitte aktivieren Sie zunächst die jeweilige Allianz, wenn Sie eine Fluggesellschaft aus dieser auswählen möchten.", cancelBtn: false) {
+                    cell.filterSwitch.setOn(false, animated: true)
+                }
+            }
+        } else if let sectionName = sections[indexPath.section].name, (sectionName == "Flugallianz" || sectionName == "Vielfliegerstatus Allianz") {
+            if let item = sections[indexPath.section].items?[indexPath.row] {
+                item.selected = !item.selected
+                if item.selected, let id = item.id, let index = unselectedAlliances.index(of: "\(id)") {
+                    unselectedAlliances.remove(at: index)
+                } else if let id = item.id {
+                    unselectedAlliances.append("\(id)")
+                }
+            }
+        } else if let item = sections[indexPath.section].items?[indexPath.row] {
+            item.selected = !item.selected
         }
     }
     
