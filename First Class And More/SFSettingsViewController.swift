@@ -66,9 +66,7 @@ class SFSettingsViewController: SFSidebarViewController, UNUserNotificationCente
     }
     
     override func homeBtnTapped() {
-        if let navigationVC = navigationController as? SFSidebarNavigationController {
-            navigationVC.setViewControllers([navigationVC.homeVC], animated: true)
-        }
+        self.goHome()
     }
     
     private func showSettingsAlert() {
@@ -81,6 +79,15 @@ class SFSettingsViewController: SFSidebarViewController, UNUserNotificationCente
 			setupView()
 			return
 		}
+        
+        let membership = UserModel.sharedInstance.membership
+        let choosenTop = self.options.index(of: sender) == 1
+        if choosenTop && !(membership == .platin || membership == .diamont) {
+            sender.isSelected = false
+            self.showPopupDialog(title: "Ein Fehler ist aufgetreten...", message: "Dieses Option ist nicht für Ihr Mitgliedschaftslevel freigegeben.")
+            return
+        }
+        
 		options.forEach { $0.isSelected = false }
 		sender.isSelected = true
 		selectedOptionIndex = (options.index(of: sender) ?? 0)
@@ -108,9 +115,21 @@ class SFSettingsViewController: SFSidebarViewController, UNUserNotificationCente
                         let data = NSKeyedArchiver.archivedData(withRootObject: user)
                         UserDefaults.standard.set(data, forKey: kUDSharedUserModel)
                         UserDefaults.standard.synchronize()
+                        
+                        self.showPopupDialog(title: "Push Nachrichten", message: "Ihre Push-Nachrichten Einstellungen wurden gespeichert.") {
+                            self.goHome()
+                        }
                     }
                 }
             }
         }
     }
+    
+    private func goHome() {
+        guard let controller = self.navigationController as? SFSidebarNavigationController else {
+            return
+        }
+        controller.setViewControllers([controller.homeVC], animated: true)
+    }
+    
 }

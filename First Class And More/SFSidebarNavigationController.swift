@@ -133,13 +133,8 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
 						homeVC.carouselLoaded = false
 						setViewControllers([homeVC], animated: false)
 					case "SettingsVC":
-						if UserModel.sharedInstance.logined {
-							let svc = storyboard?.instantiateViewController(withIdentifier: destination) as! SFSettingsViewController
-							setViewControllers([svc], animated: false)
-						}
-						else {
-							showPremiumAccessOnlyPopup()
-						}
+                        let svc = storyboard?.instantiateViewController(withIdentifier: destination) as! SFSettingsViewController
+                        setViewControllers([svc], animated: false)
 					case "LoginVC":
 						setViewControllers([loginVC], animated: true)
 					case "WebrungVC":
