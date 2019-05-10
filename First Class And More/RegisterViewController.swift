@@ -176,10 +176,12 @@ class RegisterViewController: UIViewController {
                         }
                     }
                     else {
-                        self.showTutorialAlert()
-                        
                         if let success = success as? Bool, success {
-                            self.performSegue(withIdentifier: "showHome", sender: nil)
+                            let title = "Herzlich willkommen bei der First Class & More App!"
+                            let message = "Wenn Sie erfahren möchten, wie die App genau funktioniert, dann wählen Sie im Menü bitte da Tutorial aus."
+                            self.showPopupDialog(title: title, message: message) {
+                                self.performSegue(withIdentifier: "showHome", sender: nil)
+                            }
                         }
                     }
                 }
@@ -288,12 +290,6 @@ class RegisterViewController: UIViewController {
 
     @IBAction func closeBtnPressed() {
         dismiss(animated: true, completion: nil)
-    }
-    
-    private func showTutorialAlert() {
-        let title = "Herzlich willkommen bei der First Class & More App!"
-        let message = "Wenn Sie erfahren möchten, wie die App genau funktioniert, dann wählen Sie im Menü bitte da Tutorial aus."
-        self.showPopupDialog(title: title, message: message)
     }
     
 }
