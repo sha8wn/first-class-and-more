@@ -149,8 +149,8 @@ extension Server {
         }
     }
     
-    func sendMessage(email: String, name: String, surname: String, subject: String, message: String, сompletion: @escaping Completion) {
-        let route = RouterOther.sendMessage(email: email, name: name, surname: surname, subject: subject, message: message)
+    func sendMessage(email: String, title: String, name: String, surname: String, subject: String, message: String, сompletion: @escaping Completion) {
+        let route = RouterOther.sendMessage(email: email, title: title, name: name, surname: surname, subject: subject, message: message)
         Alamofire.request(route).responseObject { (response: DataResponse<StringResponse>) in
             let responseValue = response.result.value
             print(#file, #line, response.request ?? "")

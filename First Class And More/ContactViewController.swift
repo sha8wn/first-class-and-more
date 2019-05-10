@@ -19,6 +19,9 @@ class ContactViewController: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var emailContainer: UIView!
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var genderContainer: UIView!
+    @IBOutlet weak var manRadioBtn: DLRadioButton!
+    @IBOutlet weak var womenRadioBtn: DLRadioButton!
     @IBOutlet weak var nameContainer: UIView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var surnameContainer: UIView!
@@ -29,6 +32,7 @@ class ContactViewController: UIViewController {
     @IBOutlet weak var messageTextView: UITextView!
     
     fileprivate var email: String?
+    fileprivate var genderTitle: String?
     fileprivate var name: String?
     fileprivate var surname: String?
     fileprivate var subject: String?
@@ -58,6 +62,8 @@ class ContactViewController: UIViewController {
         if UserModel.sharedInstance.logined {
             stackView.removeArrangedSubview(emailContainer)
             emailContainer.removeFromSuperview()
+            stackView.removeArrangedSubview(genderContainer)
+            genderContainer.removeFromSuperview()
             stackView.removeArrangedSubview(nameContainer)
             nameContainer.removeFromSuperview()
             stackView.removeArrangedSubview(surnameContainer)
@@ -66,8 +72,18 @@ class ContactViewController: UIViewController {
     }
     
     private func setTextViewPlaceholder() {
-        messageTextView.text = "Message eingeben"
+        messageTextView.text = "Ihre Nachricht"
         messageTextView.textColor = UIColor.placeholderGray
+    }
+    
+    @IBAction func manRadioButtonPressed() {
+        self.genderTitle = self.manRadioBtn.title(for: .normal)
+        self.womenRadioBtn.isSelected = false
+    }
+    
+    @IBAction func womanRadioButtonPressed() {
+        self.genderTitle = self.womenRadioBtn.title(for: .normal)
+        self.manRadioBtn.isSelected = false
     }
     
     @IBAction func sendBtnPressed() {
@@ -102,7 +118,7 @@ class ContactViewController: UIViewController {
         
         startLoading()
         if isConnectedToNetwork(repeatedFunction: sendBtnPressed) {
-            Server.shared.sendMessage(email: email ?? "", name: name ?? "", surname: surname ?? "", subject: subject ?? "", message: message ?? "") { (answer, error) in
+            Server.shared.sendMessage(email: email ?? "", title: genderTitle ?? "", name: name ?? "", surname: surname ?? "", subject: subject ?? "", message: message ?? "") { (answer, error) in
                 DispatchQueue.main.async {
                     self.stopLoading()
                     if error != nil {

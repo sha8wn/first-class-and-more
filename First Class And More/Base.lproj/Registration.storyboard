@@ -58,23 +58,23 @@
                                 <rect key="frame" x="0.0" y="218" width="320" height="301"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iJh-f7-hY0">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="363.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="363"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="dK6-h6-ZAz">
-                                                <rect key="frame" x="39" y="28" width="242" height="66"/>
+                                                <rect key="frame" x="39" y="28" width="242" height="65.5"/>
                                                 <string key="text">Gleich haben Sie immer Zugriff auf die besten Flug-, Hotel- und Meilendeals sowie unzählige Insider-Strategien für Luxusreisen zu Insider-Preisen!</string>
                                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Bitte wählen Sie zwischen den folgenden drei Optionen:" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="jon-ze-prn">
-                                                <rect key="frame" x="39" y="108" width="242" height="33"/>
+                                                <rect key="frame" x="39" y="107.5" width="242" height="33"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RTK-Xf-lej">
-                                                <rect key="frame" x="39" y="167" width="242" height="51.5"/>
+                                                <rect key="frame" x="39" y="166.5" width="242" height="51.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="51.5" id="mEa-lj-2DJ"/>
                                                 </constraints>
@@ -85,7 +85,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HG9-Ca-nS7">
-                                                <rect key="frame" x="39" y="233.5" width="242" height="51.5"/>
+                                                <rect key="frame" x="39" y="233" width="242" height="51.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="51.5" id="n2d-Z7-Zou"/>
                                                 </constraints>
@@ -96,7 +96,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAS-gg-4iT">
-                                                <rect key="frame" x="39" y="300" width="242" height="51.5"/>
+                                                <rect key="frame" x="39" y="299.5" width="242" height="51.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="51.5" id="U11-za-7mP"/>
                                                 </constraints>
@@ -132,23 +132,23 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2K-ue-3OH">
-                                <rect key="frame" x="97" y="524" width="126.5" height="28"/>
+                                <rect key="frame" x="96" y="524" width="128.5" height="28"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AGB" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wot-mh-605">
-                                        <rect key="frame" x="0.0" y="0.0" width="27.5" height="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="29.5" height="28"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abB-PG-7bu">
-                                        <rect key="frame" x="37.5" y="8" width="1" height="12"/>
+                                        <rect key="frame" x="39.5" y="8" width="1" height="12"/>
                                         <color key="backgroundColor" red="0.86666666670000003" green="0.67843137249999996" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="1" id="1L0-r6-WHL"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Datenschutz" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EIT-Zq-TmS">
-                                        <rect key="frame" x="48.5" y="0.0" width="78" height="28"/>
+                                        <rect key="frame" x="50.5" y="0.0" width="78" height="28"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -170,7 +170,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gc5-4J-5Mi">
-                                <rect key="frame" x="75.5" y="524" width="60" height="44"/>
+                                <rect key="frame" x="76.5" y="524" width="60" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="lvr-C6-dAb"/>
                                 </constraints>
@@ -182,7 +182,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zio-nb-Lcg">
-                                <rect key="frame" x="134.5" y="524" width="100" height="44"/>
+                                <rect key="frame" x="135.5" y="524" width="100" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="uNq-Uj-Qa2"/>
                                 </constraints>
@@ -266,7 +266,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zOP-Qb-Qaf">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="695.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="686.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.84999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="cda-8T-V8Z">
                                                         <rect key="frame" x="39" y="50" width="242" height="105.5"/>
@@ -366,7 +366,7 @@
                                                         </connections>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oNM-v5-nth">
-                                                        <rect key="frame" x="39" y="356.5" width="242" height="38"/>
+                                                        <rect key="frame" x="39" y="356.5" width="242" height="29"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="12"/>
                                                         <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
@@ -380,14 +380,14 @@ Kenntnis genommen und bin über 16 Jahre alt.</string>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="tVT-Dw-lSl">
-                                                        <rect key="frame" x="39" y="419.5" width="242" height="141"/>
+                                                        <rect key="frame" x="39" y="410.5" width="242" height="141"/>
                                                         <string key="text">Möchten Sie mit dem kostenlosen First Class &amp; More Newsletter regelmäßig per E-Mail über die besten Insider Deals inkl. bis zu 70% günstigeren Flügen sowie exklusiven First Class &amp; More Angeboten informiert werden? Sie können sich jederzeit wieder abmelden.</string>
                                                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fh4-9h-gsW">
-                                                        <rect key="frame" x="83.5" y="580.5" width="153" height="30"/>
+                                                        <rect key="frame" x="83.5" y="571.5" width="153" height="30"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynX-FT-PpN">
                                                                 <rect key="frame" x="0.0" y="0.0" width="69" height="30"/>
@@ -430,7 +430,7 @@ Kenntnis genommen und bin über 16 Jahre alt.</string>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyJ-d5-lgi">
-                                                        <rect key="frame" x="39" y="630.5" width="242" height="40"/>
+                                                        <rect key="frame" x="39" y="621.5" width="242" height="40"/>
                                                         <color key="backgroundColor" red="0.92941176470588238" green="0.68235294117647061" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="o9u-FX-Sco"/>
@@ -510,7 +510,7 @@ Kenntnis genommen und bin über 16 Jahre alt.</string>
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHm-Cz-5db">
-                                        <rect key="frame" x="39" y="114.5" width="242" height="319"/>
+                                        <rect key="frame" x="39" y="119" width="242" height="310"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.85000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="0Hr-2k-u5i">
                                                 <rect key="frame" x="0.0" y="0.0" width="242" height="88"/>
@@ -535,7 +535,7 @@ Kenntnis genommen und bin über 16 Jahre alt.</string>
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="WiT-3p-qMx">
-                                                <rect key="frame" x="0.0" y="196" width="242" height="38"/>
+                                                <rect key="frame" x="0.0" y="196" width="242" height="29"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="12"/>
                                                 <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
@@ -549,7 +549,7 @@ Kenntnis genommen und bin über 16 Jahre alt.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCi-sy-UiC">
-                                                <rect key="frame" x="0.0" y="269" width="242" height="40"/>
+                                                <rect key="frame" x="0.0" y="260" width="242" height="40"/>
                                                 <color key="backgroundColor" red="0.92941176469999998" green="0.68235294120000001" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="ZcX-cS-kqI"/>
@@ -601,7 +601,7 @@ Kenntnis genommen und bin über 16 Jahre alt.</string>
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FCa-gv-Xbb">
-                                        <rect key="frame" x="39" y="108.5" width="242" height="331"/>
+                                        <rect key="frame" x="39" y="113" width="242" height="322"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Sie sind Premium-Mitglied bei First Class &amp; More. Loggen Sie sich bitte mit Ihren. Login-Daten ein:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.85000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="huP-YX-sbX">
                                                 <rect key="frame" x="0.0" y="0.0" width="242" height="53"/>
@@ -640,7 +640,7 @@ Kenntnis genommen und bin über 16 Jahre alt.</string>
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wfi-iV-Gz7">
-                                                <rect key="frame" x="0.0" y="223" width="242" height="38"/>
+                                                <rect key="frame" x="0.0" y="223" width="242" height="29"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="12"/>
                                                 <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
@@ -655,7 +655,7 @@ Kenntnis genommen und bin über 16 Jahre alt.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUA-gu-zKX">
-                                                <rect key="frame" x="0.0" y="291" width="242" height="40"/>
+                                                <rect key="frame" x="0.0" y="282" width="242" height="40"/>
                                                 <color key="backgroundColor" red="0.92941176469999998" green="0.68235294120000001" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Onp-of-PbQ"/>
@@ -796,8 +796,8 @@ Kenntnis genommen und bin über 16 Jahre alt.</string>
     </scenes>
     <resources>
         <image name="bkg" width="720" height="1280"/>
-        <image name="chb-off" width="38" height="38"/>
-        <image name="fcam-logo" width="573" height="306"/>
+        <image name="chb-off" width="19" height="19"/>
+        <image name="fcam-logo" width="286.5" height="153"/>
         <image name="main-button-wo-text" width="562" height="103"/>
         <image name="textfield-bg" width="574" height="87"/>
         <image name="x-button" width="300" height="300"/>

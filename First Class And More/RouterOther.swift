@@ -17,7 +17,7 @@ enum RouterOther: URLRequestConvertible {
     case getProfilesAndTests(token: String, id: Int, page: Int)
     case subscribeNewsletter(email: String)
     case changeAdsSettings(ads: Int, pushToken: String)
-    case sendMessage(email: String, name: String, surname: String, subject: String, message: String)
+    case sendMessage(email: String, title: String, name: String, surname: String, subject: String, message: String)
     
     var method: HTTPMethod {
         switch self {
@@ -56,9 +56,10 @@ enum RouterOther: URLRequestConvertible {
                     "ads": ads,
                     "device": pushToken
                 ]
-        case .sendMessage(let email, let name, let surname, let subject, let message):
+        case .sendMessage(let email, let title, let name, let surname, let subject, let message):
             return [
                 "email": email,
+                "title": title,
                 "name": name,
                 "surname": surname,
                 "subject": subject,
