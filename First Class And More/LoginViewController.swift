@@ -96,7 +96,7 @@ class LoginViewController: SFSidebarViewController {
         emailTextField.textColor               = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         emailTextField.font                    = UIFont(name: "RobotoCondensed-Light", size: 24.0)!
         emailTextField.tintColor               = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        emailTextField.placeholder             = "E-mail"
+        emailTextField.placeholder             = "E-Mail"
         emailTextField.keyboardType            = .emailAddress
         emailTextField.returnKeyType           = .next
         emailTextField.correctionType          = .no
