@@ -186,7 +186,7 @@ class LoginViewController: SFSidebarViewController {
                 DispatchQueue.main.async {
                     if error != nil {
                         self.stopLoading()
-                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description, cancelBtn: false)
+                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten.", message: "E-Mail-Adresse ist unbekannt.", cancelBtn: false)
                     } else {
                         if let salt = salt as? String {
                             self.performLogin(email: email, password: password, salt: salt)
@@ -203,7 +203,7 @@ class LoginViewController: SFSidebarViewController {
                 DispatchQueue.main.async {
                     if error != nil {
                         self.stopLoading()
-                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten.", message: "Das Passwort ist inkorrekt.")
                     } else {
                         if let success = success as? Bool, success {
                             self.getUserInfo()
