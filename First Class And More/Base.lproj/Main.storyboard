@@ -1798,7 +1798,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfz-DD-XOR">
-                                        <rect key="frame" x="24.5" y="238.5" width="277" height="51.500000000000028"/>
+                                        <rect key="frame" x="24.5" y="238.5" width="277" height="51.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="51.5" id="Apb-3D-ndF"/>
                                         </constraints>
