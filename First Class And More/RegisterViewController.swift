@@ -20,8 +20,6 @@ class RegisterViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
 
-    @IBOutlet weak var rulesCheckboxBtn: UIButton!
-
     @IBOutlet weak var newsLetterYesBtn: UIButton!
 
     @IBOutlet weak var newsLetterNoBtn: UIButton!
@@ -30,25 +28,16 @@ class RegisterViewController: UIViewController {
 
     @IBOutlet weak var newsLetterEmailTextField: UITextField!
 
-    @IBOutlet weak var newsLetterRulesCheckboxBtn: UIButton!
-
     @IBOutlet weak var premiumUserView: UIView!
 
     @IBOutlet weak var premiumEmailTextField: UITextField!
 
     @IBOutlet weak var premiumPasswordTextField: UITextField!
 
-    @IBOutlet weak var premiumRulesCheckboxBtn: UIButton!
-
     var type: RegisterType?
 
     var state: Int?
     var wantSubscribe: Bool = true
-    var rulesAccepted: Bool = false
-
-    var newsLetterRulesAccepted: Bool = false
-
-    var premiumRulesAccepted: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,8 +60,6 @@ class RegisterViewController: UIViewController {
             premiumUserView.isHidden = false
         }
 
-        rulesCheckboxBtn.titleLabel?.numberOfLines = 0
-        rulesCheckboxBtn.titleLabel?.textAlignment = .left
         newsLetterYesBtn.backgroundColor = #colorLiteral(red: 0.9313626885, green: 0.6842990518, blue: 0.1191969439, alpha: 1)
         newsLetterYesBtn.layer.cornerRadius = 5.0
         newsLetterYesBtn.layer.borderColor = #colorLiteral(red: 0.9294117647, green: 0.6823529412, blue: 0.1176470588, alpha: 1).cgColor
@@ -81,24 +68,6 @@ class RegisterViewController: UIViewController {
         newsLetterNoBtn.layer.borderColor = #colorLiteral(red: 0.9313626885, green: 0.6842990518, blue: 0.1191969439, alpha: 1).cgColor
         newsLetterNoBtn.layer.borderWidth = 1.0
 
-        newsLetterRulesCheckboxBtn.titleLabel?.numberOfLines = 0
-        newsLetterRulesCheckboxBtn.titleLabel?.textAlignment = .left
-
-        premiumRulesCheckboxBtn.titleLabel?.numberOfLines = 0
-        premiumRulesCheckboxBtn.titleLabel?.textAlignment = .left
-        
-        let inset: CGFloat = 12
-        let contentInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
-        let titleInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -inset)
-        rulesCheckboxBtn.contentHorizontalAlignment = .center
-        newsLetterRulesCheckboxBtn.contentHorizontalAlignment = .center
-        premiumRulesCheckboxBtn.contentHorizontalAlignment = .center
-        rulesCheckboxBtn.contentEdgeInsets = contentInsets
-        rulesCheckboxBtn.titleEdgeInsets = titleInsets
-        newsLetterRulesCheckboxBtn.contentEdgeInsets = contentInsets
-        newsLetterRulesCheckboxBtn.titleEdgeInsets = titleInsets
-        premiumRulesCheckboxBtn.contentEdgeInsets = contentInsets
-        premiumRulesCheckboxBtn.titleEdgeInsets = titleInsets
     }
 
     @IBAction func manRadioBtnPressed() {
@@ -109,21 +78,6 @@ class RegisterViewController: UIViewController {
     @IBAction func womenRadioBtnPressed() {
         state = 2
         manRadioBtn.isSelected = false
-    }
-
-    @IBAction func rulesCheckboxBtnPressed() {
-        rulesAccepted = !rulesAccepted
-        rulesCheckboxBtn.setImage(rulesAccepted ? #imageLiteral(resourceName: "chb-on") : #imageLiteral(resourceName: "chb-off"), for: .normal)
-    }
-
-    @IBAction func newsLetterRulesCheckboxBtnPressed() {
-        newsLetterRulesAccepted = !newsLetterRulesAccepted
-        newsLetterRulesCheckboxBtn.setImage(newsLetterRulesAccepted ? #imageLiteral(resourceName: "chb-on") : #imageLiteral(resourceName: "chb-off"), for: .normal)
-    }
-
-    @IBAction func premiumCheckboxBtnPressed() {
-        premiumRulesAccepted = !premiumRulesAccepted
-        premiumRulesCheckboxBtn.setImage(premiumRulesAccepted ? #imageLiteral(resourceName: "chb-on") : #imageLiteral(resourceName: "chb-off"), for: .normal)
     }
 
     @IBAction func newsLetterYesBtnPressed() {
@@ -155,10 +109,6 @@ class RegisterViewController: UIViewController {
 			showPopupDialog(title: String(.errorOccured), message: String(.invalidEmail), cancelBtn: false)
 			return
 		}
-        guard rulesAccepted else {
-            showPopupDialog(title: String(.errorOccured), message: String(.acceptPolicy), cancelBtn: false)
-            return
-        }
         if isConnectedToNetwork(repeatedFunction: registerBtnPressed) {
             startLoading(message: String(.loading))
             Server.shared.register(state: state, email: email, surname: surname, wantSubscribe: wantSubscribe) { success, error in
@@ -200,10 +150,6 @@ class RegisterViewController: UIViewController {
 			showPopupDialog(title: String(.errorOccured), message: String(.invalidEmail), cancelBtn: false)
 			return
 		}
-        if !newsLetterRulesAccepted {
-            showPopupDialog(title: String(.errorOccured), message: String(.acceptPolicy), cancelBtn: false)
-            return
-        }
         if isConnectedToNetwork(repeatedFunction: loginBtnPressed) {
             startLoading(message: String(.loading))
             Server.shared.checkSubscriber(email: email) { isSubscribed, error in
@@ -229,10 +175,6 @@ class RegisterViewController: UIViewController {
         if email.isEmpty || password.isEmpty {
             let error = email.isEmpty ? String(.emptyEmail) : String(.emptyPassword)
             showPopupDialog(title: String(.errorOccured), message: error, cancelBtn: false)
-            return
-        }
-        if !newsLetterRulesAccepted {
-            showPopupDialog(title: String(.errorOccured), message: String(.acceptPolicy), cancelBtn: false)
             return
         }
         if isConnectedToNetwork(repeatedFunction: loginBtnPressed) {
