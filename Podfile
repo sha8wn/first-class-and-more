@@ -1,6 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 project 'First Class And More.xcodeproj'
 platform :ios, '10.0'
+inhibit_all_warnings!
 
 target 'First Class And More' do
   use_frameworks!
