@@ -8,7 +8,7 @@
 
 "errorOccured" = "Ein Fehler ist aufgetreten..";
 "loading" = "Wird geladen..";
-"selectGender" = "Wähle dein Geschlecht";
+"selectGender" = "Bitte Anrede auswählen.";
 "emptyName" = "Nachname fehlt!";
 "emptyEmail" = "E-Mail fehlt!";
 "invalidEmail" = "E-Mail ungültig!";
