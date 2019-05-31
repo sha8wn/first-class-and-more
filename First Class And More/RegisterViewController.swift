@@ -128,7 +128,7 @@ class RegisterViewController: UIViewController {
                     else {
                         if let success = success as? Bool, success {
                             let title = "Herzlich willkommen bei der First Class & More App!"
-                            let message = "Wenn Sie erfahren möchten, wie die App genau funktioniert, dann wählen Sie im Menü bitte da Tutorial aus."
+                            let message = "Wenn Sie erfahren möchten, wie die App genau funktioniert, dann wählen Sie im Menü bitte das Tutorial aus."
                             self.showPopupDialog(title: title, message: message) {
                                 self.performSegue(withIdentifier: "showHome", sender: nil)
                             }
