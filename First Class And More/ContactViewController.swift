@@ -124,7 +124,7 @@ class ContactViewController: UIViewController {
                     if error != nil {
                         self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
                     } else if let success = answer as? Bool, success {
-                        self.showPopupDialog(title: "Erfolg!", cancelBtn: false, okBtnCompletion: {
+                        self.showPopupDialog(title: "Vielen Dank für Ihre Anfrage.", message: "Das First Class & More Team wird sich in der Regel innerhalb von 48 Stunden mit Ihnen in Verbindung setzen.", cancelBtn: false, okBtnCompletion: {
                             self.closeBtnPressed()
                         })
                     }
