@@ -36,20 +36,20 @@ enum Errors {
     var description: String {
         get {
             switch self {
-                case .custom(let error):
-                    return error
-                case .cantGetPasswordSalt, .cantLogin:
-                    return "Login gescheitert"
-                case .cantSendForgotPassword:
-                    return "Fehlerhafte Anfrage"
-                case .pushNotificationsAreDisabled:
-                    return "Bitte aktivieren Sie Push-Benachrichtigungen in den Einstellungen"
-                case .cantUpdatePushNotifications:
-                    return "Push-Benachrichtigungen können nicht aktualisiert werden"
+            case .custom(let error):
+                return error
+            case .cantGetPasswordSalt, .cantLogin:
+                return "Login gescheitert"
+            case .cantSendForgotPassword:
+                return "Fehlerhafte Anfrage"
+            case .pushNotificationsAreDisabled:
+                return "Bitte aktivieren Sie Push-Benachrichtigungen in den Einstellungen"
+            case .cantUpdatePushNotifications:
+                return "Push-Benachrichtigungen können nicht aktualisiert werden"
             case .alreadySubscribe:
-                    return "Bitte nutzen Sie den Login für Premium-Mitglieder"
-                default:
-                    return "Vorgang konnte nicht abgeschlossen werden. Versuche es erneut."
+                return "Bitte nutzen Sie den Login für Newsletter-Empfänger."
+            default:
+                return "Vorgang konnte nicht abgeschlossen werden. Versuche es erneut."
             }
         }
     }

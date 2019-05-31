@@ -118,7 +118,7 @@ class RegisterViewController: UIViewController {
                     if let error = error {
                         switch error {
                         case .alreadySubscribe:
-                            self.showPopupDialog(title: "Sie sind Premium-Mitglied bei First Class & More", message: error.description, cancelBtn: false) {
+                            self.showPopupDialog(title: "Sie sind bereits für den Newsletter registriert.", message: error.description, cancelBtn: false) {
                                 self.dismiss(animated: true, completion: nil)
                             }
                         default:
