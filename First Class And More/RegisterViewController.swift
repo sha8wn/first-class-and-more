@@ -183,7 +183,7 @@ class RegisterViewController: UIViewController {
                 DispatchQueue.main.async {
                     if error != nil {
                         self.stopLoading()
-                        self.showPopupDialog(title: String(.errorOccured), message: error!.description, cancelBtn: false)
+                        self.showPopupDialog(title: String(.errorOccured), message: "E-Mail-Adresse ist unbekannt.", cancelBtn: false)
                     } else {
                         if let salt = salt as? String {
                             self.performLogin(email: email, password: password, salt: salt)
@@ -200,7 +200,7 @@ class RegisterViewController: UIViewController {
                 DispatchQueue.main.async {
                     if error != nil {
                         self.stopLoading()
-                        self.showPopupDialog(title: String(.errorOccured), message: error!.description)
+                        self.showPopupDialog(title: String(.errorOccured), message: "Das Passwort ist inkorrekt")
                     } else {
                         if let success = success as? Bool, success {
                             self.getUserInfo()
