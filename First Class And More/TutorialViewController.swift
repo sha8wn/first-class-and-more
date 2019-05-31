@@ -50,7 +50,7 @@ class TutorialViewController: UIViewController {
     
     private func showAnimatedGIF() {
         gifImageView.isHidden = false
-        let gif = UIImage(gifName: "step-\(currentStep)")
+        let gif = try! UIImage(gifName: "step-\(currentStep)")
         gifImageView.setGifImage(gif, loopCount: 1)
     }
     
