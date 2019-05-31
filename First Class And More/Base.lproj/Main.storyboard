@@ -802,7 +802,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Autorisierungscode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcW-9P-gQh">
-                                        <rect key="frame" x="104.5" y="70" width="138.5" height="21"/>
+                                        <rect key="frame" x="104.5" y="70" width="138" height="21"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.37647058820000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2031,12 +2031,12 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.79825044014084512" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="fNo-cM-M5C" firstAttribute="top" secondItem="VKM-hT-myq" secondAttribute="bottom" id="1rx-4N-MWr"/>
                             <constraint firstItem="61V-1g-7NE" firstAttribute="top" secondItem="FqY-YK-otQ" secondAttribute="bottom" constant="8" symbolic="YES" id="27b-ga-ATQ"/>
-                            <constraint firstAttribute="trailing" secondItem="VKM-hT-myq" secondAttribute="trailing" id="ICO-Gg-UKd"/>
-                            <constraint firstItem="VKM-hT-myq" firstAttribute="top" secondItem="phH-Lh-ErQ" secondAttribute="top" id="Q6H-bG-Hbk"/>
-                            <constraint firstItem="VKM-hT-myq" firstAttribute="leading" secondItem="phH-Lh-ErQ" secondAttribute="leading" id="U55-NR-7Lg"/>
+                            <constraint firstAttribute="trailing" secondItem="VKM-hT-myq" secondAttribute="trailing" id="5fi-DM-ykd"/>
+                            <constraint firstItem="VKM-hT-myq" firstAttribute="leading" secondItem="phH-Lh-ErQ" secondAttribute="leading" id="UON-yB-NVX"/>
+                            <constraint firstItem="VKM-hT-myq" firstAttribute="top" secondItem="phH-Lh-ErQ" secondAttribute="top" id="jUB-z9-3JR"/>
                             <constraint firstAttribute="trailing" secondItem="61V-1g-7NE" secondAttribute="trailing" constant="6" id="vtd-nn-7Bp"/>
+                            <constraint firstAttribute="bottom" secondItem="VKM-hT-myq" secondAttribute="bottom" id="zZu-QS-FIB"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2045,7 +2045,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oNY-uk-hX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="222" y="1552"/>
+            <point key="canvasLocation" x="221.59999999999999" y="1551.7241379310346"/>
         </scene>
         <!--Newsletter View Controller-->
         <scene sceneID="DgD-nY-K9s">
