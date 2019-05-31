@@ -9,7 +9,7 @@
 import UIKit
 
 class ForgotPasswordViewController: SFSidebarViewController {
-
+    
     let screen = UIScreen.main.bounds
     lazy var actualViewHeight: CGFloat = {
         return self.screen.height - self.navigationController!.navigationBar.frame.size.height -
@@ -65,13 +65,16 @@ class ForgotPasswordViewController: SFSidebarViewController {
     
     func setupUI() {
         view.backgroundColor = fcamBlue
-        createTitleLabel()        
+        createTitleLabel()
         createEmailTextField()
         addSendBtn()
     }
     
     func createTitleLabel() {
-        let title = "Haben Sie Ihr Passwort vergessen?"
+        let title = """
+        Haben Sie Ihr Passwort vergessen?
+        Kein Problem! Hier können Sie für Ihr Konto ein neues Passwort anfordern. Geben Sie dazu bitte Ihre E-Mail-Adresse ein.
+        """
         let titleLabelFont = UIFont(name: "RobotoCondensed-Light", size: 27.0)!
         let constraintRect = CGSize(width: screen.width - 16.0 * 2, height: .greatestFiniteMagnitude)
         let titleLabelHeight = title.boundingRect(
@@ -79,11 +82,12 @@ class ForgotPasswordViewController: SFSidebarViewController {
             options: [],
             attributes: [NSAttributedString.Key.font: titleLabelFont],
             context: nil
-        ).height
+            ).height * 4
         titleLabel = UILabel(frame:
-            CGRect(x: 16.0, y: actualViewHeight * 0.22, width: screen.width - 16.0 * 2, height: titleLabelHeight)
+            CGRect(x: 16.0, y: actualViewHeight * 0.1, width: screen.width - 16.0 * 2, height: titleLabelHeight)
         )
         titleLabel.text = title
+        titleLabel.numberOfLines = 4
         titleLabel.font = titleLabelFont
         titleLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.6243122799)
         titleLabel.textAlignment = .center
@@ -105,7 +109,7 @@ class ForgotPasswordViewController: SFSidebarViewController {
         emailTextField.textColor          = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         emailTextField.font               = UIFont(name: "RobotoCondensed-Light", size: 24.0)!
         emailTextField.tintColor          = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        emailTextField.placeholder        = "E-mail"
+        emailTextField.placeholder        = "E-Mail"
         emailTextField.keyboardType       = .emailAddress
         emailTextField.correctionType     = .no
         emailTextField.capitalizationType = .none
@@ -124,7 +128,7 @@ class ForgotPasswordViewController: SFSidebarViewController {
         sendBtn.layer.cornerRadius = sendBtn.frame.size.height / 2
         sendBtn.clipsToBounds = true
         sendBtn.setAttributedTitle(NSAttributedString(
-            string: "Senden",
+            string: "Passwort anfordern",
             attributes: [
                 NSAttributedString.Key.font: UIFont(name: "RobotoCondensed-Regular", size: 24.0)!,
                 NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0, green: 0.3764705882, blue: 0.6, alpha: 1)
@@ -134,7 +138,7 @@ class ForgotPasswordViewController: SFSidebarViewController {
         view.addSubview(sendBtn)
     }
     
-   @objc  func sendBtnPressed() {
+    @objc  func sendBtnPressed() {
         guard let email = emailTextField.text else { return }
         if email.isEmpty {
             showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "E-Mail fehlt!")
