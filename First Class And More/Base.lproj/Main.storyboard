@@ -1798,7 +1798,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfz-DD-XOR">
-                                        <rect key="frame" x="24.5" y="238.5" width="277" height="51.5"/>
+                                        <rect key="frame" x="24.5" y="238.5" width="277" height="51.500000000000028"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="51.5" id="Apb-3D-ndF"/>
                                         </constraints>
@@ -2060,7 +2060,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HtW-3S-vgZ">
-                                <rect key="frame" x="14" y="165" width="347" height="337"/>
+                                <rect key="frame" x="14" y="152.5" width="347" height="362"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGu-3V-Zpt">
                                         <rect key="frame" x="305" y="0.0" width="40" height="40"/>
@@ -2124,21 +2124,28 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                             <action selector="subscribeBtnPressed" destination="ev9-wZ-giL" eventType="touchUpInside" id="c1I-QP-nKF"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7O-Gf-dRw">
-                                        <rect key="frame" x="34.5" y="260" width="278" height="46"/>
-                                        <string key="text">Mit dem Klick auf „Abonnieren" stimmen Sie unseren
-AGB zu und nehmen unsere Datenschutzbestimmungen zur Kenntnis.</string>
-                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="13"/>
-                                        <color key="textColor" red="0.42745098040000001" green="0.43137254899999999" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XaK-Rf-5KS">
-                                        <rect key="frame" x="0.0" y="331" width="347" height="6"/>
+                                        <rect key="frame" x="0.0" y="356" width="347" height="6"/>
                                         <color key="backgroundColor" red="0.0" green="0.37647058820000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="6" id="x03-hF-a9e"/>
                                         </constraints>
                                     </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="y9U-7b-m6b">
+                                        <rect key="frame" x="34.5" y="260" width="278" height="71"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="71" id="pBM-2m-jid"/>
+                                        </constraints>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <color key="textColor" red="0.42745098040000001" green="0.43137254899999999" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="13"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="jkz-4C-Cg1" id="QcQ-0A-U1X"/>
+                                        </connections>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -2148,18 +2155,18 @@ AGB zu und nehmen unsere Datenschutzbestimmungen zur Kenntnis.</string>
                                     <constraint firstItem="afe-pu-ZLG" firstAttribute="top" secondItem="OSd-j4-aqd" secondAttribute="bottom" constant="16" id="GAz-gj-LOP"/>
                                     <constraint firstItem="hRS-rd-Kes" firstAttribute="top" secondItem="WGu-3V-Zpt" secondAttribute="bottom" constant="30" id="I4B-A8-KPa"/>
                                     <constraint firstItem="KU1-ja-I6N" firstAttribute="width" secondItem="HtW-3S-vgZ" secondAttribute="width" multiplier="0.8" id="IoI-ln-bos"/>
-                                    <constraint firstItem="c7O-Gf-dRw" firstAttribute="top" secondItem="afe-pu-ZLG" secondAttribute="bottom" constant="25" id="KD9-7X-pKz"/>
                                     <constraint firstItem="OSd-j4-aqd" firstAttribute="width" secondItem="HtW-3S-vgZ" secondAttribute="width" multiplier="0.75" id="Ltt-bW-GFt"/>
                                     <constraint firstItem="WGu-3V-Zpt" firstAttribute="top" secondItem="HtW-3S-vgZ" secondAttribute="top" id="RRX-8D-Fq3"/>
                                     <constraint firstItem="hRS-rd-Kes" firstAttribute="centerX" secondItem="HtW-3S-vgZ" secondAttribute="centerX" id="TAj-yu-SZp"/>
-                                    <constraint firstItem="c7O-Gf-dRw" firstAttribute="width" secondItem="HtW-3S-vgZ" secondAttribute="width" multiplier="0.8" id="V7n-Yt-Tax"/>
-                                    <constraint firstItem="c7O-Gf-dRw" firstAttribute="centerX" secondItem="HtW-3S-vgZ" secondAttribute="centerX" id="YoA-2o-913"/>
+                                    <constraint firstItem="y9U-7b-m6b" firstAttribute="width" secondItem="HtW-3S-vgZ" secondAttribute="width" multiplier="0.8" id="aJ4-dg-Utm"/>
                                     <constraint firstItem="XaK-Rf-5KS" firstAttribute="leading" secondItem="HtW-3S-vgZ" secondAttribute="leading" id="aYy-wd-f1G"/>
                                     <constraint firstItem="OSd-j4-aqd" firstAttribute="centerX" secondItem="HtW-3S-vgZ" secondAttribute="centerX" id="b0p-Ky-5JE"/>
+                                    <constraint firstItem="XaK-Rf-5KS" firstAttribute="top" secondItem="y9U-7b-m6b" secondAttribute="bottom" constant="25" id="cHU-0u-qwb"/>
                                     <constraint firstItem="OSd-j4-aqd" firstAttribute="top" secondItem="KU1-ja-I6N" secondAttribute="bottom" constant="16" id="cjd-v0-rxZ"/>
                                     <constraint firstItem="KU1-ja-I6N" firstAttribute="top" secondItem="hRS-rd-Kes" secondAttribute="bottom" constant="4" id="eU9-Og-1l3"/>
                                     <constraint firstItem="afe-pu-ZLG" firstAttribute="width" secondItem="HtW-3S-vgZ" secondAttribute="width" multiplier="0.5" id="fe8-Ib-PxN"/>
-                                    <constraint firstItem="XaK-Rf-5KS" firstAttribute="top" secondItem="c7O-Gf-dRw" secondAttribute="bottom" constant="25" id="kmf-Oc-Pm4"/>
+                                    <constraint firstItem="y9U-7b-m6b" firstAttribute="top" secondItem="afe-pu-ZLG" secondAttribute="bottom" constant="25" id="gaY-9T-GPz"/>
+                                    <constraint firstItem="y9U-7b-m6b" firstAttribute="centerX" secondItem="HtW-3S-vgZ" secondAttribute="centerX" id="pRx-4c-8G7"/>
                                     <constraint firstAttribute="bottom" secondItem="XaK-Rf-5KS" secondAttribute="bottom" id="qB3-ew-TgH"/>
                                     <constraint firstItem="afe-pu-ZLG" firstAttribute="centerX" secondItem="HtW-3S-vgZ" secondAttribute="centerX" id="rJh-OV-zGD"/>
                                 </constraints>
@@ -2176,6 +2183,7 @@ AGB zu und nehmen unsere Datenschutzbestimmungen zur Kenntnis.</string>
                     <connections>
                         <outlet property="emailContainer" destination="OSd-j4-aqd" id="Btu-5b-K4b"/>
                         <outlet property="emailTextField" destination="N6K-ps-FK0" id="BIt-PA-hEe"/>
+                        <outlet property="textView" destination="y9U-7b-m6b" id="Bk7-Ld-f3l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmn-JU-2G9" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import WebKit
 
 class NewsletterViewController: UIViewController {
 
     @IBOutlet weak var emailContainer: UIView!
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet private weak var textView: UITextView!
     
     fileprivate var email: String?
     
@@ -21,6 +23,29 @@ class NewsletterViewController: UIViewController {
         emailContainer.layer.cornerRadius = 32.0 / 2
         emailContainer.layer.borderColor  = #colorLiteral(red: 0, green: 0.3764705882, blue: 0.6, alpha: 1).cgColor
         emailContainer.layer.borderWidth  = 1.0
+        
+        let attributedString = NSMutableAttributedString(string: "Mit dem Klick auf \"Abonnieren\" stimmen Sie unseren ")
+        attributedString.append(
+            NSAttributedString(string: "AGB",
+                               attributes: [.link: URL(string: "https://www.first-class-and-more.de/agb/")!])
+        )
+        attributedString.append(NSAttributedString(string: " zu und nehmen unsere "))
+        attributedString.append(
+            NSAttributedString(string: "Datenschutzbestimmungen",
+                               attributes: [.link: URL(string: "https://www.first-class-and-more.de/datenschutz/")!])
+        )
+        attributedString.append(NSAttributedString(string: " zur Kenntnis."))
+        
+        let font = UIFont(name: "RobotoCondensed-Regular", size: 13)!
+        let range = NSRange(location: 0, length: attributedString.length - 1)
+        attributedString.addAttributes(
+            [.font:font,
+             .foregroundColor: UIColor(red: 109/255, green: 110/255, blue: 113/255, alpha: 1.0)],
+            range: range
+        )
+        
+        self.textView.attributedText = attributedString
+        self.textView.textAlignment = .center
     }
     
     @IBAction func subscribeBtnPressed() {
@@ -76,4 +101,13 @@ extension NewsletterViewController: UITextFieldDelegate {
         }
         return true
     }
+}
+
+extension NewsletterViewController: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        return false
+    }
+    
 }
