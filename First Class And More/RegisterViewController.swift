@@ -133,6 +133,8 @@ class RegisterViewController: UIViewController {
                                 self.performSegue(withIdentifier: "showHome", sender: nil)
                             }
                         }
+                        
+                        Server.shared.subscriberActivate(email: email, сompletion: { _, _ in })
                     }
                 }
             }

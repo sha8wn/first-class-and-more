@@ -269,4 +269,23 @@ extension Server {
             сompletion(nil, .cantSubscribe)
         }
     }
+    
+    func subscriberActivate(email: String, сompletion: @escaping Completion) {
+        let url = RouterUser.subscriberActivate(email: email)
+        
+        Alamofire.request(url).responseObject { (response: DataResponse<BoolResponse>) in
+            let responseValue = response.result.value
+            if let error = responseValue?.message {
+                сompletion(nil, .custom(error))
+                return
+            }
+            if let intValue = responseValue?.data?.status {
+                let isSubscribed = NSNumber(integerLiteral: intValue).boolValue
+                сompletion(isSubscribed, nil)
+                return
+            }
+            сompletion(nil, .cantCheckSubscriber)
+        }
+    }
+    
 }
