@@ -13,7 +13,7 @@ enum DealState {
     case blue, gold
 }
 
-class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegate, CarouselDelegate
+class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegate
 {
     enum HomeType
     {
@@ -68,6 +68,15 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
         ]
 		
 		configureSubviews()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(loadCarouselData),
+                                               name: Notification.Name(rawValue: "user_updated"),
+                                               object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     var carouselLoaded: Bool = false
@@ -90,7 +99,7 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
         view.addSubview(carouselContainer)
     }
     
-    private func loadCarouselData() {
+    @objc func loadCarouselData() {
         if isConnectedToNetwork(repeatedFunction: loadCarouselData) {
             startLoading()
             Server.shared.getSliderData() { slides, error in
@@ -111,16 +120,6 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
     private func updateCarousel(slides: [SlideModel]) {
 		carouselContainer.configureCarousel()
         carouselContainer.updateCarousel(slides: slides)
-    }
-    
-    func slideSelected(slide: SlideModel) {
-        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "showWKWebViewVC", sender: slide)
-        }
-    }
-    
-    func showPopup() {
-        showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "Dieser Deal ist nicht für Ihr Mitgliedschafts-Level freigegeben", cancelBtn: false, okBtnCompletion: nil)
     }
     
     private func createSegment()
@@ -245,4 +244,18 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
             meineDealsView.updateButtons(with: dealState)
         }
     }
+}
+
+extension SFHomeViewController: CarouselDelegate {
+    
+    func slideSelected(slide: SlideModel) {
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "showWKWebViewVC", sender: slide)
+        }
+    }
+    
+    func showPopup() {
+        showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "Dieser Deal ist nicht für Ihr Mitgliedschafts-Level freigegeben", cancelBtn: false, okBtnCompletion: nil)
+    }
+    
 }

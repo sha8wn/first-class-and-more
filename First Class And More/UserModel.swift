@@ -17,7 +17,11 @@ class UserModel: NSObject, NSCoding {
         } else {
             return UserModel()
         }
-    }()
+    }() {
+        didSet {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "user_updated"), object: nil)
+        }
+    }
 	
 	var isPremiuim: Bool {
 		return membership != .none
@@ -33,7 +37,11 @@ class UserModel: NSObject, NSCoding {
     var membershipExpires: String                = ""
     var email: String                            = ""
     var password: String                         = ""
-    var token: String                            = ""
+    var token: String                            = "" {
+        didSet {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "user_updated"), object: nil)
+        }
+    }
     var logined: Bool                            = false
     var favorites: [Int]                         = []
     var notificationSetting: Int                 = 1
