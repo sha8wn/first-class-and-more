@@ -80,7 +80,7 @@ class FilterGeneralViewController: SFSidebarViewController {
     }
     
     @IBAction func filterBtnPressed() {
-        clearSelectedFilters()
+//        clearSelectedFilters()
         var unselectedIdentifiers = getFilters(selected: false)
         if !unselectedIdentifiers.isEmpty {
             if let oldIdentifiers = defaults.object(forKey: kUDUnselectedFilters) as? [Int], !oldIdentifiers.isEmpty {
