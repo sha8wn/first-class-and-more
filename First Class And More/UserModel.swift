@@ -35,7 +35,11 @@ class UserModel: NSObject, NSCoding {
     var membership: Membership                   = .none
     var unlockedFilters: Bool                    = false
     var membershipExpires: String                = ""
-    var email: String                            = ""
+    var email: String                            = "" {
+        didSet {
+            self.getIsSubscribed(email: self.email)
+        }
+    }
     var password: String                         = ""
     var token: String                            = "" {
         didSet {
@@ -79,4 +83,14 @@ class UserModel: NSObject, NSCoding {
         aCoder.encode(notificationSetting, forKey: "notificationSetting")
         aCoder.encode(isSubscribed, forKey: "isSubscribed")
     }
+    
+    
+    private func getIsSubscribed(email: String) {
+        Server.shared.checkSubscriber(email: email) { isSubscribed, error in
+            guard error == nil else { return }
+            guard let isSubscribed = isSubscribed as? Bool else { return }
+            UserModel.sharedInstance.isSubscribed = isSubscribed
+        }
+    }
+    
 }

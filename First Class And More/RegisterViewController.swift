@@ -160,6 +160,7 @@ class RegisterViewController: UIViewController {
 						return
 					}
 					if let isSubscribed = isSubscribed as? Bool, isSubscribed {
+                        UserModel.sharedInstance.isSubscribed = isSubscribed
 						self.performSegue(withIdentifier: "showHome", sender: nil)
 					}
 					else {
