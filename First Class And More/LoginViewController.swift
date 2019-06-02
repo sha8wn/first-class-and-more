@@ -217,6 +217,11 @@ class LoginViewController: SFSidebarViewController {
     
     func getUserInfo() {
         if isConnectedToNetwork(repeatedFunction: getUserInfo) {
+            Server.shared.checkSubscriber(email: UserModel.sharedInstance.email) { isSubscribed, error in
+                guard error == nil else { return }
+                guard let isSubscribed = isSubscribed as? Bool else { return }
+                UserModel.sharedInstance.isSubscribed = isSubscribed
+            }
             Server.shared.getSettings() { success, error in
                 DispatchQueue.main.async {
                     self.stopLoading()

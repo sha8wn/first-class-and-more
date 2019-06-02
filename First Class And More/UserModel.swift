@@ -37,6 +37,7 @@ class UserModel: NSObject, NSCoding {
     var logined: Bool                            = false
     var favorites: [Int]                         = []
     var notificationSetting: Int                 = 1
+    var isSubscribed: Bool                       = false
 
     override init() { }
     
@@ -53,6 +54,7 @@ class UserModel: NSObject, NSCoding {
         self.logined             = aDecoder.decodeBool(forKey: "logined")
         self.favorites           = aDecoder.decodeObject(forKey: "favorites") as! [Int]
         self.notificationSetting = aDecoder.decodeInteger(forKey: "notificationSetting")
+        self.isSubscribed        = aDecoder.decodeBool(forKey: "isSubscribed")
     }
     
     func encode(with aCoder: NSCoder) {
@@ -67,5 +69,6 @@ class UserModel: NSObject, NSCoding {
         aCoder.encode(logined, forKey: "logined")
         aCoder.encode(favorites, forKey: "favorites")
         aCoder.encode(notificationSetting, forKey: "notificationSetting")
+        aCoder.encode(isSubscribed, forKey: "isSubscribed")
     }
 }

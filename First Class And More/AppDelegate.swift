@@ -117,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     if let statusCode = statusCode as? Int {
                         switch statusCode {
                             case 1:
-                                // do nothing
+                                self.getIsSubscribed(email: UserModel.sharedInstance.email)
                                 break
                             case 2:
                                 // update token
@@ -162,6 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     } else {
                         if let success = success as? Bool, success {
                             self.getSettings()
+                            self.getIsSubscribed(email: email)
                         }
                     }
                 }
@@ -172,6 +173,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func logout() {
         UserModel.sharedInstance = UserModel()
         UserDefaults.standard.removeObject(forKey: kUDSharedUserModel)
+    }
+    
+    func getIsSubscribed(email: String) {
+        Server.shared.checkSubscriber(email: email) { isSubscribed, error in
+            guard error == nil else { return }
+            guard let isSubscribed = isSubscribed as? Bool else { return }
+            UserModel.sharedInstance.isSubscribed = isSubscribed
+        }
     }
     
     func getSettings() {
