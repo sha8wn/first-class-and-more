@@ -106,7 +106,14 @@ extension NewsletterViewController: UITextFieldDelegate {
 extension NewsletterViewController: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        switch url.absoluteString {
+        case "https://www.first-class-and-more.de/agb/":
+            FileProvider(viewController: self).open(.agb)
+        case "https://www.first-class-and-more.de/datenschutz/":
+            FileProvider(viewController: self).open(.datenschutz)
+        default:
+            break
+        }
         return false
     }
     

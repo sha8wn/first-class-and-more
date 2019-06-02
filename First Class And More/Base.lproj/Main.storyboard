@@ -1749,7 +1749,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                         <viewControllerLayoutGuide type="bottom" id="Pk6-3J-6ag"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="csY-pY-0xL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -2794,6 +2794,6 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
         <image name="repeat" width="87.5" height="87.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LhH-We-wZs"/>
+        <segue reference="WmT-u4-12T"/>
     </inferredMetricsTieBreakers>
 </document>

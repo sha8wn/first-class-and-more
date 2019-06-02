@@ -62,6 +62,7 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
     {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(playedDismissed), name: .kAVPlayerViewControllerDismissingNotification, object: nil)
+        self.navigationBar.tintColor = .white
         self.automaticallyAdjustsScrollViewInsets = true
     }
     
@@ -204,9 +205,9 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
                             }
 						}
 					case "AgbVC":
-						fileProvider.open(.agb)
+                        self.setViewControllers([fileProvider.get(.agb)], animated: true)
 					case "DatenVC":
-						fileProvider.open(.datenschutz)
+                        self.setViewControllers([fileProvider.get(.datenschutz)], animated: true)
 					default:
 						break
 					}

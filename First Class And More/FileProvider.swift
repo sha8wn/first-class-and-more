@@ -33,13 +33,40 @@ final class FileProvider {
 	init(viewController: UIViewController) {
 		self.viewController = viewController
 	}
+    
+    func get(_ type: FileType) -> UIViewController {
+        currentType = type
+        let quickLookController = QLPreviewController()
+        quickLookController.dataSource = self
+        
+        // Setting Up the Logo
+        let logo = UIImage(named: "NavLogo")
+        let imageView = UIImageView(image: logo)
+        quickLookController.navigationItem.titleView = imageView
+        
+        let homeBtn = UIButton(type: .custom)
+        homeBtn.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        homeBtn.setImage(#imageLiteral(resourceName: "MenuButtonTapped"), for: .normal)
+        homeBtn.addTarget(self, action: #selector(sidebarButtonTapped), for: .touchUpInside)
+        let homeBarBtn = UIBarButtonItem(customView: homeBtn)
+        quickLookController.navigationItem.setLeftBarButtonItems([homeBarBtn], animated: false)
+        
+        quickLookController.navigationItem.setRightBarButtonItems(nil, animated: false)
+        
+        return quickLookController
+    }
 	
 	func open(_ type: FileType) {
-		currentType = type
-		let quickLookController = QLPreviewController()
-		quickLookController.dataSource = self
-		viewController?.present(quickLookController, animated: true, completion: nil)
+        let controller = self.get(type)
+        self.viewController?.present(controller, animated: true, completion: nil)
 	}
+    
+    @objc private func sidebarButtonTapped() {
+        guard let navBar = self.viewController as? SFSidebarNavigationController else {
+            return
+        }
+        navBar.toggleMenu(toDestination: nil)
+    }
 	
 	private func prepareFileURLs() -> [URL] {
 		var urls: [URL] = []
