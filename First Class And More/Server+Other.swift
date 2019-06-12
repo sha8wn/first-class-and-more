@@ -112,10 +112,6 @@ extension Server {
         let subscribeNewsletterURL = RouterOther.subscribeNewsletter(email: email)
         Alamofire.request(subscribeNewsletterURL).responseObject { (response: DataResponse<StringResponse>) in
             let responseValue = response.result.value
-            print(#file, #line, response.request ?? "")
-            print(#file, #line, response.response ?? "")
-            print(#file, #line, response.data ?? "")
-            print(#file, #line, response.result.value ?? "")
             if let success = responseValue?.data, success == "success" {
                 сompletion(true, nil)
                 return

@@ -87,13 +87,24 @@ enum RouterOther: URLRequestConvertible {
         }
     }
     
+    private var encoding: ParameterEncoding {
+        if self.method == .post {
+            return JSONEncoding.default
+        }
+        return URLEncoding.default
+    }
+    
     func asURLRequest() throws -> URLRequest {
         let baseURL = try Server.shared.url.asURL()
-        var urlRequest = URLRequest(url: baseURL.appendingPathComponent(url))
+        var url = baseURL.appendingPathComponent(self.url)
+        
+        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+        urlComponents.queryItems = [URLQueryItem(name: "auth", value: Server.shared.apiKey)]
+        url = urlComponents.url!
+        
+        var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.rawValue
-        var params = self.params
-        params["auth"] = Server.shared.apiKey
-        urlRequest = try URLEncoding.default.encode(urlRequest, with: params)
+        urlRequest = try self.encoding.encode(urlRequest, with: self.params)
         return urlRequest
     }
 }
