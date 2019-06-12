@@ -97,16 +97,18 @@ extension Server {
         let checkSubscriberURL = RouterUser.checkSubscriber(email: email)
         Alamofire.request(checkSubscriberURL).responseObject { (response: DataResponse<BoolResponse>) in
             let responseValue = response.result.value
+            
             if let error = responseValue?.message {
                 сompletion(nil, .custom(error))
                 return
             }
-            if let intValue = responseValue?.data?.status {
-                let isSubscribed = NSNumber(integerLiteral: intValue).boolValue
-                сompletion(isSubscribed, nil)
+            
+            guard let intValue = responseValue?.data?.status else {
+                сompletion(nil, .cantCheckSubscriber)
                 return
             }
-            сompletion(nil, .cantCheckSubscriber)
+            
+            сompletion(intValue, nil)
         }
     }
 

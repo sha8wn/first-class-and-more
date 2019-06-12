@@ -51,6 +51,9 @@ class RegisterViewController: UIViewController {
 
     private func setupView() {
         guard let type = type else { return }
+        
+        [self.newUserView, self.newsLetterUserView, self.premiumUserView].forEach { $0?.isHidden = true }
+        
         switch type {
         case .new:
             newUserView.isHidden = false
@@ -154,20 +157,30 @@ class RegisterViewController: UIViewController {
 		}
         if isConnectedToNetwork(repeatedFunction: loginBtnPressed) {
             startLoading(message: String(.loading))
-            Server.shared.checkSubscriber(email: email) { isSubscribed, error in
+            Server.shared.checkSubscriber(email: email) { status, error in
                 DispatchQueue.main.async {
                     self.stopLoading()
 					if let error = error {
 						self.showPopupDialog(title: String(.errorOccured), message: error.description, cancelBtn: false)
 						return
 					}
-					if let isSubscribed = isSubscribed as? Bool, isSubscribed {
-                        UserModel.sharedInstance.isSubscribed = isSubscribed
-						self.performSegue(withIdentifier: "showHome", sender: nil)
-					}
-					else {
-						self.showPopupDialog(title: String(.errorOccured), message: String(.notSubscriber), cancelBtn: false)
-					}
+                    guard let status = status as? Int else {
+                        self.showPopupDialog(title: String(.errorOccured), message: String(.notSubscriber), cancelBtn: false)
+                        return
+                    }
+                    guard status > 0 else {
+                        self.showPopupDialog(title: String(.errorOccured), message: String(.notSubscriber), cancelBtn: false)
+                        return
+                    }
+                    
+                    if status == 1 {
+                        UserModel.sharedInstance.isSubscribed = true
+                        self.performSegue(withIdentifier: "showHome", sender: nil)
+                    } else if status == 2 {
+                        self.type = .premium
+                        self.premiumEmailTextField.text = email
+                        self.setupView()
+                    }
                 }
             }
         }
