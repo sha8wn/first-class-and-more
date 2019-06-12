@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireNetworkActivityLogger
 import UserNotifications
 
 @UIApplicationMain
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
+        NetworkActivityLogger.shared.startLogging()
+        NetworkActivityLogger.shared.level = .debug
         setupReachability()
         checkUserToken()
         getSettings()

@@ -8,6 +8,7 @@ target 'First Class And More' do
   pod 'Alamofire', '~> 4.7'
   pod 'AlamofireObjectMapper', '~> 5.0'
   pod 'AlamofireImage', '~> 3.4'
+  pod 'AlamofireNetworkActivityLogger', '~> 2.4'
   pod 'SwiftyJSON'
   pod 'NVActivityIndicatorView'
   pod 'PopupDialog', '~> 1.1.0'
