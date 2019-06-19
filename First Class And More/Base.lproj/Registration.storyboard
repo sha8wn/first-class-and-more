@@ -58,23 +58,23 @@
                                 <rect key="frame" x="0.0" y="292.33333333333331" width="414" height="520.66666666666674"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iJh-f7-hY0">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="347"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="346.33333333333331"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="dK6-h6-ZAz">
-                                                <rect key="frame" x="39" y="28.000000000000004" width="336" height="49.333333333333343"/>
+                                                <rect key="frame" x="39" y="28" width="336" height="49"/>
                                                 <string key="text">Gleich haben Sie immer Zugriff auf die besten Flug-, Hotel- und Meilendeals sowie unzählige Insider-Strategien für Luxusreisen zu Insider-Preisen!</string>
                                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Bitte wählen Sie zwischen den folgenden drei Optionen:" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="jon-ze-prn">
-                                                <rect key="frame" x="39" y="91.333333333333371" width="336" height="33"/>
+                                                <rect key="frame" x="39" y="91" width="336" height="32.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RTK-Xf-lej">
-                                                <rect key="frame" x="39" y="150.33333333333337" width="336" height="51.666666666666686"/>
+                                                <rect key="frame" x="39" y="149.66666666666669" width="336" height="51.666666666666657"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="51.5" id="mEa-lj-2DJ"/>
                                                 </constraints>
@@ -85,7 +85,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HG9-Ca-nS7">
-                                                <rect key="frame" x="39" y="217" width="336" height="51.333333333333343"/>
+                                                <rect key="frame" x="39" y="216.33333333333337" width="336" height="51.333333333333314"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="51.5" id="n2d-Z7-Zou"/>
                                                 </constraints>
@@ -96,7 +96,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAS-gg-4iT">
-                                                <rect key="frame" x="39" y="283.33333333333331" width="336" height="51.666666666666714"/>
+                                                <rect key="frame" x="39" y="282.66666666666669" width="336" height="51.666666666666686"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="51.5" id="U11-za-7mP"/>
                                                 </constraints>
@@ -132,23 +132,23 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2K-ue-3OH">
-                                <rect key="frame" x="144" y="818" width="126.33333333333331" height="28"/>
+                                <rect key="frame" x="143" y="818" width="128.33333333333337" height="28"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AGB" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wot-mh-605">
-                                        <rect key="frame" x="0.0" y="0.0" width="27.333333333333332" height="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="29.333333333333332" height="28"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abB-PG-7bu">
-                                        <rect key="frame" x="37.333333333333343" y="8" width="1" height="12"/>
+                                        <rect key="frame" x="39.333333333333343" y="8" width="1" height="12"/>
                                         <color key="backgroundColor" red="0.86666666670000003" green="0.67843137249999996" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="1" id="1L0-r6-WHL"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Datenschutz" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EIT-Zq-TmS">
-                                        <rect key="frame" x="48.333333333333343" y="0.0" width="78" height="28"/>
+                                        <rect key="frame" x="50.333333333333343" y="0.0" width="78" height="28"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -170,7 +170,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gc5-4J-5Mi">
-                                <rect key="frame" x="122.33333333333331" y="818" width="60" height="44"/>
+                                <rect key="frame" x="123.33333333333331" y="818" width="60" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="lvr-C6-dAb"/>
                                 </constraints>
@@ -182,7 +182,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zio-nb-Lcg">
-                                <rect key="frame" x="181.33333333333334" y="818" width="100.00000000000003" height="44"/>
+                                <rect key="frame" x="182.33333333333334" y="818" width="100.00000000000003" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="uNq-Uj-Qa2"/>
                                 </constraints>
@@ -265,7 +265,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GCc-5u-A9S">
                                         <rect key="frame" x="39" y="291.33333333333326" width="336" height="279.66666666666674"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Sie sind Premium-Mitglied bei First Class &amp; More. Loggen Sie sich bitte mit Ihren. Login-Daten ein:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.85000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="INt-jY-FOf">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Sie sind Premium-Mitglied bei First Class &amp; More. Loggen Sie sich bitte mit Ihren Login-Daten ein:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.85000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="INt-jY-FOf">
                                                 <rect key="frame" x="0.0" y="0.0" width="336" height="35.333333333333336"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
