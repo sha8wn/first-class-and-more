@@ -182,16 +182,16 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="whu-RU-S6l" firstAttribute="top" secondItem="LD7-QB-nVa" secondAttribute="bottom" id="1Ww-jB-lk4"/>
                             <constraint firstItem="eib-Zz-InC" firstAttribute="height" secondItem="fUc-KF-saH" secondAttribute="height" multiplier="0.18" id="2Wc-TU-EtK"/>
                             <constraint firstItem="0VJ-nA-TXE" firstAttribute="top" secondItem="08m-EB-SIO" secondAttribute="bottom" id="8bs-oW-2Bv"/>
                             <constraint firstAttribute="trailing" secondItem="0VJ-nA-TXE" secondAttribute="trailing" id="LhV-Zh-2e8"/>
                             <constraint firstItem="LD7-QB-nVa" firstAttribute="leading" secondItem="fUc-KF-saH" secondAttribute="leading" id="Li2-cK-Euk"/>
                             <constraint firstItem="LD7-QB-nVa" firstAttribute="top" secondItem="08m-EB-SIO" secondAttribute="bottom" id="ZhV-ba-JDQ"/>
                             <constraint firstAttribute="trailing" secondItem="LD7-QB-nVa" secondAttribute="trailing" id="aJi-Xx-9Sb"/>
+                            <constraint firstAttribute="bottom" secondItem="0VJ-nA-TXE" secondAttribute="bottom" id="bIa-PY-znh"/>
                             <constraint firstItem="4D3-8R-BeR" firstAttribute="width" secondItem="fUc-KF-saH" secondAttribute="width" multiplier="0.74" id="bML-ma-VLg"/>
                             <constraint firstItem="0VJ-nA-TXE" firstAttribute="leading" secondItem="fUc-KF-saH" secondAttribute="leading" id="bgy-hU-7ID"/>
-                            <constraint firstItem="whu-RU-S6l" firstAttribute="top" secondItem="0VJ-nA-TXE" secondAttribute="bottom" id="vuv-5Y-H5i"/>
+                            <constraint firstAttribute="bottom" secondItem="LD7-QB-nVa" secondAttribute="bottom" id="fJr-Ff-ewr"/>
                         </constraints>
                     </view>
                     <connections>
