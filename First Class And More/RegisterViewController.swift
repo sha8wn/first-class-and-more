@@ -11,28 +11,22 @@ import UIKit
 class RegisterViewController: UIViewController {
 
     @IBOutlet weak var newUserView: UIView!
-
     @IBOutlet weak var manRadioBtn: DLRadioButton!
-
     @IBOutlet weak var womenRadioBtn: DLRadioButton!
-
     @IBOutlet weak var surnameTextField: UITextField!
-
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var termsTextView: UITextView!
 
     @IBOutlet weak var newsLetterYesBtn: UIButton!
-
     @IBOutlet weak var newsLetterNoBtn: UIButton!
-
     @IBOutlet weak var newsLetterUserView: UIView!
-
     @IBOutlet weak var newsLetterEmailTextField: UITextField!
+    @IBOutlet weak var newsletterTermsTextView: UITextView!
 
     @IBOutlet weak var premiumUserView: UIView!
-
     @IBOutlet weak var premiumEmailTextField: UITextField!
-
     @IBOutlet weak var premiumPasswordTextField: UITextField!
+    @IBOutlet weak var premiumTermsTextView: UITextView!
 
     var type: RegisterType?
 
@@ -70,7 +64,18 @@ class RegisterViewController: UIViewController {
         newsLetterNoBtn.layer.cornerRadius = 5.0
         newsLetterNoBtn.layer.borderColor = #colorLiteral(red: 0.9313626885, green: 0.6842990518, blue: 0.1191969439, alpha: 1).cgColor
         newsLetterNoBtn.layer.borderWidth = 1.0
-
+        
+        [self.termsTextView, self.newsletterTermsTextView, self.premiumTermsTextView].forEach {
+            $0?.linkTextAttributes = [
+                .foregroundColor: UIColor.white,
+                .underlineStyle: 1,
+                .underlineColor: UIColor.white
+            ]
+        }
+        
+        self.termsTextView.attributedText = self.buildTermsString(with: "REGISTRIEREN")
+        self.newsletterTermsTextView.attributedText = self.buildTermsString(with: "ANMELDEN")
+        self.premiumTermsTextView.attributedText = self.buildTermsString(with: "EINLOGGEN")
     }
 
     @IBAction func manRadioBtnPressed() {
@@ -250,6 +255,31 @@ class RegisterViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    // MARK: - Private implementation
+    
+    private func buildTermsString(with title: String) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(string: "Mit dem Klick auf \"\(title)\" stimmen Sie unseren ")
+        attributedString.append(
+            NSAttributedString(string: "AGB",
+                               attributes: [.link: URL(string: "https://www.first-class-and-more.de/agb/")!])
+        )
+        attributedString.append(NSAttributedString(string: " zu und nehmen unsere "))
+        attributedString.append(
+            NSAttributedString(string: "Datenschutzbestimmungen",
+                               attributes: [.link: URL(string: "https://www.first-class-and-more.de/datenschutz/")!])
+        )
+        attributedString.append(NSAttributedString(string: " zur Kenntnis."))
+        
+        let font = UIFont(name: "Roboto-Light", size: 12)!
+        let range = NSRange(location: 0, length: attributedString.length - 1)
+        attributedString.addAttributes(
+            [.font: font, .foregroundColor: UIColor.white],
+            range: range
+        )
+        
+        return attributedString
+    }
+    
 }
 
 extension RegisterViewController: UITextFieldDelegate {
@@ -257,4 +287,20 @@ extension RegisterViewController: UITextFieldDelegate {
         view.endEditing(true)
         return true
     }
+}
+
+extension RegisterViewController: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        switch url.absoluteString {
+        case "https://www.first-class-and-more.de/agb/":
+            FileProvider(viewController: self).open(.agb)
+        case "https://www.first-class-and-more.de/datenschutz/":
+            FileProvider(viewController: self).open(.datenschutz)
+        default:
+            break
+        }
+        return false
+    }
+    
 }
