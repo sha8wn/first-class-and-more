@@ -670,8 +670,8 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <action selector="closeBtnPressed" destination="ev9-wZ-giL" eventType="touchUpInside" id="UHP-ao-bzS"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Abonnieren Sie Unlock !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bp3-o7-ASm">
-                                        <rect key="frame" x="83.5" y="70" width="168" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter freischalten" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bp3-o7-ASm">
+                                        <rect key="frame" x="105.5" y="70" width="124.5" height="21"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.37647058823529411" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1798,7 +1798,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfz-DD-XOR">
-                                        <rect key="frame" x="24.5" y="238.5" width="277" height="51.500000000000028"/>
+                                        <rect key="frame" x="24.5" y="238.5" width="277" height="51.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="51.5" id="Apb-3D-ndF"/>
                                         </constraints>
