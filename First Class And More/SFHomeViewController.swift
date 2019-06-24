@@ -249,8 +249,13 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
 extension SFHomeViewController: CarouselDelegate {
     
     func slideSelected(slide: SlideModel) {
+        guard let controller = self.storyboard?.instantiateViewController(withIdentifier: "WebVC") as? WKWebViewController else {
+            return
+        }
+        controller.slide = slide
+        
         DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "showWKWebViewVC", sender: slide)
+            self.navigationController?.pushViewController(controller, animated: true)
         }
     }
     
