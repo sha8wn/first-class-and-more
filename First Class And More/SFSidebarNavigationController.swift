@@ -384,6 +384,8 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
             topViewController.updateNavigationButtons()
         }
         showPopupDialog(message: "Sie haben sich ausgeloggt", cancelBtn: false)
+        
+        FiltersHelper.resetAllFilters()
     }
     
     // MARK: - SFMenuTableViewCell Delegates
