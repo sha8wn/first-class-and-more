@@ -150,9 +150,9 @@ class SFFlexibleSegment: UIView, UICollectionViewDelegate, UICollectionViewDataS
         }
         else
         {
-            let user = UserModel.sharedInstance
-			let condition = (user.logined && user.isPremiuim) || user.unlockedFilters || user.isSubscribed
-			cell.segmentLabel.textColor = condition ? normalTextColor : disabledTextColor
+//            let user = UserModel.sharedInstance
+//            let condition = (user.logined && user.isPremiuim) || user.unlockedFilters || user.isSubscribed
+			cell.segmentLabel.textColor = normalTextColor // condition ? normalTextColor : disabledTextColor
             cell.segmentLabel.backgroundColor = normalBgColor
         }
         
@@ -166,16 +166,16 @@ class SFFlexibleSegment: UIView, UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        let user = UserModel.sharedInstance
-        if (user.logined && user.isPremiuim) || user.unlockedFilters || user.isSubscribed {
+//        let user = UserModel.sharedInstance
+//        if (user.logined && user.isPremiuim) || user.unlockedFilters || user.isSubscribed {
             if currentlySelected != indexPath.item {
                 currentlySelected = indexPath.item
                 delegate?.selectedFilter(at: indexPath.item, view: self)
                 collectionView.reloadData()
             }
-        } else {
-            delegate?.showUlockFiltersDialog()
-        }
+//        } else {
+//            delegate?.showUlockFiltersDialog()
+//        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
