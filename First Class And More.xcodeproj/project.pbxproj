@@ -100,6 +100,7 @@
 		2B97770C1E60F6A800760821 /* SFDealsTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97770B1E60F6A800760821 /* SFDealsTemplateViewController.swift */; };
 		2B97770E1E619BD300760821 /* SFSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97770D1E619BD300760821 /* SFSettingsViewController.swift */; };
 		2B9777201E61A86000760821 /* SevenSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97771F1E61A86000760821 /* SevenSwitch.swift */; };
+		2BBD153822C3DA60008D882C /* SFQLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD153722C3DA60008D882C /* SFQLPreviewController.swift */; };
 		DD00285E225516290084F851 /* TPKeyboardAvoidingSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD00285D225516290084F851 /* TPKeyboardAvoidingSwift.swift */; };
 		DD1C4E9B224AA5BC00E88513 /* FiltersHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1C4E9A224AA5BC00E88513 /* FiltersHelper.swift */; };
 		DD3030C521F9A5AB00CEBF5E /* InfiniteScrollingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3030C421F9A5AB00CEBF5E /* InfiniteScrollingBehaviour.swift */; };
@@ -250,6 +251,7 @@
 		2B97770B1E60F6A800760821 /* SFDealsTemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFDealsTemplateViewController.swift; sourceTree = "<group>"; };
 		2B97770D1E619BD300760821 /* SFSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFSettingsViewController.swift; sourceTree = "<group>"; };
 		2B97771F1E61A86000760821 /* SevenSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SevenSwitch.swift; sourceTree = "<group>"; };
+		2BBD153722C3DA60008D882C /* SFQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFQLPreviewController.swift; sourceTree = "<group>"; };
 		80C5821C082E61AFC2B8FDE7 /* Pods-First Class And More.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-First Class And More.release.xcconfig"; path = "Pods/Target Support Files/Pods-First Class And More/Pods-First Class And More.release.xcconfig"; sourceTree = "<group>"; };
 		BD61347CD6FD3F055D01102D /* Pods_First_Class_And_More.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_First_Class_And_More.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A03123CA479174DC5E9397 /* Pods-First Class And More.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-First Class And More.debug.xcconfig"; path = "Pods/Target Support Files/Pods-First Class And More/Pods-First Class And More.debug.xcconfig"; sourceTree = "<group>"; };
@@ -611,6 +613,7 @@
 				2B53C5911E5E5B1500980353 /* UITableView ScrollView Subclass */,
 				2B53C5841E5DCB9900980353 /* SFFlexibleSegment */,
 				27ADD0131EA5745300355B97 /* Extensions */,
+				2BBD153722C3DA60008D882C /* SFQLPreviewController.swift */,
 			);
 			name = "Subclasses & Extensions";
 			sourceTree = "<group>";
@@ -1121,7 +1124,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-First Class And More/Pods-First Class And More-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-First Class And More/Pods-First Class And More-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
@@ -1150,7 +1153,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-First Class And More/Pods-First Class And More-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-First Class And More/Pods-First Class And More-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1200,6 +1203,7 @@
 				27A59E781F89402C005EC85F /* FilterGeneralTableViewCell.swift in Sources */,
 				2722C4051EC277C100B42187 /* AdsViewController.swift in Sources */,
 				2B53C5831E5DC12A00980353 /* SFDealsView.swift in Sources */,
+				2BBD153822C3DA60008D882C /* SFQLPreviewController.swift in Sources */,
 				27AD0BAF1EB5297C00E5284F /* SliderCollectionViewCell.swift in Sources */,
 				2B53C5791E5CE81A00980353 /* SFHomeMeineDealsView.swift in Sources */,
 				E63C85A420D15710000A8469 /* DeeplinkType.swift in Sources */,
@@ -1410,7 +1414,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.test.first-class-and-more";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9b14571e-8850-4a67-a347-2b9250d56ebd";
-				PROVISIONING_PROFILE_SPECIFIER = "Miloš AdHoc";
+				PROVISIONING_PROFILE_SPECIFIER = "FCAM AdHoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "First Class And More/First Class And More-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -1435,7 +1439,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.test.first-class-and-more";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9b14571e-8850-4a67-a347-2b9250d56ebd";
-				PROVISIONING_PROFILE_SPECIFIER = "Miloš AdHoc";
+				PROVISIONING_PROFILE_SPECIFIER = "FCAM AdHoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "First Class And More/First Class And More-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};

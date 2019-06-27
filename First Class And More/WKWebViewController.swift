@@ -27,6 +27,22 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
         setupUI()
     }
     
+    override func viewSafeAreaInsetsDidChange() {
+        
+        if #available(iOS 11.0, *) {
+            
+            if toolBar == nil {
+                toolBar = UIToolbar()
+            }
+            
+            print(self.view.safeAreaInsets.bottom)
+            toolBar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - self.view.safeAreaInsets.bottom - 64.0 - toolBar.frame.height, width: UIScreen.main.bounds.width, height: toolBar.frame.height)
+            
+        }
+        
+        
+    }
+    
     func setupUI() {
         webView = UIWebView(
             frame: CGRect(
@@ -44,6 +60,14 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
         toolBar.isTranslucent = true
         toolBar.tintColor     = fcamBlue
         toolBar.sizeToFit()
+        
+        if #available(iOS 11.0, *) {
+            
+        } else {
+            // Fallback on earlier versions
+            toolBar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - 64.0 - toolBar.frame.height, width: UIScreen.main.bounds.width, height: toolBar.frame.height)
+        }
+        
         toolBar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - 64.0 - toolBar.frame.height, width: UIScreen.main.bounds.width, height: toolBar.frame.height)
         backBarButton     = UIBarButtonItem(image: #imageLiteral(resourceName: "chevron-left"), style: .plain, target: self, action: #selector(backBtnPressed))
         forwardBarButton  = UIBarButtonItem(image: #imageLiteral(resourceName: "chevron-right"), style: .plain, target: self, action: #selector(forwardBtnPressed))

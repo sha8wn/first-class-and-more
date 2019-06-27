@@ -270,6 +270,12 @@ class RegisterViewController: UIViewController {
         )
         attributedString.append(NSAttributedString(string: " zur Kenntnis."))
         
+        if(title == "REGISTRIEREN") {
+            
+            attributedString.append(NSAttributedString(string: "\n\nMöchten Sie mit dem kostenlosen First Class & More Newsletter regelmäßig per E-Mail über die besten Insider Deals inkl. bis zu 70% günstigeren Flügen sowie exklusiven First Class & More Angeboten informiert werden? Sie können sich jederzeit wieder abmelden."))
+            
+        }
+        
         let font = UIFont(name: "Roboto-Light", size: 12)!
         let range = NSRange(location: 0, length: attributedString.length - 1)
         attributedString.addAttributes(
