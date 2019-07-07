@@ -36,6 +36,11 @@ class SFDealsCell: UITableViewCell {
         dealsExpireDate.type = .Subtitle
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        dealsImage.image = nil
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         clipsToBounds = true

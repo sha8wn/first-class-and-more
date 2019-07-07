@@ -506,9 +506,9 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         
         let index = indexPath.section
         let deal = deals[index]
-        if let imageUrlString = deal.imageUrlString, let url = URL(string: imageUrlString) {
+        if let imageUrlString = deal.imageUrlString, let url = URL(string: imageUrlString.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!) {
             cell.imageActivityIndicator.startAnimating()
-            cell.dealsImage.image = nil
+            //cell.dealsImage.image = nil
             cell.dealsImage.af_setImage(
                 withURL: url,
                 progressQueue: DispatchQueue.main,
