@@ -657,8 +657,19 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         let deal = deals[index]
         if let access = deal.access {
             if access == 0 {
-                showPopupDialog(title: "", message: "Dieser Deal ist nur für GOLD/PLATIN-Mitglieder freigegeben.", cancelBtn: false, okBtnCompletion: nil)
-            } else {
+                
+                if deal.premium == Premium.gold {
+                    
+                    showPopupDialog(title: "", message: "Dieser Deal ist erst ab der GOLD-Mitgliedschaft freigegeben.", cancelBtn: false, okBtnCompletion: nil)
+                    
+                }
+                else {
+                    
+                    showPopupDialog(title: "", message: "Dieser Deal ist nur für PLATIN/DIAMANT-Mitglieder freigegeben.", cancelBtn: false, okBtnCompletion: nil)
+                    
+                }
+            }
+            else {
                 performSegue(withIdentifier: "showWKWebViewVC", sender: deal)
             }
         }

@@ -31,6 +31,8 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
     
     private var dealState: DealState = .blue
     
+    private var navBar: SFSidebarNavigationController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,9 +86,14 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
             mainDeals = [nil, DealType.Endet_Bald, DealType.Filter_Definieren]
         }
         
-        let navBar = self.navigationController as! SFSidebarNavigationController
+        if navBar == nil {
+            
+            navBar = self.navigationController as? SFSidebarNavigationController
+            
+        }
         
-        navBar.menuOptions = [
+        
+        navBar?.menuOptions = [
             SFSidebarItem(
                 section: "MEINE DEALS (mit Filter)",
                 option: mainOptions,
