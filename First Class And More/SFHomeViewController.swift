@@ -33,40 +33,7 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let navBar = self.navigationController as! SFSidebarNavigationController
-        navBar.menuOptions = [
-            SFSidebarItem(
-				section: "MEINE DEALS (mit Filter)",
-				option: ["Meine Deals", "Favoriten", "Endet bald", "Filter definieren"],
-				destination: ["HomeVC", "DealTemplateVC", "DealTemplateVC", "FilterIntroVC"],
-				deal: [nil, DealType.Favoriten, DealType.Endet_Bald, DealType.Filter_Definieren]),
-            SFSidebarItem(
-				section: "ALLE DEALS (ohne Filter)",
-				option: ["Alle Deals", "Ohne Login", "GOLD Deals", "PLATIN Deals"],
-				destination: ["DealTemplateVC", "DealTemplateVC", "DealTemplateVC", "DealTemplateVC"],
-				deal: [DealType.Alle, DealType.Ohne_Login, DealType.Gold_Highlights, DealType.Platin_Highlights]),
-            SFSidebarItem(
-				section: "REISEINFOS UND TESTS",
-				option: ["Destinations-Profile", "Airline-Profile", "Hoteltests", "Flughafen Lounges"],
-				destination: ["ProfileAndTestsVC", "ProfileAndTestsVC", "ProfileAndTestsVC", "ProfileAndTestsVC"],
-				deal: nil),
-//            SFSidebarItem(
-//				section: "REISEINFOS UND TESTS",
-//				option: ["Destinations-Profile", "Stadt-Profile", "Airline-Profile", "Airlinetests", "Hoteltests", "Loungetests"],
-//				destination: ["SafariVC", "SafariVC", "SafariVC", "SafariVC", "SafariVC", "SafariVC"],
-//				deal: nil),
-            SFSidebarItem(
-				section: "Einstellungen".uppercased(),
-				option: ["Push-Benachrichtigungen", "Promotions"],
-				destination: ["SettingsVC", "WebrungVC"],
-				deal: nil),
-            SFSidebarItem(
-				section: "FIRST CLASS & MORE",
-				option: ["Über uns", "Newsletter", "Facebook", "Instagram", "Kontakt", "AGB", "Datenschutzerklärung"],
-				destination: ["WebVC", "WebVC", "WebVC", "WebVC", "WebVC", "AgbVC", "DatenVC"],
-				deal: nil)
-        ]
-		
+        
 		configureSubviews()
         
         NotificationCenter.default.addObserver(self,
@@ -88,6 +55,76 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
             loadCarouselData()
         }
         segmentTapped(withButton: meineDealsButton)
+        
+        createSideBar()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(createSideBar), name: NSNotification.Name(rawValue: "user_logged_out"), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "user_logged_out"), object: nil)
+        
+        super.viewWillDisappear(animated)
+    }
+    
+    @objc
+    func createSideBar() {
+        
+        /* hide favorites if user is not logged in */
+        let user = UserModel.sharedInstance
+        
+        var mainOptions = ["Meine Deals", "Favoriten", "Endet bald", "Filter definieren"]
+        var mainDestinations = ["HomeVC", "DealTemplateVC", "DealTemplateVC", "FilterIntroVC"]
+        var mainDeals = [nil, DealType.Favoriten, DealType.Endet_Bald, DealType.Filter_Definieren]
+        
+        if !user.logined {
+            mainOptions = ["Meine Deals", "Endet bald", "Filter definieren"]
+            mainDestinations = ["HomeVC", "DealTemplateVC", "FilterIntroVC"]
+            mainDeals = [nil, DealType.Endet_Bald, DealType.Filter_Definieren]
+        }
+        
+        let navBar = self.navigationController as! SFSidebarNavigationController
+        
+        navBar.menuOptions = [
+            SFSidebarItem(
+                section: "MEINE DEALS (mit Filter)",
+                option: mainOptions,
+                destination: mainDestinations,
+                deal: mainDeals),
+            SFSidebarItem(
+                section: "ALLE DEALS (ohne Filter)",
+                option: ["Alle Deals", "Ohne Login", "GOLD Deals", "PLATIN Deals"],
+                destination: ["DealTemplateVC", "DealTemplateVC", "DealTemplateVC", "DealTemplateVC"],
+                deal: [DealType.Alle, DealType.Ohne_Login, DealType.Gold_Highlights, DealType.Platin_Highlights]),
+            SFSidebarItem(
+                section: "REISEINFOS UND TESTS",
+                option: ["Destinations-Profile", "Airline-Profile", "Hoteltests", "Flughafen Lounges"],
+                destination: ["ProfileAndTestsVC", "ProfileAndTestsVC", "ProfileAndTestsVC", "ProfileAndTestsVC"],
+                deal: nil),
+            //            SFSidebarItem(
+            //                section: "REISEINFOS UND TESTS",
+            //                option: ["Destinations-Profile", "Stadt-Profile", "Airline-Profile", "Airlinetests", "Hoteltests", "Loungetests"],
+            //                destination: ["SafariVC", "SafariVC", "SafariVC", "SafariVC", "SafariVC", "SafariVC"],
+            //                deal: nil),
+            SFSidebarItem(
+                section: "Einstellungen".uppercased(),
+                option: ["Push-Benachrichtigungen", "Promotions"],
+                destination: ["SettingsVC", "WebrungVC"],
+                deal: nil),
+            SFSidebarItem(
+                section: "FIRST CLASS & MORE",
+                option: ["Über uns", "Newsletter", "Facebook", "Instagram", "Kontakt", "AGB", "Datenschutzerklärung"],
+                destination: ["WebVC", "WebVC", "WebVC", "WebVC", "WebVC", "AgbVC", "DatenVC"],
+                deal: nil)
+        ]
+        
+        // to hide favorites or not
+        if let _ = meineDealsView {
+            
+            meineDealsView.reloadOptions()
+            
+        }
     }
     
     // MARK: - UI Development

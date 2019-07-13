@@ -9,7 +9,7 @@
 import UIKit
 
 private enum Constants {
-	static let dealsCount = 9
+	static let dealsCount = 8
 	static let columns = 3
 	static let rows = 3
 }
@@ -80,21 +80,34 @@ extension SFHomeMeineDealsView: UICollectionViewDataSource, UICollectionViewDele
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return Constants.dealsCount
+        if UserModel.sharedInstance.logined {
+            return Constants.dealsCount + 1
+        }
+        
+        return Constants.dealsCount
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SFHomeMeineDealsItemCell", for: indexPath) as! SFHomeMeineDealsItemCell
+        
+        var offset = 0
+        
+        var dealType = DealType(rawValue: indexPath.row) ?? .Alle
+        
+        if(indexPath.row != 0 && !UserModel.sharedInstance.logined && indexPath.row < Constants.dealsCount) {
+            dealType = DealType(rawValue: indexPath.row + 1) ?? .Alle
+            offset += 1
+        }
 		
 		var image: UIImage?
 		switch dealState {
 		case .blue:
-			image = UIImage(named: "Deals\(indexPath.row)")
+			image = UIImage(named: "Deals\(indexPath.row + offset)")
 		case .gold:
-			image = UIImage(named: "Deals\(indexPath.row)-gold")
+			image = UIImage(named: "Deals\(indexPath.row + offset)-gold")
 		}
 		
-		let dealType = DealType(rawValue: indexPath.row) ?? .Alle
+		
 		cell.dealTitleLabel.text = DealType.printEnumValue(oFDealType: dealType).uppercased()
 		cell.dealImageView.image = image
 		cell.dealType = dealType
@@ -103,7 +116,14 @@ extension SFHomeMeineDealsView: UICollectionViewDataSource, UICollectionViewDele
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		guard let type = DealType(rawValue: indexPath.row) else { return }
+        
+        var offset = 0
+        
+        if(indexPath.row != 0 && !UserModel.sharedInstance.logined && indexPath.row < Constants.dealsCount) {
+            offset += 1
+        }
+        
+		guard let type = DealType(rawValue: indexPath.row + offset) else { return }
 		delegate?.meineDealItemTapped(with: type)
 	}
 	
@@ -130,4 +150,10 @@ extension SFHomeMeineDealsView: UICollectionViewDataSource, UICollectionViewDele
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 		return marginX
 	}
+    
+    func reloadOptions() {
+        
+        dealsCollectionView?.reloadData()
+        
+    }
 }

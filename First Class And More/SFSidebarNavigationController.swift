@@ -385,6 +385,8 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
         }
         showPopupDialog(message: "Sie haben sich ausgeloggt", cancelBtn: false)
         
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "user_logged_out"), object: nil)
+        
         FiltersHelper.resetAllFilters()
     }
     

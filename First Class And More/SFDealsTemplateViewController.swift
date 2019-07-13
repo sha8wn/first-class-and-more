@@ -548,12 +548,28 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         cell.dealsDescription.text = deal.teaser
         cell.dealsTierRibbon.image = deal.premium.ribbon
         cell.dealsTierRibbon.isHidden = deal.premium.ribbon == nil
-        if let dealId = deal.id {
-            let favorites = UserModel.sharedInstance.favorites
-            let favoriteBtnImage = favorites.contains(dealId) ? #imageLiteral(resourceName: "FavoriteButtonRed") : #imageLiteral(resourceName: "FavoriteButtonWhite")
-            cell.favoriteButtonOutlet.setImage(favoriteBtnImage, for: .normal)
+        
+        let user = UserModel.sharedInstance
+        
+        if user.logined {
+            
+            cell.favoriteButtonOutlet.isHidden = false
+            
+            if let dealId = deal.id {
+                let favorites = UserModel.sharedInstance.favorites
+                let favoriteBtnImage = favorites.contains(dealId) ? #imageLiteral(resourceName: "FavoriteButtonRed") : #imageLiteral(resourceName: "FavoriteButtonWhite")
+                cell.favoriteButtonOutlet.setImage(favoriteBtnImage, for: .normal)
+            }
+            cell.favoriteBtnAction = favoriteBtnAction
+            
         }
-        cell.favoriteBtnAction = favoriteBtnAction
+        else {
+            
+            cell.favoriteButtonOutlet.isHidden = true
+            
+        }
+        
+        
         return cell
     }
     
