@@ -196,33 +196,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let lastDate = defaults.object(forKey: kUDAdsLastDownloadDate) as? Date ?? calendar.date(byAdding: .day, value: -1, to: Date())!
         if calendar.isDateInYesterday(lastDate) {
             // load new ads
-            Server.shared.getAdvertisements() { advertisements, error in
-                if let ads = advertisements as? [AdvertisementModel] {
-                    // save new ads and current load time
-                    let adsManager = AdvertisementsManager.sharedInstance
-                    adsManager.advertisements = ads
-                    let data = NSKeyedArchiver.archivedData(withRootObject: adsManager)
-                    defaults.set(data, forKey: kUDSharedAdvertisementsManager)
-                    let now = Date()
-                    defaults.set(now, forKey: kUDAdsLastDownloadDate)
-                    defaults.synchronize()
-                    // load ad images
-                    for ad in ads {
-                        let urlString = ad.imageUrl
-                        if let url = URL(string: urlString) {
-                            let destination: DownloadRequest.DownloadFileDestination = { _, _ in
-                                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                                let fileURL = documentsURL.appendingPathComponent("ads/\(url.lastPathComponent)")
-                                return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
-                            }
-                            _ = Alamofire.download(urlString, to: destination)
+            
+        }
+        
+        Server.shared.getAdvertisements() { advertisements, error in
+            if let ads = advertisements as? [AdvertisementModel] {
+                // save new ads and current load time
+                let adsManager = AdvertisementsManager.sharedInstance
+                adsManager.advertisements = ads
+                let data = NSKeyedArchiver.archivedData(withRootObject: adsManager)
+                defaults.set(data, forKey: kUDSharedAdvertisementsManager)
+                let now = Date()
+                defaults.set(now, forKey: kUDAdsLastDownloadDate)
+                defaults.synchronize()
+                // load ad images
+                for ad in ads {
+                    let urlString = ad.imageUrl
+                    if let url = URL(string: urlString) {
+                        let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+                            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                            let fileURL = documentsURL.appendingPathComponent("ads/\(url.lastPathComponent)")
+                            return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
                         }
+                        _ = Alamofire.download(urlString, to: destination)
                     }
-                    // start timer
-                    self.restartTimer()
                 }
+                // start timer
+                self.restartTimer()
+                return
             }
         }
+        
         // start timer
         restartTimer()
     }

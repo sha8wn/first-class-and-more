@@ -157,7 +157,7 @@ class SFSidebarView: UIView
         
         tutorialButton = UIButton(type: .custom)
         tutorialButton.frame = CGRect(x: 0.0, y: userContainer.frame.height - 40.0 - 8.0, width: userContainer.frame.width, height: 40.0)
-        tutorialButton.backgroundColor = fcamBlue
+        tutorialButton.backgroundColor = fcamGold
         tutorialButton.setTitle("Tutorial".uppercased(), for: .normal)
         tutorialButton.setImage(#imageLiteral(resourceName: "help"), for: .normal)
         tutorialButton.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)

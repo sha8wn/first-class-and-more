@@ -32,6 +32,11 @@ class RegisterViewController: UIViewController {
 
     var state: Int?
     var wantSubscribe: Bool = true
+    
+    lazy var forgotPasswordVC: ForgotPasswordViewController = {
+        
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ForgotPasswordVC") as! ForgotPasswordViewController
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +82,13 @@ class RegisterViewController: UIViewController {
         self.newsletterTermsTextView.attributedText = self.buildTermsString(with: "ANMELDEN")
         self.premiumTermsTextView.attributedText = self.buildTermsString(with: "EINLOGGEN")
     }
+    
+    @IBAction func forgotPassword() {
+        
+        self.present(forgotPasswordVC, animated: true, completion: nil)
+        
+    }
+    
 
     @IBAction func manRadioBtnPressed() {
         state = 1

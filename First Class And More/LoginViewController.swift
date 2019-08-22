@@ -33,8 +33,8 @@ class LoginViewController: SFSidebarViewController {
         setupNotifications()
         setupUI()
         // REMOVE LATER
-        emailTextField.text = "jani2003@gmail.com"
-        passwordTextField.text = "123456"
+        /*emailTextField.text = "jani2003@gmail.com"
+        passwordTextField.text = "654321!"*/
     }
     
     override func viewWillAppear(_ animated: Bool) {

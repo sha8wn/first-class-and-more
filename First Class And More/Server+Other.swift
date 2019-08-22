@@ -73,16 +73,21 @@ extension Server {
             print(#file, #line, response.response ?? "")
             print(#file, #line, response.request ?? "")
             print(#file, #line, response.result.value?.response?.status ?? "")
+            
             if let advertisements = responseValue?.data {
                 print(#file, #line, advertisements)
                 сompletion(advertisements, nil)
                 return
             }
-            if let error = responseValue?.message {
+            else if responseValue?.data == nil {
+                print(#file, #line, [])
+                сompletion([AdvertisementModel](), nil)
+                return
+            }
+            else if let error = responseValue?.message {
                 сompletion(nil, .custom(error))
                 return
             }
-            сompletion(nil, .cantGetAdvertisements)
         }
     }
     

@@ -12,8 +12,16 @@ class ForgotPasswordViewController: SFSidebarViewController {
     
     let screen = UIScreen.main.bounds
     lazy var actualViewHeight: CGFloat = {
-        return self.screen.height - self.navigationController!.navigationBar.frame.size.height -
-            UIApplication.shared.statusBarFrame.size.height
+        
+        var navBarHeight = CGFloat(0.0)
+        
+        if self.navigationController != nil {
+            
+            navBarHeight = self.navigationController!.navigationBar.frame.size.height
+            
+        }
+        
+        return self.screen.height - navBarHeight - UIApplication.shared.statusBarFrame.size.height
     }()
     
     var titleLabel: UILabel!
@@ -44,6 +52,9 @@ class ForgotPasswordViewController: SFSidebarViewController {
     @objc func backBtnPressed() {
         if let navigationVC = navigationController as? SFSidebarNavigationController {
             navigationVC.setViewControllers([navigationVC.loginVC], animated: true)
+        }
+        else {
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -160,6 +171,20 @@ class ForgotPasswordViewController: SFSidebarViewController {
                                     message: "Passwort zurücksetzen Anleitung per Mail gesendet",
                                     cancelBtn: false
                                 )
+                            }
+                            else {
+                                
+                                if let premiumVC = self.presentingViewController as? RegisterViewController {
+                                    
+                                    premiumVC.showPopupDialog(
+                                        title: "Erfolg",
+                                        message: "Passwort zurücksetzen Anleitung per Mail gesendet",
+                                        cancelBtn: false
+                                    )
+                                    
+                                }
+                                self.dismiss(animated: true, completion: nil)
+                                
                             }
                         }
                     }

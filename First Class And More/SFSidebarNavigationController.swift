@@ -347,6 +347,15 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
             debugPrint("tutorial.mp4 not found")
             return
         }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            self.sidebarContainer.frame.origin.x = -(UIApplication.shared.keyWindow?.frame.size.width)!
+            
+        }, completion: { (finished: Bool) in
+            
+        })
+        
         try! AVAudioSession.sharedInstance().setCategory(.playback)
         let player = AVPlayer(url: URL(fileURLWithPath: path))
         let playerController = AVPlayerViewController()
