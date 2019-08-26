@@ -45,8 +45,17 @@ class ForgotPasswordViewController: SFSidebarViewController {
         backBtn.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
         backBtn.setImage(#imageLiteral(resourceName: "backBtn"), for: .normal)
         backBtn.addTarget(self, action: #selector(backBtnPressed), for: .touchUpInside)
-        let backBarBtnItem = UIBarButtonItem(customView: backBtn)
-        navigationItem.setLeftBarButton(backBarBtnItem, animated: false)
+        
+        if self.navigationController != nil {
+            let backBarBtnItem = UIBarButtonItem(customView: backBtn)
+            navigationItem.setLeftBarButton(backBarBtnItem, animated: false)
+        }
+        else {
+            backBtn.frame = CGRect(x: 16, y: 16, width: 24, height: 24)
+            view.addSubview(backBtn)
+        }
+        
+        
     }
     
     @objc func backBtnPressed() {
@@ -152,7 +161,7 @@ class ForgotPasswordViewController: SFSidebarViewController {
     @objc  func sendBtnPressed() {
         guard let email = emailTextField.text else { return }
         if email.isEmpty {
-            showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "E-Mail fehlt!")
+            showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "E-Mail fehlt!", cancelBtn: false)
             return
         }
         if isConnectedToNetwork(repeatedFunction: sendBtnPressed) {
@@ -161,7 +170,7 @@ class ForgotPasswordViewController: SFSidebarViewController {
                 DispatchQueue.main.async {
                     self.stopLoading()
                     if error != nil {
-                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "Diese E-Mail Adresse ist nicht bei uns registriert", cancelBtn: false)
                     } else {
                         if let success = success as? Bool, success {
                             if let navigationVC = self.navigationController as? SFSidebarNavigationController {
@@ -176,11 +185,7 @@ class ForgotPasswordViewController: SFSidebarViewController {
                                 
                                 if let premiumVC = self.presentingViewController as? RegisterViewController {
                                     
-                                    premiumVC.showPopupDialog(
-                                        title: "Erfolg",
-                                        message: "Passwort zurücksetzen Anleitung per Mail gesendet",
-                                        cancelBtn: false
-                                    )
+                                    premiumVC.forgotPasswordSuccess = true
                                     
                                 }
                                 self.dismiss(animated: true, completion: nil)

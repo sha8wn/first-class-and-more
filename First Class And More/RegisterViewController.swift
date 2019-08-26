@@ -27,6 +27,8 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var premiumEmailTextField: UITextField!
     @IBOutlet weak var premiumPasswordTextField: UITextField!
     @IBOutlet weak var premiumTermsTextView: UITextView!
+    
+    var forgotPasswordSuccess = false
 
     var type: RegisterType?
 
@@ -41,6 +43,19 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if forgotPasswordSuccess {
+            forgotPasswordSuccess = false
+            
+            showPopupDialog(
+                title: "Erfolg",
+                message: "Passwort zurücksetzen Anleitung per Mail gesendet",
+                cancelBtn: false
+            )
+        }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -86,7 +101,6 @@ class RegisterViewController: UIViewController {
     @IBAction func forgotPassword() {
         
         self.present(forgotPasswordVC, animated: true, completion: nil)
-        
     }
     
 
