@@ -14,4 +14,7 @@ target 'First Class And More' do
   pod 'PopupDialog', '~> 1.1.0'
   pod 'DZNEmptyDataSet'
   pod 'SwiftyGif'
+  # Add the pod for Firebase Cloud Messaging
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
 end

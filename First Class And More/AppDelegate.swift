@@ -10,9 +10,10 @@ import UIKit
 import Alamofire
 import AlamofireNetworkActivityLogger
 import UserNotifications
+import Firebase
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
     var window: UIWindow?
     var reach: Reachability?
@@ -30,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         getSettings()
         getAdvertisements()
         setupAppearance()
-        setupPushNotifications()
+        setupPushNotifications(application)
 		loadInitialScreen()
         checkForAvailableUpdate()
         return true
@@ -305,8 +306,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         ]
     }
     
-    func setupPushNotifications() {
-        let center = UNUserNotificationCenter.current()
+    func setupPushNotifications(_ application: UIApplication) {
+        /*let center = UNUserNotificationCenter.current()
         center.delegate = self
         center.requestAuthorization(options: [.sound, .alert, .badge]) { granted, error in
             if error == nil {
@@ -315,18 +316,70 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
             }
         }
+        UIApplication.shared.applicationIconBadgeNumber = 0*/
+        
+        // Use Firebase library to configure APIs
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        Messaging.messaging().isAutoInitEnabled = true
+        
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        
+        application.registerForRemoteNotifications()
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        
+        print("---------------------------------------")
+        print("fcmToken===\(fcmToken)")
+        print("---------------------------------------")
+        
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print(error)
+        print(#file, #line, error.localizedDescription)
+    }
+    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
         let deviceTokenString = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         print(#line, "token", deviceTokenString)
         UserDefaults.standard.set(deviceTokenString, forKey: kUDDevicePushToken)
         updatePushNotificationSettings()
+        print("---------------------------------------")
+        print("APNs device token: \(deviceTokenString)")
+        print("---------------------------------------")
     }
     
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print(#file, #line, error.localizedDescription)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        let userInfo = response.notification.request.content.userInfo
+        print(userInfo)
+        Deeplinker.handleRemoteNotification(userInfo)
+        if UIApplication.shared.applicationState != .background {
+            Deeplinker.checkDeepLink()
+        }
+        
+        completionHandler()
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
@@ -335,19 +388,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         Deeplinker.handleRemoteNotification(userInfo)
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .badge, .sound])
-    }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let userInfo = response.notification.request.content.userInfo
-        Deeplinker.handleRemoteNotification(userInfo)
-        if UIApplication.shared.applicationState != .background {
-            Deeplinker.checkDeepLink()
-        }
-        completionHandler()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

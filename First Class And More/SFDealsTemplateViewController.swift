@@ -74,8 +74,10 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         titleLabel.type = .Heading
         titleLabel.textColor = fcamBlue
         title = DealType.printEnumValue(oFDealType: dealType)
-        titleLabel.text = title
+        titleLabel.text = title?.removeWhitespace()
         titleLabel.sizeToFit()
+        
+        print(title!)
         
         let titleViewWidth = UIScreen.main.bounds.width
         var currentX = (titleViewWidth - titleLabel.frame.size.width) / 2
