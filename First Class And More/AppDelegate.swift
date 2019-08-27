@@ -404,6 +404,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         timerFrequency = Double(timerSettings.firstAd)
         restartTimer()
+        UIApplication.shared.applicationIconBadgeNumber = 0
         let condition = reach!.isReachableViaWiFi() || reach!.isReachableViaWWAN()
         if condition {
             checkUserToken()

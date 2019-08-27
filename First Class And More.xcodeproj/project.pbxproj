@@ -96,13 +96,13 @@
 		2B53C58F1E5E49F800980353 /* SFSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B53C58E1E5E49F800980353 /* SFSidebarView.swift */; };
 		2B53C5931E5E5B3600980353 /* SFTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B53C5921E5E5B3600980353 /* SFTableView.swift */; };
 		2B63191D2314574100F64075 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B63191C2314574100F64075 /* String+Extension.swift */; };
+		2B63191F23151AA800F64075 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B63191E23151AA700F64075 /* GoogleService-Info.plist */; };
 		2B9777061E5F8E0B00760821 /* SFSidebarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9777051E5F8E0B00760821 /* SFSidebarItem.swift */; };
 		2B9777081E6038BF00760821 /* SFSidebarTableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9777071E6038BF00760821 /* SFSidebarTableViewCells.swift */; };
 		2B97770C1E60F6A800760821 /* SFDealsTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97770B1E60F6A800760821 /* SFDealsTemplateViewController.swift */; };
 		2B97770E1E619BD300760821 /* SFSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97770D1E619BD300760821 /* SFSettingsViewController.swift */; };
 		2B9777201E61A86000760821 /* SevenSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97771F1E61A86000760821 /* SevenSwitch.swift */; };
 		2BBD153822C3DA60008D882C /* SFQLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD153722C3DA60008D882C /* SFQLPreviewController.swift */; };
-		2BFC8A1123144CFD00EC5BEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2BFC8A1023144CFD00EC5BEE /* GoogleService-Info.plist */; };
 		DD00285E225516290084F851 /* TPKeyboardAvoidingSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD00285D225516290084F851 /* TPKeyboardAvoidingSwift.swift */; };
 		DD1C4E9B224AA5BC00E88513 /* FiltersHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1C4E9A224AA5BC00E88513 /* FiltersHelper.swift */; };
 		DD3030C521F9A5AB00CEBF5E /* InfiniteScrollingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3030C421F9A5AB00CEBF5E /* InfiniteScrollingBehaviour.swift */; };
@@ -249,13 +249,13 @@
 		2B53C58E1E5E49F800980353 /* SFSidebarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFSidebarView.swift; sourceTree = "<group>"; };
 		2B53C5921E5E5B3600980353 /* SFTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFTableView.swift; sourceTree = "<group>"; };
 		2B63191C2314574100F64075 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		2B63191E23151AA700F64075 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2B9777051E5F8E0B00760821 /* SFSidebarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFSidebarItem.swift; sourceTree = "<group>"; };
 		2B9777071E6038BF00760821 /* SFSidebarTableViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFSidebarTableViewCells.swift; sourceTree = "<group>"; };
 		2B97770B1E60F6A800760821 /* SFDealsTemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFDealsTemplateViewController.swift; sourceTree = "<group>"; };
 		2B97770D1E619BD300760821 /* SFSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFSettingsViewController.swift; sourceTree = "<group>"; };
 		2B97771F1E61A86000760821 /* SevenSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SevenSwitch.swift; sourceTree = "<group>"; };
 		2BBD153722C3DA60008D882C /* SFQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFQLPreviewController.swift; sourceTree = "<group>"; };
-		2BFC8A1023144CFD00EC5BEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		80C5821C082E61AFC2B8FDE7 /* Pods-First Class And More.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-First Class And More.release.xcconfig"; path = "Pods/Target Support Files/Pods-First Class And More/Pods-First Class And More.release.xcconfig"; sourceTree = "<group>"; };
 		BD61347CD6FD3F055D01102D /* Pods_First_Class_And_More.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_First_Class_And_More.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A03123CA479174DC5E9397 /* Pods-First Class And More.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-First Class And More.debug.xcconfig"; path = "Pods/Target Support Files/Pods-First Class And More/Pods-First Class And More.debug.xcconfig"; sourceTree = "<group>"; };
@@ -595,7 +595,7 @@
 		2B53C53A1E5B114400980353 /* Configs & Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				2BFC8A1023144CFD00EC5BEE /* GoogleService-Info.plist */,
+				2B63191E23151AA700F64075 /* GoogleService-Info.plist */,
 				2B4ED3FA1E48837B00B086A9 /* Info.plist */,
 				276E917C1EAA36A300BFE07D /* First Class And More.entitlements */,
 				2B4ED3EE1E48837B00B086A9 /* AppDelegate.swift */,
@@ -1070,7 +1070,7 @@
 				E624960F20442A8900514C34 /* step-7.gif in Resources */,
 				2B53C5651E5B80DE00980353 /* roboto.thin-italic.ttf in Resources */,
 				2B53C5591E5B80DE00980353 /* roboto-condensed.light.ttf in Resources */,
-				2BFC8A1123144CFD00EC5BEE /* GoogleService-Info.plist in Resources */,
+				2B63191F23151AA800F64075 /* GoogleService-Info.plist in Resources */,
 				2B53C55B1E5B80DE00980353 /* roboto.black-italic.ttf in Resources */,
 				2B53C55F1E5B80DE00980353 /* roboto.italic.ttf in Resources */,
 				E624961420442A8900514C34 /* step-9.gif in Resources */,
