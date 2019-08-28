@@ -12,7 +12,7 @@ import SwiftyJSON
 
 enum RouterUser: URLRequestConvertible {
     case getPasswordSalt(email: String)
-    case login(email: String, password: String, devicePushToken: String)
+    case login(email: String, password: String, devicePushToken: String, fcmToken: String)
     case register(state: Int, email: String, surname: String, wantSubscribe: Bool)
     case checkSubscriber(email: String)
     case forgotPassword(email: String)
@@ -36,11 +36,12 @@ enum RouterUser: URLRequestConvertible {
                 return [
                     "login": email
                 ]
-            case .login(let email, let password, let devicePushToken):
+            case .login(let email, let password, let devicePushToken, let fcmToken):
                 return [
                     "login": email,
                     "password": password,
-                    "device": devicePushToken
+                    "device": devicePushToken,
+                    "fcm_token": fcmToken
                 ]
             case .register(let state, let email, let surname, let wantSubscribe):
                 return [

@@ -347,6 +347,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print("---------------------------------------")
         print("fcmToken===\(fcmToken)")
         print("---------------------------------------")
+        UserDefaults.standard.set(fcmToken, forKey: kUDFCMToken)
+        updatePushNotificationSettings()
         
     }
     

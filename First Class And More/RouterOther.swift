@@ -12,11 +12,11 @@ import SwiftyJSON
 
 enum RouterOther: URLRequestConvertible {
     case getSliderData(token: String)
-    case updatePushNotificationSettings(setting: Int, token: String, deviceToken: String)
+    case updatePushNotificationSettings(setting: Int, token: String, deviceToken: String, fcmToken: String)
     case getAdvertisements(token: String)
     case getProfilesAndTests(token: String, id: Int, page: Int)
     case subscribeNewsletter(email: String)
-    case changeAdsSettings(ads: Int, pushToken: String)
+    case changeAdsSettings(ads: Int, pushToken: String, fcmToken: String)
     case sendMessage(email: String, title: String, name: String, surname: String, subject: String, message: String)
     
     var method: HTTPMethod {
@@ -34,11 +34,12 @@ enum RouterOther: URLRequestConvertible {
                 return [
                     "token": token
                 ]
-            case .updatePushNotificationSettings(let setting, let token, let deviceToken):
+            case .updatePushNotificationSettings(let setting, let token, let deviceToken, let fcmToken):
                 return [
                     "noti": setting,
                     "token": token,
-                    "device": deviceToken
+                    "device": deviceToken,
+                    "fcm_Token":fcmToken,
                 ]
             case .getProfilesAndTests(let token, let id, let page):
                 return [
@@ -51,10 +52,11 @@ enum RouterOther: URLRequestConvertible {
                     "email": email
                 ]
                 return params
-            case .changeAdsSettings(let ads, let pushToken):
+            case .changeAdsSettings(let ads, let pushToken, let fcmToken):
                 return [
                     "ads": ads,
-                    "device": pushToken
+                    "device": pushToken,
+                    "fcm_Token":fcmToken
                 ]
         case .sendMessage(let email, let title, let name, let surname, let subject, let message):
             return [

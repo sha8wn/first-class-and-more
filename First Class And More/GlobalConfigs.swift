@@ -57,6 +57,7 @@ enum DealType: Int
 // user defaults keys
 let kUDApplicationLaunched          = "Was applicatio launched?"
 let kUDDevicePushToken              = "Device push token identifier"
+let kUDFCMToken                     = "Firbase Token"
 let kUDSharedUserModel              = "Shared user model identifier"
 let kUDUserRegistered               = "userRegistered"
 let kUDSharedAdvertisementsManager  = "Shared advertisement manager model"

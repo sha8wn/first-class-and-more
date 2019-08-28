@@ -39,11 +39,12 @@ extension Server {
     func updatePushNotificationSettings(setting: Int, сompletion: @escaping Completion) {
         let token = UserModel.sharedInstance.token
         let deviceToken = UserDefaults.standard.string(forKey: kUDDevicePushToken) ?? "55f23078281e424a6a8c410de53205455c088e4aad32bdecfa3bcce981d1bf86"
+        let fcmToken = UserDefaults.standard.string(forKey: kUDFCMToken) ?? ""
         guard !deviceToken.isEmpty else {
             сompletion(nil, .pushNotificationsAreDisabled)
             return
         }
-        let updatePushNotificationSettingsURL = RouterOther.updatePushNotificationSettings(setting: setting, token: token, deviceToken: deviceToken)
+        let updatePushNotificationSettingsURL = RouterOther.updatePushNotificationSettings(setting: setting, token: token, deviceToken: deviceToken, fcmToken: fcmToken)
         Alamofire.request(updatePushNotificationSettingsURL).responseObject { (response: DataResponse<StringResponse>) in
             let responseValue = response.result.value
             print(#file, #line, responseValue?.data ?? "")
@@ -131,7 +132,8 @@ extension Server {
     
     func changeAdsSettings(_ ads: Int, сompletion: @escaping Completion) {
         let pushToken = UserDefaults.standard.string(forKey: kUDDevicePushToken) ?? "55f23078281e424a6a8c410de53205455c088e4aad32bdecfa3bcce981d1bf86"
-        let changeAdsSettingsURL = RouterOther.changeAdsSettings(ads: ads, pushToken: pushToken)
+        let fcmToken = UserDefaults.standard.string(forKey: kUDFCMToken) ?? ""
+        let changeAdsSettingsURL = RouterOther.changeAdsSettings(ads: ads, pushToken: pushToken, fcmToken: fcmToken)
         Alamofire.request(changeAdsSettingsURL).responseObject { (response: DataResponse<StringResponse>) in
             let responseValue = response.result.value
             print(#file, #line, response.request ?? "")

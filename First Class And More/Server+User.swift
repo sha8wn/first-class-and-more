@@ -41,9 +41,9 @@ extension Server {
     func login(email: String, password: String, salt: String, сompletion: @escaping Completion) {
         let defaults = UserDefaults.standard
         let devicePushToken = defaults.string(forKey: kUDDevicePushToken) ?? "55f23078281e424a6a8c410de53205455c088e4aad32bdecfa3bcce981d1bf86"
-        // md5($pwd.$salt).':'.$salt
+        let fcmToken = UserDefaults.standard.string(forKey: kUDFCMToken) ?? ""
         let newPassword = "\("\(password)\(salt)".md5):\(salt)"
-        let loginURL = RouterUser.login(email: email, password: newPassword, devicePushToken: devicePushToken)
+        let loginURL = RouterUser.login(email: email, password: newPassword, devicePushToken: devicePushToken, fcmToken: fcmToken)
         Alamofire.request(loginURL).responseObject { (response: DataResponse<StringResponse>) in
             let responseValue = response.result.value
             print(#file, #line, responseValue?.data ?? "")
