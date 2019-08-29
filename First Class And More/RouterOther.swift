@@ -39,7 +39,7 @@ enum RouterOther: URLRequestConvertible {
                     "noti": setting,
                     "token": token,
                     "device": deviceToken,
-                    "fcm_Token":fcmToken,
+                    "fcm_token":fcmToken,
                 ]
             case .getProfilesAndTests(let token, let id, let page):
                 return [
@@ -56,7 +56,7 @@ enum RouterOther: URLRequestConvertible {
                 return [
                     "ads": ads,
                     "device": pushToken,
-                    "fcm_Token":fcmToken
+                    "fcm_token":fcmToken
                 ]
         case .sendMessage(let email, let title, let name, let surname, let subject, let message):
             return [
