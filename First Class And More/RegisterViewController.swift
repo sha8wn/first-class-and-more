@@ -164,6 +164,7 @@ class RegisterViewController: UIViewController {
                             let title = "Herzlich willkommen bei der First Class & More App!"
                             let message = "Wenn Sie erfahren möchten, wie die App genau funktioniert, dann wählen Sie im Menü bitte das Tutorial aus."
                             self.showPopupDialog(title: title, message: message) {
+                                UserDefaults.standard.set(true, forKey: kUDUserRegistered)
                                 self.performSegue(withIdentifier: "showHome", sender: nil)
                             }
                         }
@@ -206,6 +207,7 @@ class RegisterViewController: UIViewController {
                     
                     if status == 1 {
                         UserModel.sharedInstance.isSubscribed = true
+                        UserDefaults.standard.set(true, forKey: kUDUserRegistered)
                         self.performSegue(withIdentifier: "showHome", sender: nil)
                     } else if status == 2 {
                         self.type = .premium

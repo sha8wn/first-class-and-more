@@ -74,7 +74,8 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         titleLabel.type = .Heading
         titleLabel.textColor = fcamBlue
         title = DealType.printEnumValue(oFDealType: dealType)
-        titleLabel.text = title?.removeWhitespace()
+        titleLabel.text = title?.removeWhitespace().replace(string: "-", replacement: "")
+        
         titleLabel.sizeToFit()
         
         print(title!)
@@ -103,7 +104,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         
         switch dealType {
             case .Flüge, .Hotels, .Vielflieger_Status:
-                if UserModel.sharedInstance.membership == .diamont {
+                if UserModel.sharedInstance.membership == .diamont ||  UserModel.sharedInstance.membership == .platin {
                     destinationsBtn = UIButton(type: .custom)
                     let image = (destinations?.filter({ !$0.selected }).isEmpty ?? true) ? #imageLiteral(resourceName: "globe_gold") : #imageLiteral(resourceName: "globe")
                     destinationsBtn!.setImage(image, for: .normal)
