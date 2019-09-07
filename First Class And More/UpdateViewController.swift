@@ -36,7 +36,7 @@ class UpdateViewController: UIViewController {
     }
 
     @IBAction func updateBtnPressed() {
-        if let url = URL(string: "itms-apps://itunes.apple.com/ua/app/vlc-for-mobile/id650377962?mt=8"),
+        if let url = URL(string: "itms-apps://itunes.apple.com/app/first-class-more-reisedeals/id1474514915"),
             UIApplication.shared.canOpenURL(url) {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
