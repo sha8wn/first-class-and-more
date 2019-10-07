@@ -802,7 +802,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Autorisierungscode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcW-9P-gQh">
-                                        <rect key="frame" x="104.5" y="70" width="138" height="21"/>
+                                        <rect key="frame" x="104.5" y="70" width="138.5" height="21"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.37647058820000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>

@@ -18,10 +18,11 @@ enum RouterOther: URLRequestConvertible {
     case subscribeNewsletter(email: String)
     case changeAdsSettings(ads: Int, pushToken: String, fcmToken: String)
     case sendMessage(email: String, title: String, name: String, surname: String, subject: String, message: String)
+    case getAppVersion(token: String)
     
     var method: HTTPMethod {
         switch self {
-            case .getSliderData, .getAdvertisements, .getProfilesAndTests:
+            case .getSliderData, .getAdvertisements, .getProfilesAndTests, .getAppVersion:
                 return .get
         case .updatePushNotificationSettings, .subscribeNewsletter, .changeAdsSettings, .sendMessage:
                 return .post
@@ -30,7 +31,7 @@ enum RouterOther: URLRequestConvertible {
     
     var params: Parameters {
         switch self {
-            case .getSliderData(let token), .getAdvertisements(let token):
+            case .getSliderData(let token), .getAdvertisements(let token), .getAppVersion(let token):
                 return [
                     "token": token
                 ]
@@ -86,6 +87,8 @@ enum RouterOther: URLRequestConvertible {
             return "/ad-settings"
         case .sendMessage:
             return "/contact-request"
+        case .getAppVersion:
+            return "/app-version/"
         }
     }
     

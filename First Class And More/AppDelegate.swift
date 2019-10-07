@@ -62,15 +62,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(identifier)") else {
                 throw VersionError.invalidBundleInfo
         }
+        print("url: ", url)
         print("current version", currentVersion)
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             do {
                 if let error = error { throw error }
                 guard let data = data else { throw VersionError.invalidResponse }
+                print()
                 let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments]) as? [String: Any]
+                print(json)
                 guard let result = (json?["results"] as? [Any])?.first as? [String: Any], let version = result["version"] as? String else {
                     throw VersionError.invalidResponse
                 }
+                print(result["version"])
                 completion(version != currentVersion, nil)
             } catch {
                 completion(nil, error)
@@ -264,6 +268,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     defaults.set(data, forKey: kUDSharedAdvertisementsManager)
                     defaults.synchronize()
                     timer?.invalidate()
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "promotionWillDisplay"), object: nil)
                     topController.present(adViewController, animated: true, completion: nil)
                 }
             }

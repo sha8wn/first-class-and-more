@@ -24,6 +24,7 @@ class DeeplinkNavigator {
             }
             navigationController.webVC.urlString = url
             navigationController.setViewControllers([navigationController.webVC], animated: true)
+        
         case .appLogin:
             guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? SFSidebarNavigationController else { return }
             navigationController.loginVC.shouldReturn = true

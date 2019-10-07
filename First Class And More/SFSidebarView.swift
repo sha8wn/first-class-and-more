@@ -141,6 +141,8 @@ class SFSidebarView: UIView
         userJoinLabel.isHidden = !logined
         userJoinLabel.text = "bis \(user.membershipExpires.date(format: "yyyy-MM-dd")?.string(format: "dd. MMMM yyyy") ?? "")"
         
+        
+        
         currentY += userTierLabel.frame.size.height + 6
         
         loginLogoutButton = UIButton(frame: CGRect(x: currentX, y: currentY, width: 70, height: CGFloat(40)))
@@ -176,6 +178,19 @@ class SFSidebarView: UIView
         
         userContainer.addSubview(userTierImage)
         userContainer.addSubview(expandImageView)
+        
+        
+        if let _ = user.membershipExpires.date(format: "yyyy-MM-dd") {
+            if user.membershipExpires.date(format: "yyyy-MM-dd")! < Date() {
+                
+                let expireOverlay = UIView(frame: userTierImage.frame)
+                expireOverlay.backgroundColor = .white
+                expireOverlay.alpha = 0.65
+                userContainer.addSubview(expireOverlay)
+            }
+        }
+        
+        
         userContainer.addSubview(userNameLabel)
         userContainer.addSubview(userTierLabel)
         userContainer.addSubview(userJoinLabel)

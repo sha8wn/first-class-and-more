@@ -171,4 +171,14 @@ extension Server {
             сompletion(nil, .custom("Vorgang konnte nicht abgeschlossen werden. Versuche es erneut."))
         }
     }
+    
+    func getAppVersion(сompletion: @escaping Completion)
+    {
+        let route = RouterOther.getAppVersion(token: "")
+        Alamofire.request(route).responseObject { (response: DataResponse<StringResponse>) in
+            
+            сompletion(nil, .custom("Vorgang konnte nicht abgeschlossen werden. Versuche es erneut."))
+            
+        }
+    }
 }

@@ -22,9 +22,17 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
     
     var pageLoaded: Bool = false
     
+    var isDisplayingPromotion = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(willDisplayPromotion(_:)), name: Notification.Name("promotionWillDisplay"), object: nil)
         setupUI()
+    }
+    
+    @objc func willDisplayPromotion(_ notification: Notification)
+    {
+        isDisplayingPromotion = true
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -122,17 +130,29 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
     }
     
     func loadNeededPage() {
-        if let deal = deal, let urlString = deal.url, let url = URL(string: urlString) {
-            startLoading()
-            webView.loadRequest(URLRequest(url: url))
-        } else if let slide = slide, let urlString = slide.url, let url = URL(string: urlString) {
-            startLoading()
-            webView.loadRequest(URLRequest(url: url))
-        } else if let urlString = urlString {
-            if let url = URL(string: urlString) {
+        
+        if !isDisplayingPromotion {
+            
+            if let deal = deal, let urlString = deal.url, let url = URL(string: urlString) {
                 startLoading()
                 webView.loadRequest(URLRequest(url: url))
+            } else if let slide = slide, let urlString = slide.url, let url = URL(string: urlString) {
+                startLoading()
+                webView.loadRequest(URLRequest(url: url))
+            } else if var urlString = urlString {
+                
+                if UserModel.sharedInstance.logined && !urlString.contains(UserModel.sharedInstance.token) {
+                    urlString.append("&t=\(UserModel.sharedInstance.token)")
+                }
+                
+                if let url = URL(string: urlString) {
+                    startLoading()
+                    webView.loadRequest(URLRequest(url: url))
+                }
             }
+        }
+        else {
+            isDisplayingPromotion = false
         }
     }
     

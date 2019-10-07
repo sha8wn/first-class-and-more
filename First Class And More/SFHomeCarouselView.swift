@@ -106,7 +106,7 @@ extension SFHomeCarouselView: InfiniteScrollingBehaviourDelegate {
 			sliderCell.slideTitleLabel.text = slide.title
 			sliderCell.slideShortTitleLabel.text = slide.shortTitle?.uppercased()
 			sliderCell.slideImageView.image = nil
-			if let urlString = slide.imageUrl, let url = URL(string: urlString) {
+            if let urlString = slide.imageUrl, let url = URL(string: urlString.addingPercentEncoding(withAllowedCharacters:.urlQueryAllowed)!) {
 				sliderCell.activityIndicator.startAnimating()
 				sliderCell.titleView.isHidden = true
 				sliderCell.slideImageView.af_setImage(

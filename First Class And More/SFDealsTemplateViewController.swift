@@ -118,7 +118,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         if dealType != .Endet_Bald {
             destinationsBtn?.frame = CGRect(x: UIScreen.main.bounds.width - (titleView.frame.height - 8.0 * 2) * 2 - 8.0, y: 8.0, width: (titleView.frame.height - 8.0 * 2), height: titleView.frame.height - 8.0 * 2)
             expiredDealsBtn = UIButton(type: .custom)
-            let image = expiredDealsEnabled ? #imageLiteral(resourceName: "cross") : #imageLiteral(resourceName: "tick")
+            let image = expiredDealsEnabled ? #imageLiteral(resourceName: "hourglass-red-icon") : #imageLiteral(resourceName: "tick")
             expiredDealsBtn!.setImage(image, for: .normal)
             expiredDealsBtn!.frame = CGRect(x: UIScreen.main.bounds.width - (titleView.frame.height - 10.0 * 2) - 8.0, y: 12.0, width: (titleView.frame.height - 12.0 * 2), height: titleView.frame.height - 12.0 * 2)
             expiredDealsBtn!.addTarget(self, action: #selector(expiredDealsBtnPressed), for: .touchUpInside)
@@ -410,7 +410,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
     func yesActionPressed(action: UIAlertAction) {
         let previousValue = UserDefaults.standard.bool(forKey: kUDExpiredDealsEnabled)
         UserDefaults.standard.set(!previousValue, forKey: kUDExpiredDealsEnabled)
-        let image = expiredDealsEnabled ? #imageLiteral(resourceName: "cross") : #imageLiteral(resourceName: "tick")
+        let image = expiredDealsEnabled ? #imageLiteral(resourceName: "hourglass-red-icon") : #imageLiteral(resourceName: "tick")
         expiredDealsBtn!.setImage(image, for: .normal)
         page = 1
         getDeals()
