@@ -14,7 +14,9 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
     var toolBar: UIToolbar!
     var backBarButton, forwardBarButton, reloadBarButton: UIBarButtonItem!
     var favoriteBtn: UIButton?
+    var urlAdd: UILabel!
     
+    @IBOutlet weak var urlAddress: UILabel!
     var deal: DealModel?
     var dealType: DealType?
     var slide: SlideModel?
@@ -83,6 +85,12 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
         let flexibleWidth = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([backBarButton, forwardBarButton, flexibleWidth, reloadBarButton], animated: false)
         view.addSubview(toolBar)
+        
+        /* To check URL
+        urlAdd = UILabel.init(frame: CGRect.init(x: 0, y: 100, width: UIScreen.main.bounds.width, height: 100))
+        urlAdd.textColor = .black
+        urlAdd.numberOfLines = 0
+        view.addSubview(urlAdd)*/
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,6 +123,8 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
             pageLoaded = true
             loadNeededPage()
         }
+        
+        //self.urlAdd.text = urlString
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -142,7 +152,10 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
             } else if var urlString = urlString {
                 
                 if UserModel.sharedInstance.logined && !urlString.contains(UserModel.sharedInstance.token) {
-                    urlString.append("&t=\(UserModel.sharedInstance.token)")
+                    
+                    if urlString.contains("/blog/mobile/") && !urlString.contains("&t=") {
+                        urlString.append("&t=\(UserModel.sharedInstance.token)")
+                    }
                 }
                 
                 if let url = URL(string: urlString) {

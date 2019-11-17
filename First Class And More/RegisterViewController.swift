@@ -96,6 +96,11 @@ class RegisterViewController: UIViewController {
         self.termsTextView.attributedText = self.buildTermsString(with: "REGISTRIEREN")
         self.newsletterTermsTextView.attributedText = self.buildTermsString(with: "ANMELDEN")
         self.premiumTermsTextView.attributedText = self.buildTermsString(with: "EINLOGGEN")
+        
+        surnameTextField.addDoneButtonOnKeyboard()
+        emailTextField.addDoneButtonOnKeyboard()
+        newsLetterEmailTextField.addDoneButtonOnKeyboard()
+        
     }
     
     @IBAction func forgotPassword() {

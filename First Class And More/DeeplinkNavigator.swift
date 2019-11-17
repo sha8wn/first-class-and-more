@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class DeeplinkNavigator {
     static let shared = DeeplinkNavigator()
@@ -17,11 +18,21 @@ class DeeplinkNavigator {
     func proceedToDeeplink(_ type: DeeplinkType) {
         switch type {
         case .webview(var url):
+            
+            //print(UIApplication.shared.keyWindow?.rootViewController)
             guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? SFSidebarNavigationController else { return }
             let token = UserModel.sharedInstance.token
-            if !token.isEmpty {
-                url += "&t=\(token)"
+            
+            if url.contains("/blog/mobile/") {
+                
+                if !token.isEmpty {
+                    url += "&t=\(token)"
+                }
+                
             }
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            navigationController.webVC = storyboard.instantiateViewController(withIdentifier: "WebVC") as! WKWebViewController
             navigationController.webVC.urlString = url
             navigationController.setViewControllers([navigationController.webVC], animated: true)
         

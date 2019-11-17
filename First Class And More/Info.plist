@@ -26,9 +26,14 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fcam</string>
+                <string>fb1016147512068040</string>
 			</array>
 		</dict>
 	</array>
+    <key>FacebookAppID</key>
+    <string>1016147512068040</string>
+    <key>FacebookDisplayName</key>
+    <string>FCAM iOS</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSApplicationCategoryType</key>

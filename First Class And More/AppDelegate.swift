@@ -11,6 +11,7 @@ import Alamofire
 import AlamofireNetworkActivityLogger
 import UserNotifications
 import Firebase
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
@@ -24,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         NetworkActivityLogger.shared.startLogging()
         NetworkActivityLogger.shared.level = .debug
         setupReachability()
@@ -59,23 +61,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         guard let info = Bundle.main.infoDictionary,
             let currentVersion = info["CFBundleShortVersionString"] as? String,
             let identifier = info["CFBundleIdentifier"] as? String,
-            let url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(identifier)") else {
+            let url = URL(string: "https://www.first-class-and-more.de/blog/fcam-api/app/v1/app-version/?auth=tZKWXujQ") else {
                 throw VersionError.invalidBundleInfo
         }
         print("url: ", url)
         print("current version", currentVersion)
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             do {
-                if let error = error { throw error }
-                guard let data = data else { throw VersionError.invalidResponse }
-                print()
-                let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments]) as? [String: Any]
-                print(json)
-                guard let result = (json?["results"] as? [Any])?.first as? [String: Any], let version = result["version"] as? String else {
+                if let error = error
+                {
+                    throw error
+                    
+                }
+                
+                if data == nil {
                     throw VersionError.invalidResponse
                 }
-                print(result["version"])
-                completion(version != currentVersion, nil)
+                
+                let data = data!
+                
+                print()
+                let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments]) as? [String: Any]
+                
+                print(json)
+                
+                guard let result = (json?["data"] as? String) else {
+                    throw VersionError.invalidResponse
+                }
+                
+                print(result)
+                
+                completion(result != currentVersion, nil)
             } catch {
                 completion(nil, error)
             }
@@ -89,10 +105,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 if let error = error {
                     print(error)
                 } else if let update = update, update {
-                    let updateViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as! UpdateViewController
-                    self.window?.rootViewController?.present(updateViewController, animated: true, completion: nil)
+                    self.showUpdateAlert()
                 }
             }
+        }
+    }
+    
+    private func showUpdateAlert() {
+        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            topController.showPopupDialog(title: "Eine neue Version der First Class & More Reisedeals-App ist im App Store verfügbar. Möchten Sie jetzt updaten?", message: nil, cancelBtn: true, okBtnTitle: "Updaten", okBtnCompletion: {
+                
+                if let url = URL(string: "itms-apps://itunes.apple.com/app/first-class-more-reisedeals/id1474514915"),
+                    UIApplication.shared.canOpenURL(url) {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
+            })
         }
     }
     
@@ -269,6 +303,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     defaults.synchronize()
                     timer?.invalidate()
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "promotionWillDisplay"), object: nil)
+                    adViewController.modalPresentationStyle = .fullScreen
                     topController.present(adViewController, animated: true, completion: nil)
                 }
             }
@@ -285,7 +320,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     }
                 }
                 webViewViewController.pageLoaded = false
-                webViewViewController.urlString = urlString
+                
+                let token = UserModel.sharedInstance.token
+                
+                if !token.isEmpty {
+                    webViewViewController.urlString = urlString + "&t=\(token)"
+                }
+                else {
+                    webViewViewController.urlString = urlString
+                }
+                
+                
                 (topController as? UINavigationController)?.pushViewController(webViewViewController, animated: false)
             }
         }
@@ -421,11 +466,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        let shouldOpen = Deeplinker.handleDeeplink(url: url)
+        
+        let handled = ApplicationDelegate.shared.application(app, open: url, options: options)
+        
+        /*let shouldOpen = Deeplinker.handleDeeplink(url: url)
         if app.applicationState != .background {
             Deeplinker.checkDeepLink()
-        }
-        return shouldOpen
+        }*/
+        
+        return handled
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

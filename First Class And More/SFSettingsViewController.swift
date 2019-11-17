@@ -74,11 +74,11 @@ class SFSettingsViewController: SFSidebarViewController, UNUserNotificationCente
     }
     
     @IBAction func optionBtnPressed(_ sender: DLRadioButton) {
-		guard status == .authorized else {
-			showSettingsAlert()
-			setupView()
+		/* guard status == .authorized else {
+			//showSettingsAlert()
+			//setupView()
 			return
-		}
+		}*/
         
         let membership = UserModel.sharedInstance.membership
         let choosenTop = self.options.index(of: sender) == 1

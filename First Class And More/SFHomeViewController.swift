@@ -63,6 +63,16 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(createSideBar), name: NSNotification.Name(rawValue: "user_logged_out"), object: nil)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        /*if self.navigationController is SFSidebarNavigationController {
+            UIApplication.shared.keyWindow?.rootViewController = self.navigationController
+        }*/
+        
+        
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "user_logged_out"), object: nil)

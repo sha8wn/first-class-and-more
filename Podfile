@@ -17,4 +17,5 @@ target 'First Class And More' do
   # Add the pod for Firebase Cloud Messaging
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
+  pod 'FacebookSDK'
 end
