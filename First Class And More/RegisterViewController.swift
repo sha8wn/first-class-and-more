@@ -100,6 +100,8 @@ class RegisterViewController: UIViewController {
         surnameTextField.addDoneButtonOnKeyboard()
         emailTextField.addDoneButtonOnKeyboard()
         newsLetterEmailTextField.addDoneButtonOnKeyboard()
+        premiumEmailTextField.addDoneButtonOnKeyboard()
+        premiumPasswordTextField.addDoneButtonOnKeyboard()
         
     }
     

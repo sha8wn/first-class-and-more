@@ -24,12 +24,13 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
     
     var pageLoaded: Bool = false
     
+    var isUISetup: Bool = false
+    
     var isDisplayingPromotion = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(willDisplayPromotion(_:)), name: Notification.Name("promotionWillDisplay"), object: nil)
-        setupUI()
     }
     
     @objc func willDisplayPromotion(_ notification: Notification)
@@ -119,10 +120,18 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
             let leftBarBtnItem = UIBarButtonItem(customView: leftBtn)
             navigationItem.setLeftBarButton(leftBarBtnItem, animated: false)
         }
+        
+        if !isUISetup {
+            setupUI()
+            isUISetup = true
+        }
+        
         if !pageLoaded {
             pageLoaded = true
             loadNeededPage()
         }
+        
+        
         
         //self.urlAdd.text = urlString
     }

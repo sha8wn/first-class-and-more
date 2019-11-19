@@ -390,7 +390,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
     
     @objc func destinationsBtnPressed() {
         let user = UserModel.sharedInstance
-        if user.membership == .diamont {
+        if user.membership == .diamont || user.membership == .platin {
             performSegue(withIdentifier: "showDestinationsFilterVC", sender: nil)
         } else {
             showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "Dieser Bereich ist nicht für Ihr Mitgliedschafts-Level freigegeben", cancelBtn: false, okBtnCompletion: nil)

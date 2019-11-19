@@ -28,6 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         NetworkActivityLogger.shared.startLogging()
         NetworkActivityLogger.shared.level = .debug
+        
+        if #available(iOS 13.0, *) {
+            window?.overrideUserInterfaceStyle = .light
+        }
+        
         setupReachability()
         checkUserToken()
         getSettings()
