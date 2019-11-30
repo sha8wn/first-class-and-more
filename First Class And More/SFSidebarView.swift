@@ -277,6 +277,7 @@ class SFSidebarView: UIView
                 UserDefaults.standard.removeObject(forKey: kUDSharedUserModel)
                 self.updateUserView()
                 self.delegate.userLoggedOut()
+                
             })
         }
     }

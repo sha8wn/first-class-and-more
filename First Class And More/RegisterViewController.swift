@@ -261,6 +261,17 @@ class RegisterViewController: UIViewController {
                         if let success = success as? Bool, success {
                             self.getUserInfo()
                             UIApplication.shared.registerForRemoteNotifications()
+                            
+                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                                appDelegate.timer?.invalidate()
+                                appDelegate.timer = nil
+                                appDelegate.getSettings()
+                                appDelegate.getAdvertisements()
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                    appDelegate.restartTimer()
+                                }
+                            }
                         }
                     }
                 }

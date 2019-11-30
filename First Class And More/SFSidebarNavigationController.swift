@@ -400,6 +400,17 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
         showPopupDialog(message: "Sie haben sich ausgeloggt", cancelBtn: false)
         
         FiltersHelper.resetAllFilters()
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.timer?.invalidate()
+            appDelegate.timer = nil
+            appDelegate.getSettings()
+            appDelegate.getAdvertisements()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                appDelegate.restartTimer()
+            }
+        }
     }
     
     // MARK: - SFMenuTableViewCell Delegates
