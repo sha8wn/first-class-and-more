@@ -67,9 +67,10 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
         super.viewDidAppear(animated)
         
         /*if self.navigationController is SFSidebarNavigationController {
-            UIApplication.shared.keyWindow?.rootViewController = self.navigationController
+            UIApplication.shared.keyWindow?.rootViewController = self
         }*/
-        
+        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        //appDelegate.window!.rootViewController = self
         
     }
     

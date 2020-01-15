@@ -56,6 +56,7 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.keyWindow?.rootViewController = self
         NotificationCenter.default.addObserver(self, selector: #selector(playedDismissed), name: .kAVPlayerViewControllerDismissingNotification, object: nil)
         self.navigationBar.tintColor = .white
         self.automaticallyAdjustsScrollViewInsets = true

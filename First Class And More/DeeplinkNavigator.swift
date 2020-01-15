@@ -19,8 +19,27 @@ class DeeplinkNavigator {
         switch type {
         case .webview(var url):
             
-            //print(UIApplication.shared.keyWindow?.rootViewController)
-            guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? SFSidebarNavigationController else { return }
+            var navigationController:SFSidebarNavigationController!
+            
+            if UIApplication.shared.keyWindow?.rootViewController is SFSidebarNavigationController
+            {
+                navigationController = UIApplication.shared.keyWindow?.rootViewController as? SFSidebarNavigationController
+            }
+            else
+            {
+                let navController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController
+                
+                for vc in navController!.viewControllers {
+                    
+                    if vc is SFSidebarNavigationController {
+                        
+                        navigationController = vc as? SFSidebarNavigationController
+                        
+                    }
+                    
+                }
+            }
+            
             let token = UserModel.sharedInstance.token
             
             if url.contains("/blog/mobile/") {

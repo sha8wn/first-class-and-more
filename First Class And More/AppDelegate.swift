@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         NetworkActivityLogger.shared.startLogging()
         NetworkActivityLogger.shared.level = .debug
+        UNUserNotificationCenter.current().delegate = self
         
         if #available(iOS 13.0, *) {
             window?.overrideUserInterfaceStyle = .light
@@ -342,6 +343,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func updatePushNotificationSettings() {
+        
+        UNUserNotificationCenter.current().delegate = self
         let condition = reach!.isReachableViaWiFi() || reach!.isReachableViaWWAN()
         let setting = UserDefaults.standard.bool(forKey: kUDApplicationLaunched) ? UserModel.sharedInstance.notificationSetting : 1
         if condition {
@@ -374,14 +377,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UIApplication.shared.applicationIconBadgeNumber = 0*/
         
         // Use Firebase library to configure APIs
-        FirebaseApp.configure()
+        if FirebaseApp.app() == nil {
+            FirebaseApp.configure()
+        }
+        
         Messaging.messaging().delegate = self
         Messaging.messaging().isAutoInitEnabled = true
         
+        UNUserNotificationCenter.current().delegate = self
+        
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
-            UNUserNotificationCenter.current().delegate = self
             
+            UNUserNotificationCenter.current().delegate = self
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
@@ -402,6 +410,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print("---------------------------------------")
         print("fcmToken===\(fcmToken)")
         print("---------------------------------------")
+        let pasteBoard = UIPasteboard.general
+        pasteBoard.string = fcmToken
+        print("")
         UserDefaults.standard.set(fcmToken, forKey: kUDFCMToken)
         updatePushNotificationSettings()
         
@@ -425,6 +436,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .badge, .sound])
+        
+        let userInfo = notification.request.content.userInfo
+        print(userInfo)
+        Deeplinker.handleRemoteNotification(userInfo)
+        if UIApplication.shared.applicationState != .background {
+            
+        }
+        Deeplinker.checkDeepLink()
+        
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -433,9 +453,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print(userInfo)
         Deeplinker.handleRemoteNotification(userInfo)
         if UIApplication.shared.applicationState != .background {
-            Deeplinker.checkDeepLink()
+            
         }
-        
+        Deeplinker.checkDeepLink()
         completionHandler()
     }
 
@@ -474,10 +494,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let handled = ApplicationDelegate.shared.application(app, open: url, options: options)
         
-        /*let shouldOpen = Deeplinker.handleDeeplink(url: url)
+        _ = Deeplinker.handleDeeplink(url: url)
         if app.applicationState != .background {
             Deeplinker.checkDeepLink()
-        }*/
+        }
         
         return handled
     }
@@ -485,6 +505,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         // handle any deeplink
+        
         Deeplinker.checkDeepLink()
     }
 
