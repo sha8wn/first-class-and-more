@@ -65,6 +65,12 @@ class WebrungViewController: SFSidebarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addHomeBtn()
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+        
+            appDelegate.timer?.invalidate()
+            appDelegate.timer = nil
+        }
     }
     
     func setupUI() {
@@ -100,8 +106,26 @@ class WebrungViewController: SFSidebarViewController {
     }
     
     override func homeBtnTapped() {
+        
         if let navigationVC = navigationController as? SFSidebarNavigationController {
-            navigationVC.setViewControllers([navigationVC.homeVC], animated: true)
+            
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                
+                appDelegate.timer?.invalidate()
+                appDelegate.timer = nil
+                
+                if selectedPromotionsType == .none {
+                    
+                    appDelegate.getAdvertisements()
+                    
+                } else {
+                    
+                    appDelegate.restartTimer()
+                    
+                }
+                
+                navigationVC.setViewControllers([navigationVC.homeVC], animated: true)
+            }
         }
     }
 

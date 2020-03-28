@@ -284,23 +284,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     @objc func showAd() {
-        let adsManager = AdvertisementsManager.sharedInstance
-        if let ad = adsManager.advertisements.first, let url = URL(string: ad.imageUrl) {
-            let adViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "adsVC") as! AdsViewController
-            adViewController.imageName = url.lastPathComponent
-            adViewController.ad = ad
-            if var topController = UIApplication.shared.keyWindow?.rootViewController {
-                while let presentedViewController = topController.presentedViewController {
-                    topController = presentedViewController
+        
+        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            
+            var navigationController:SFSidebarNavigationController!
+            
+            if UIApplication.shared.keyWindow?.rootViewController is SFSidebarNavigationController
+            {
+                navigationController = UIApplication.shared.keyWindow?.rootViewController as? SFSidebarNavigationController
+            }
+            else
+            {
+                let navController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController
+                
+                for vc in navController!.viewControllers {
+                    
+                    if vc is SFSidebarNavigationController {
+                        
+                        navigationController = vc as? SFSidebarNavigationController
+                        
+                    }
+                    
                 }
-                let isNavigationBar: Bool = topController.classForCoder == SFSidebarNavigationController.classForCoder()
-                let navigationBar: SFSidebarNavigationController? = topController as? SFSidebarNavigationController
-                if (isNavigationBar && !(navigationBar?.sideBarIsOpened() ?? false)) &&
-                    (navigationBar?.topViewController?.classForCoder != FilterIntroViewController.classForCoder() &&
-                    navigationBar?.topViewController?.classForCoder != FilterGeneralViewController.classForCoder() &&
-                    navigationBar?.topViewController?.classForCoder != WebrungViewController.classForCoder() &&
-                    navigationBar?.topViewController?.classForCoder != AdvancedFiltersViewController.classForCoder()) &&
-                    topController.classForCoder != AdsViewController.classForCoder() {
+            }
+            
+            let isNavigationBar: Bool = topController.classForCoder == SFSidebarNavigationController.classForCoder()
+            let navigationBar: SFSidebarNavigationController? = topController as? SFSidebarNavigationController
+            if (isNavigationBar && !(navigationController.sideBarIsOpened())) &&
+                (navigationBar?.topViewController?.classForCoder != FilterIntroViewController.classForCoder() &&
+                navigationBar?.topViewController?.classForCoder != FilterGeneralViewController.classForCoder() &&
+                navigationBar?.topViewController?.classForCoder != WebrungViewController.classForCoder() &&
+                navigationBar?.topViewController?.classForCoder != AdvancedFiltersViewController.classForCoder()) &&
+                topController.classForCoder != AdsViewController.classForCoder() {
+                
+                let adsManager = AdvertisementsManager.sharedInstance
+                if let ad = adsManager.advertisements.first, let url = URL(string: ad.imageUrl) {
+                    
+                    let adViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "adsVC") as! AdsViewController
+                    adViewController.imageName = url.lastPathComponent
+                    adViewController.ad = ad
+                    
                     adsManager.advertisements.remove(at: adsManager.advertisements.index(of: ad)!)
                     adsManager.advertisements.append(ad)
                     let data = NSKeyedArchiver.archivedData(withRootObject: adsManager)
