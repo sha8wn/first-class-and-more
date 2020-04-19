@@ -1747,7 +1747,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                         <viewControllerLayoutGuide type="bottom" id="Pk6-3J-6ag"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="csY-pY-0xL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3t-yS-jo8">
@@ -2023,7 +2023,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="5" translatesAutoresizingMaskIntoConstraints="NO" id="VKM-hT-myq" customClass="ImageScrollView" customModule="First_Class_And_More" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="delegate" destination="lv7-EA-oGZ" id="9Ao-02-o9x"/>
                                 </connections>
@@ -2046,7 +2046,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.79825044014084512" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="61V-1g-7NE" firstAttribute="top" secondItem="FqY-YK-otQ" secondAttribute="bottom" constant="8" symbolic="YES" id="27b-ga-ATQ"/>
                             <constraint firstAttribute="trailing" secondItem="VKM-hT-myq" secondAttribute="trailing" id="5fi-DM-ykd"/>
@@ -2811,6 +2811,6 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
         <image name="repeat" width="87.5" height="87.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WmT-u4-12T"/>
+        <segue reference="LhH-We-wZs"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -335,7 +335,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     defaults.synchronize()
                     timer?.invalidate()
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "promotionWillDisplay"), object: nil)
-                    adViewController.modalPresentationStyle = .fullScreen
+                    adViewController.modalPresentationStyle = .overFullScreen
+                    topController.definesPresentationContext = true
                     topController.present(adViewController, animated: true, completion: nil)
                 }
             }

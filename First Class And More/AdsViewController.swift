@@ -44,6 +44,7 @@ class AdsViewController: UIViewController {
             appDelegate.timerFrequency = Double(appDelegate.timerSettings.frequency)
             appDelegate.restartTimer()
         }
-        dismiss(animated: true, completion: nil)
+        
+        self.presentingViewController!.dismiss(animated: true, completion: nil)
     }
 }
