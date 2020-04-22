@@ -66,7 +66,13 @@ class NewsletterViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.stopLoading()
                     if error != nil {
-                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                        if error!.description == "Email Address already subscribe with us" {
+                            self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "E-Mail-Adresse ist bereits registriert")
+                        }
+                        else {
+                            self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                        }
+                        
                     } else if let success = answer as? Bool, success {
                         self.showPopupDialog(title: "Erfolg!", cancelBtn: false, okBtnCompletion: {
                             self.closeBtnPressed()
