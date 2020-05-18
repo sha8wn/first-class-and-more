@@ -392,8 +392,11 @@ extension AdvancedFiltersViewController: UITableViewDelegate, UITableViewDataSou
         if let sectionName = section.name,
             sectionsNamesAffecteByAlliance.contains(sectionName),
             let id = sections[indexPath.section].items?[index].id,
+            let item = sections[indexPath.section].items?[index],
             let allianceDict = self.allianceDict {
+            
             var identifiers: [Int] = []
+            
             for alliance in unselectedAlliances {
                 if let ids = allianceDict[alliance] {
                     identifiers.append(contentsOf: ids)
@@ -403,6 +406,9 @@ extension AdvancedFiltersViewController: UITableViewDelegate, UITableViewDataSou
                 showPopupDialog(title: "Allianz-Fehler", message: "Bitte aktivieren Sie zunächst die jeweilige Allianz, wenn Sie eine Fluggesellschaft aus dieser auswählen möchten.", cancelBtn: false) {
                     cell.filterSwitch.setOn(false, animated: true)
                 }
+            }
+            else {
+                item.selected = !item.selected
             }
         } else if let sectionName = sections[indexPath.section].name, (sectionName == "Flugallianz" || sectionName == "Vielfliegerstatus Allianz") {
             if let item = sections[indexPath.section].items?[indexPath.row] {
