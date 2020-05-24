@@ -273,7 +273,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                             
                             var secondFilterIds: [Int]? = nil
                             if secondRowItemIndex > 0 {
-                                secondFilterIds = secondRowIds[firstRowItemIndex] ?? nil
+                                secondFilterIds = secondRowIds[secondRowItemIndex] ?? nil
                             }
                             
                             if let destinations = self.destinations {
