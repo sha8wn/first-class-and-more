@@ -34,7 +34,7 @@ enum RouterDeals: URLRequestConvertible {
     case getHighlights(type: HighlightsType, token: String, page: Int, filters: [Int])
     case getPopularDeals(token: String, page: Int, filters: [Int])
     case getExpiringDeals(token: String, page: Int, cat: Any?, filters: [Int])
-    case getCategoryDeals(token: String, page: Int, cat: Any?, cat2: Any?, destinations: Any?, filters: [Int], orderBy: Sorting)
+    case getCategoryDeals(token: String, page: Int, cat: Any?, cat2: Any?, cat3: Any?, destinations: Any?, filters: [Int], orderBy: Sorting)
     
     var method: HTTPMethod {
         switch self {
@@ -99,7 +99,7 @@ enum RouterDeals: URLRequestConvertible {
 					"exclude": getFiltersString(from: filters)
                 ]
 				return params
-            case .getCategoryDeals(let token, let page, let cat, let cat2, let destinations, let filters, let orderBy):
+            case .getCategoryDeals(let token, let page, let cat, let cat2, let cat3, let destinations, let filters, let orderBy):
                 var params: [String: Any] = [
                     "token": token,
                     "page": page,
@@ -111,6 +111,9 @@ enum RouterDeals: URLRequestConvertible {
                 if let cat2 = cat2 as? [Int] {
                     params["cat2"] = cat2.compactMap { String($0) }.joined(separator: ",")
                     params["op"] = "and"
+                }
+                if let cat3 = cat3 as? [Int] {
+                    params["cat3"] = cat3.compactMap { String($0) }.joined(separator: ",")
                 }
                 if let destinations = destinations as? [Int] {
                     params["des"] = destinations.compactMap { String($0) }.joined(separator: ",")

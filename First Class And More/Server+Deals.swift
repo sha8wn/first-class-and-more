@@ -41,17 +41,21 @@ extension Server {
                 url = RouterDeals.getExpiringDeals(token: token, page: page, cat: param, filters: filterIdentifiers)
             case .category:
                 if let dict = param as? [String: Any] {
-                    if let firstRow = dict["first"], let secondRow = dict["second"], let filteredDestionationIds = dict["destinations"] {
-                        url = RouterDeals.getCategoryDeals(token: token, page: page, cat: firstRow, cat2: secondRow, destinations: filteredDestionationIds, filters: filterIdentifiers, orderBy: orderBy)
+                    
+                    if let firstRow = dict["first"], let secondRow = dict["second"], let thirdRow = dict["third"], let filteredDestionationIds = dict["destinations"] {
+                        url = RouterDeals.getCategoryDeals(token: token, page: page, cat: firstRow, cat2: secondRow, cat3: thirdRow, destinations: filteredDestionationIds, filters: filterIdentifiers, orderBy: orderBy)
+                    }
+                    else if let firstRow = dict["first"], let secondRow = dict["second"], let filteredDestionationIds = dict["destinations"] {
+                        url = RouterDeals.getCategoryDeals(token: token, page: page, cat: firstRow, cat2: secondRow, cat3: nil, destinations: filteredDestionationIds, filters: filterIdentifiers, orderBy: orderBy)
                     } else if let firstRow = dict["first"], let filteredDestionationIds = dict["destinations"] {
-                        url = RouterDeals.getCategoryDeals(token: token, page: page, cat: firstRow, cat2: nil, destinations: filteredDestionationIds, filters: filterIdentifiers, orderBy: orderBy)
+                        url = RouterDeals.getCategoryDeals(token: token, page: page, cat: firstRow, cat2: nil, cat3: nil, destinations: filteredDestionationIds, filters: filterIdentifiers, orderBy: orderBy)
                     } else if let firstRow = dict["first"], let secondRow = dict["second"] {
-                        url = RouterDeals.getCategoryDeals(token: token, page: page, cat: firstRow, cat2: secondRow, destinations: nil, filters: filterIdentifiers, orderBy: orderBy)
+                        url = RouterDeals.getCategoryDeals(token: token, page: page, cat: firstRow, cat2: secondRow, cat3: nil, destinations: nil, filters: filterIdentifiers, orderBy: orderBy)
                     } else if let firstRow = dict["first"] {
-                        url = RouterDeals.getCategoryDeals(token: token, page: page, cat: firstRow, cat2: nil, destinations: nil, filters: filterIdentifiers, orderBy: orderBy)
+                        url = RouterDeals.getCategoryDeals(token: token, page: page, cat: firstRow, cat2: nil, cat3: nil, destinations: nil, filters: filterIdentifiers, orderBy: orderBy)
                     }
                 } else {
-                    url = RouterDeals.getCategoryDeals(token: token, page: page, cat: param, cat2: nil, destinations: nil, filters: filterIdentifiers, orderBy: orderBy)
+                    url = RouterDeals.getCategoryDeals(token: token, page: page, cat: param, cat2: nil, cat3: nil, destinations: nil, filters: filterIdentifiers, orderBy: orderBy)
                 }
         }
         if let url = url {

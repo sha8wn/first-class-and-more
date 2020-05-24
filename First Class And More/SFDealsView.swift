@@ -63,7 +63,7 @@ protocol SFFiltersDelegate {
 }
 
 internal enum RowNumber {
-    case first, second
+    case first, second, third
 }
 
 class SFDealsView: UIView, SFFlexibleSegmentDelegate
@@ -252,9 +252,9 @@ class SFDealsView: UIView, SFFlexibleSegmentDelegate
     
     func selectedFilter(at: Int, view: UIView) {
         if view == flexibleSegment {
-            filtersDelegate?.filterSelected(at: at, row: .first)
-        } else {
             filtersDelegate?.filterSelected(at: at, row: .second)
+        } else {
+            filtersDelegate?.filterSelected(at: at, row: .third)
         }
     }
     

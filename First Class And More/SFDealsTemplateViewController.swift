@@ -17,6 +17,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
     var dealsView: SFDealsView!
     var page: Int = 1
     var selectedItemIndex: Int = 0
+    var firstRowItemIndex: Int = 0
     var secondRowItemIndex: Int = 0
     var loadMoreDealsStatus: Bool = false
     var deals: [DealModel] = [] {
@@ -209,6 +210,8 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         page = 1
         if row == .first {
             selectedItemIndex = at
+        } else if row == .second {
+            firstRowItemIndex = at
         } else {
             secondRowItemIndex = at
         }
@@ -220,7 +223,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
             let pages = NSKeyedUnarchiver.unarchiveObject(with: data) as? [FiltersObject] {
             switch dealType {
                 case .Alle:
-                    switch selectedItemIndex {
+                    switch firstRowItemIndex {
                         case 0:
                             loadDeals(.my)
                         case 1:
@@ -237,8 +240,8 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 case .Favoriten:
                     if UserModel.sharedInstance.logined {
                         if let ids = pages.filter({ $0.title == "Favoriten"}).first?.filters?.first?.map({ return $0.ids }) {
-                            if ids.count > selectedItemIndex {
-                                let filterIds = ids[selectedItemIndex]
+                            if ids.count > firstRowItemIndex {
+                                let filterIds = ids[firstRowItemIndex]
                                 loadDeals(.favoriten, param: filterIds)
                             }
                         }
@@ -247,9 +250,9 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                     }
                 case .Endet_Bald:
                     if let ids = pages.filter({ $0.title == "Endet bald"}).first?.filters?.first?.map({ return $0.ids }) {
-                        if ids.count > selectedItemIndex {
-                            let filterIds = ids[selectedItemIndex]
-                            if selectedItemIndex != 0 && ids[selectedItemIndex] == nil {
+                        if ids.count > firstRowItemIndex {
+                            let filterIds = ids[firstRowItemIndex]
+                            if firstRowItemIndex != 0 && ids[firstRowItemIndex] == nil {
                                 loadDeals(.expiring, param: 1)
                             } else {
                                 loadDeals(.expiring, param: filterIds)
@@ -259,13 +262,24 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 case .Flüge:
                     if let filters = pages.filter({ $0.title == "Flüge" }).first?.filters, filters.count > 1,
                         let firstRowIds = filters.first?.map({ return $0.ids }), let secondRowIds = filters.last?.map({ return $0.ids }) {
-                        if firstRowIds.count > selectedItemIndex && secondRowIds.count > secondRowItemIndex {
-                            let firstFilterIds = firstRowIds[selectedItemIndex]
-                            let secondFilterIds = secondRowIds[secondRowItemIndex]
+                        if firstRowIds.count > firstRowItemIndex && secondRowIds.count > secondRowItemIndex {
+                            
+                            let mainFilterIds = firstRowIds.first
+                            
+                            var firstFilterIds: [Int]? = nil
+                            if firstRowItemIndex > 0 {
+                                firstFilterIds = firstRowIds[firstRowItemIndex] ?? nil
+                            }
+                            
+                            var secondFilterIds: [Int]? = nil
+                            if secondRowItemIndex > 0 {
+                                secondFilterIds = secondRowIds[firstRowItemIndex] ?? nil
+                            }
+                            
                             if let destinations = self.destinations {
                                 var filteredDestinationIds = destinations.filter({ $0.selected }).compactMap({ $0.id })
                                 filteredDestinationIds = destinations.filter({ !$0.selected }).isEmpty ? [] : filteredDestinationIds
-                                loadDeals(.category, param: ["first": firstFilterIds, "second": secondFilterIds, "destinations": filteredDestinationIds])
+                                loadDeals(.category, param: ["first": mainFilterIds, "second": firstFilterIds, "third": secondFilterIds, "destinations": filteredDestinationIds])
                                 return
                             }
                             loadDeals(.category, param: ["first": firstFilterIds, "second": secondFilterIds])
@@ -273,49 +287,90 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                     }
                 case .Meilen_Programme:
                     if let ids = pages.filter({ $0.title == "Meilenprogramme"}).first?.filters?.first?.map({ return $0.ids }) {
-                        if ids.count > selectedItemIndex {
-                            let filterIds = ids[selectedItemIndex]
-                            loadDeals(.category, param: filterIds)
+                        if ids.count > firstRowItemIndex {
+                            
+                            let mainFilterIds = ids.first
+                            
+                            var firstFilterIds: [Int]? = nil
+                            if firstRowItemIndex > 0 {
+                                firstFilterIds = ids[firstRowItemIndex] ?? nil
+                            }
+                            
+                            //let filterIds = ids[firstRowItemIndex]
+                            loadDeals(.category, param: ["first": mainFilterIds, "second": firstFilterIds])
                         }
                     }
                 case .Vielflieger_Status:
                     if let ids = pages.filter({ $0.title == "Vielfliegerstatus"}).first?.filters?.first?.map({ return $0.ids }) {
-                        if ids.count > selectedItemIndex {
-                            let filterIds = ids[selectedItemIndex]
+                        if ids.count > firstRowItemIndex {
+                            //let filterIds = ids[firstRowItemIndex]
+                            
+                            let mainFilterIds = ids.first
+                            
+                            var firstFilterIds: [Int]? = nil
+                            if firstRowItemIndex > 0 {
+                                firstFilterIds = ids[firstRowItemIndex] ?? nil
+                            }
+                            
                             if let destinations = self.destinations {
                                 var filteredDestinationIds = destinations.filter({ $0.selected }).compactMap({ $0.id })
                                 filteredDestinationIds = destinations.filter({ !$0.selected }).isEmpty ? [] : filteredDestinationIds
-                                loadDeals(.category, param: ["first": filterIds, "destinations": filteredDestinationIds])
+                                loadDeals(.category, param: ["first": mainFilterIds, "second": firstFilterIds, "destinations": filteredDestinationIds])
                                 return
                             }
-                            loadDeals(.category, param: filterIds)
+                            loadDeals(.category, param: firstFilterIds)
                         }
                     }
                 case .Hotels:
                     if let ids = pages.filter({ $0.title == "Hotels"}).first?.filters?.first?.map({ return $0.ids }) {
-                        if ids.count > selectedItemIndex {
-                            let filterIds = ids[selectedItemIndex]
+                        if ids.count > firstRowItemIndex {
+                            //let filterIds = ids[firstRowItemIndex]
+                            
+                            
+                            let mainFilterIds = ids.first
+                            
+                            var firstFilterIds: [Int]? = nil
+                            if firstRowItemIndex > 0 {
+                                firstFilterIds = ids[firstRowItemIndex] ?? nil
+                            }
+                            
                             if let destinations = self.destinations {
                                 var filteredDestinationIds = destinations.filter({ $0.selected }).compactMap({ $0.id })
                                 filteredDestinationIds = destinations.filter({ !$0.selected }).isEmpty ? [] : filteredDestinationIds
-                                loadDeals(.category, param: ["first": filterIds, "destinations": filteredDestinationIds])
+                                loadDeals(.category, param: ["first": mainFilterIds, "second": firstFilterIds, "destinations": filteredDestinationIds])
                                 return
                             }
-                            loadDeals(.category, param: filterIds)
+                            loadDeals(.category, param: firstFilterIds)
                         }
                     }
                 case .Hotel_Programme:
                     if let ids = pages.filter({ $0.title == "Hotelprogramme"}).first?.filters?.first?.map({ return $0.ids }) {
-                        if ids.count > selectedItemIndex {
-                            let filterIds = ids[selectedItemIndex]
-                            loadDeals(.category, param: filterIds)
+                        if ids.count > firstRowItemIndex {
+                            //let filterIds = ids[firstRowItemIndex]
+                            
+                            let mainFilterIds = ids.first
+                            
+                            var firstFilterIds: [Int]? = nil
+                            if firstRowItemIndex > 0 {
+                                firstFilterIds = ids[firstRowItemIndex] ?? nil
+                            }
+                            
+                            loadDeals(.category, param: ["first": mainFilterIds, "second": firstFilterIds])
                         }
                     }
                 case .Kredit_Karten:
                     if let ids = pages.filter({ $0.title == "Kreditkarten"}).first?.filters?.first?.map({ return $0.ids }) {
-                        if ids.count > selectedItemIndex {
-                            let filterIds = ids[selectedItemIndex]
-                            loadDeals(.category, param: filterIds)
+                        if ids.count > firstRowItemIndex {
+                            //let filterIds = ids[firstRowItemIndex]
+                            
+                            let mainFilterIds = ids.first
+                            
+                            var firstFilterIds: [Int]? = nil
+                            if firstRowItemIndex > 0 {
+                                firstFilterIds = ids[firstRowItemIndex] ?? nil
+                            }
+                            
+                            loadDeals(.category, param: ["first": mainFilterIds, "second": firstFilterIds])
                         }
                     }
                 case .Ohne_Login:
@@ -522,7 +577,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 }
             )
         }
-        cell.ratingView.isHidden   = !(dealType == .Vielflieger_Status && selectedItemIndex == 1)
+        cell.ratingView.isHidden   = !(dealType == .Vielflieger_Status && firstRowItemIndex == 1)
         cell.ratingLabel.text      = deal.rating
         cell.dealsExpireDate.isHidden = !(UserModel.sharedInstance.membership == .diamont || UserModel.sharedInstance.membership == .platin)
         cell.dealExpiredImageView.isHidden = true
