@@ -20,12 +20,12 @@ internal enum DealRequest {
 }
 
 extension Server {
-    func loadDeals(type: DealRequest, param: Any?, page: Int, shouldSendFilters: Bool = false, orderBy: RouterDeals.Sorting = .none, сompletion: @escaping Completion) {
+    func loadDeals(type: DealRequest, param: Any?, page: Int, shouldSendFilters: Bool = false, shouldSendDestinationFltersOnly: Bool = false, orderBy: RouterDeals.Sorting = .none, сompletion: @escaping Completion) {
         let token = UserModel.sharedInstance.token
         var url: RouterDeals?
 		
 		let filterIdentifiers = shouldSendFilters ? getFilterIdentifiers() : []
-		
+        
         switch type {
             case .my:
                 url = RouterDeals.getMyDeals(token: token, page: page, filters: filterIdentifiers)

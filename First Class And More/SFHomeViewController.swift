@@ -277,6 +277,9 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
 		let dvc = self.storyboard?.instantiateViewController(withIdentifier: "DealTemplateVC") as! SFDealsTemplateViewController
 		dvc.dealType = type
 		dvc.dealState = dealState
+        if dealState == .gold {
+            dvc.applyFilters = false
+        }
 		self.navigationController?.setViewControllers([dvc], animated: false)
 	}
     

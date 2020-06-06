@@ -59,6 +59,13 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         destinationsBtn?.setImage(image, for: .normal)
         if !dealsLoaded {
             dealsLoaded = true
+            
+            if !applyFilters {
+                for destination in self.destinations! {
+                    destination.selected = true
+                }
+            }
+            
             getDeals()
         }
     }
@@ -393,7 +400,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 startLoading()
             }
             let shouldSendFilters = self.dealState == .blue && self.applyFilters
-            Server.shared.loadDeals(type: type, param: param, page: page, shouldSendFilters: shouldSendFilters) { deals, error in
+            Server.shared.loadDeals(type: type, param: param, page: page, shouldSendFilters: shouldSendFilters, shouldSendDestinationFltersOnly: tempDestinationsSelected()) { deals, error in
                 DispatchQueue.main.async {
                     if self.page == 1 {
                         self.stopLoading()
@@ -429,6 +436,21 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 }
             }
         }
+    }
+    
+    func tempDestinationsSelected() -> Bool {
+        
+        if self.dealState == .blue {
+            return false
+        }
+        
+        for destination in self.destinations! {
+            if destination.selected {
+                return true
+            }
+        }
+        
+        return false
     }
     
     func showAuthDialog(email: String?) {
