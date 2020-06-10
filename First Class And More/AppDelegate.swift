@@ -321,12 +321,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 topController.classForCoder != AdsViewController.classForCoder() {
                 
                 let adsManager = AdvertisementsManager.sharedInstance
-                if let ad = adsManager.advertisements.first, let url = URL(string: ad.imageUrl) {
+                if adsManager.advertisements.count > 0 {
                     
+                    let randomAdIndex = Int.random(in: 0 ..< adsManager.advertisements.count)
+                    
+                    let ad = adsManager.advertisements[randomAdIndex]
+                    let url = URL(string: ad.imageUrl)
                     let adViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "adsVC") as! AdsViewController
-                    adViewController.imageName = url.lastPathComponent
+                    adViewController.imageName = url?.lastPathComponent
                     adViewController.ad = ad
-                    
                     adsManager.advertisements.remove(at: adsManager.advertisements.index(of: ad)!)
                     adsManager.advertisements.append(ad)
                     let data = NSKeyedArchiver.archivedData(withRootObject: adsManager)
@@ -338,6 +341,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     adViewController.modalPresentationStyle = .overFullScreen
                     topController.definesPresentationContext = true
                     topController.present(adViewController, animated: true, completion: nil)
+                    
                 }
             }
         }
