@@ -11,7 +11,6 @@ import Alamofire
 import AlamofireNetworkActivityLogger
 import UserNotifications
 import Firebase
-import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
@@ -25,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
-        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        //ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         NetworkActivityLogger.shared.startLogging()
         NetworkActivityLogger.shared.level = .debug
         UNUserNotificationCenter.current().delegate = self
@@ -521,7 +520,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    /*func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
         let handled = ApplicationDelegate.shared.application(app, open: url, options: options)
         
@@ -531,7 +530,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         return handled
-    }
+    }*/
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
