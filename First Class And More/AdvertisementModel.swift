@@ -11,12 +11,12 @@ import ObjectMapper
 
 class AdvertisementModel: NSObject, NSCoding, Mappable {
     
-    var title: String               = ""
-    var mode: String                = ""
-    var imageUrl: String            = ""
-    var url: String                 = ""
-    var expiry: String              = ""
-    var classification: String      = ""
+    var url: String = ""
+    var mode: String = ""
+    var title: String = ""
+    var expiry: String = ""
+    var imageUrl: String = ""
+    var classification: String = ""
     
     required init?(map: Map) { }
     init(title: String, mode: String, imageUrl: String, url: String, expiry: String, classification: String) {
@@ -38,12 +38,15 @@ class AdvertisementModel: NSObject, NSCoding, Mappable {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let title           = aDecoder.decodeObject(forKey: "title") as! String
-        let mode            = aDecoder.decodeObject(forKey: "mode") as! String
-        let imageUrl        = aDecoder.decodeObject(forKey: "imageUrl") as! String
-        let url             = aDecoder.decodeObject(forKey: "url") as! String
-        let expiry          = aDecoder.decodeObject(forKey: "expiry") as! String
-        let classification  = aDecoder.decodeObject(forKey: "classification") as! String
+        guard let title = aDecoder.decodeObject(forKey: "title") as? String,
+            let url = aDecoder.decodeObject(forKey: "url") as? String,
+            let mode = aDecoder.decodeObject(forKey: "mode") as? String,
+            let expiry = aDecoder.decodeObject(forKey: "expiry") as? String,
+            let imageUrl = aDecoder.decodeObject(forKey: "imageUrl") as? String,
+            let classification  = aDecoder.decodeObject(forKey: "classification") as? String else {
+                print(#file, #line, "Decoding failed.")
+                return nil
+        }
         self.init(title: title, mode: mode, imageUrl: imageUrl, url: url, expiry: expiry, classification: classification)
     }
     
