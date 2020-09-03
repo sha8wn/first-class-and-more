@@ -19,7 +19,7 @@ class AdvertisementsManager: NSObject, NSCoding {
         }
     }()
     
-    var advertisements = [AdvertisementModel]()
+    var advertisements: [AdvertisementModel] = []
     
     override init() {
         super.init()
@@ -27,7 +27,7 @@ class AdvertisementsManager: NSObject, NSCoding {
     
     required convenience init?(coder aDecoder: NSCoder) {
         self.init()
-        self.advertisements = aDecoder.decodeObject(forKey: "advertisements") as! [AdvertisementModel]
+        advertisements = (aDecoder.decodeObject(forKey: "advertisements") as? [AdvertisementModel]) ?? []
     }
     
     func encode(with aCoder: NSCoder) {
