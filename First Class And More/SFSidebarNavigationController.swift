@@ -70,12 +70,19 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
     }
     
     private func setUpSideBar() {
-        let navigationBarHeight = navigationBar.frame.height
         
-        sidebarContainer = SFSidebarView(frame: CGRect(x: -(UIApplication.shared.keyWindow?.frame.size.width)!,
-                                                       y: navigationBarHeight + 20, // 20 is status bar height in normal situations except on calls
-            width: (UIApplication.shared.keyWindow?.frame.size.width)!,
-            height: (UIApplication.shared.keyWindow?.frame.size.height)! - navigationBarHeight))
+        var navigationBarHeight = navigationBar.frame.height
+        
+        if #available(iOS 13.0, *) {
+            navigationBarHeight += UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        } else {
+            navigationBarHeight += UIApplication.shared.statusBarFrame.height
+        }
+        
+        sidebarContainer = SFSidebarView(frame: CGRect(x: -(UIScreen.main.bounds.width),
+                                                       y: navigationBarHeight, // 20 is status bar height in normal situations except on calls + 20 additional
+            width: (UIScreen.main.bounds.width),
+            height: (UIScreen.main.bounds.height) - navigationBarHeight))
         
         sidebarContainer.backgroundColor = .clear
         sidebarContainer.delegate = self
