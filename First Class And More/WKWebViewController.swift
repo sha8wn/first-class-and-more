@@ -255,24 +255,6 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
         }
     }
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        
-        print(request.url?.scheme ?? "no scheme value")
-        
-        if request.url?.scheme == "fcam" {
-            let destination = DeeplinkParser.shared.parseDeepLink(request.url!)
-            
-            if destination != nil {
-                DeeplinkNavigator.shared.proceedToDeeplink(destination!)
-            }
-            
-            return false
-        }
-        
-        return true
-        
-    }
-    
     // favorite btn press
     @objc func favoriteBtnPressed() {
         if let dealId = deal?.id {
