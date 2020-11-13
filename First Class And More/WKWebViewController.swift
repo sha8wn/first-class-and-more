@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import WebKit
 
-class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
+class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
     
-    var webView: UIWebView!
+    var webView: WKWebView!
     var toolBar: UIToolbar!
     var backBarButton, forwardBarButton, reloadBarButton: UIBarButtonItem!
     var favoriteBtn: UIButton?
@@ -55,16 +56,22 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
     }
     
     func setupUI() {
-        webView = UIWebView(
+        
+        // https://stackoverflow.com/questions/25977764/wkwebkit-no-datadetectortypes-parameter
+        let webviewConfiguration = WKWebViewConfiguration.init()
+        webviewConfiguration.dataDetectorTypes = .all
+        
+        webView = WKWebView(
             frame: CGRect(
                 x: 0, y: 0,
                 width: UIScreen.main.bounds.width,
                 height: UIScreen.main.bounds.height - 64.0 - 44.0 // status bar, nav bar and toolbar
-            )
-        )
-        webView.delegate = self
-        webView.dataDetectorTypes = .all
-        webView.scalesPageToFit = true
+            ), configuration: webviewConfiguration)
+        
+        webView.navigationDelegate = self
+        let jScript = "var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);"
+        webView.evaluateJavaScript(jScript, completionHandler: nil)
+        
         view.addSubview(webView)
         // toolbar
         toolBar               = UIToolbar()
@@ -79,7 +86,15 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
             toolBar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - 64.0 - toolBar.frame.height, width: UIScreen.main.bounds.width, height: toolBar.frame.height)
         }
         
-        toolBar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - 64.0 - toolBar.frame.height, width: UIScreen.main.bounds.width, height: toolBar.frame.height)
+        var navigationBarHeight = self.navigationController?.navigationBar.frame.height
+        
+        if #available(iOS 13.0, *) {
+            navigationBarHeight! += UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+                } else {
+                    navigationBarHeight! += UIApplication.shared.statusBarFrame.height
+                }
+        
+        toolBar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - navigationBarHeight! - toolBar.frame.height, width: UIScreen.main.bounds.width, height: toolBar.frame.height)
         backBarButton     = UIBarButtonItem(image: #imageLiteral(resourceName: "chevron-left"), style: .plain, target: self, action: #selector(backBtnPressed))
         forwardBarButton  = UIBarButtonItem(image: #imageLiteral(resourceName: "chevron-right"), style: .plain, target: self, action: #selector(forwardBtnPressed))
         reloadBarButton   = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshBtnPressed))
@@ -154,10 +169,10 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
             
             if let deal = deal, let urlString = deal.url, let url = URL(string: urlString) {
                 startLoading()
-                webView.loadRequest(URLRequest(url: url))
+                webView.load(URLRequest(url: url))
             } else if let slide = slide, let urlString = slide.url, let url = URL(string: urlString) {
                 startLoading()
-                webView.loadRequest(URLRequest(url: url))
+                webView.load(URLRequest(url: url))
             } else if var urlString = urlString {
                 
                 if UserModel.sharedInstance.logined && !urlString.contains(UserModel.sharedInstance.token) {
@@ -169,7 +184,7 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
                 
                 if let url = URL(string: urlString) {
                     startLoading()
-                    webView.loadRequest(URLRequest(url: url))
+                    webView.load(URLRequest(url: url))
                 }
             }
         }
@@ -200,18 +215,62 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
         reloadBarButton.isEnabled  = reload
     }
     
-    func webViewDidStartLoad(_ webView: UIWebView) {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         updateButtons(false)
     }
     
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         stopLoading()
         updateButtons(true)
     }
     
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         stopLoading()
         updateButtons(true)
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
+        guard let url = navigationAction.request.url else { return }
+        
+        print(url.scheme ?? "no scheme value")
+        
+        if url.scheme == "fcam" {
+            
+            let destination = DeeplinkParser.shared.parseDeepLink(url)
+            
+            if destination != nil {
+                DeeplinkNavigator.shared.proceedToDeeplink(destination!)
+            }
+            
+            decisionHandler(.cancel)
+        }
+        else if navigationAction.targetFrame == nil {
+            
+            webView.load(navigationAction.request)
+            decisionHandler(.cancel)
+        }
+        else {
+            decisionHandler(.allow)
+        }
+    }
+    
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
+        
+        print(request.url?.scheme ?? "no scheme value")
+        
+        if request.url?.scheme == "fcam" {
+            let destination = DeeplinkParser.shared.parseDeepLink(request.url!)
+            
+            if destination != nil {
+                DeeplinkNavigator.shared.proceedToDeeplink(destination!)
+            }
+            
+            return false
+        }
+        
+        return true
+        
     }
     
     // favorite btn press
@@ -253,23 +312,7 @@ class WKWebViewController: SFSidebarViewController, UIWebViewDelegate {
         }
     }
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        
-        print(request.url?.scheme ?? "no scheme value")
-        
-        if request.url?.scheme == "fcam" {
-            let destination = DeeplinkParser.shared.parseDeepLink(request.url!)
-            
-            if destination != nil {
-                DeeplinkNavigator.shared.proceedToDeeplink(destination!)
-            }
-            
-            return false
-        }
-        
-        return true
-        
-    }
+    
     
     func addFavorite(id: Int) {
         if isConnectedToNetwork(repeatedFunction: { self.addFavorite(id: id) }) {
