@@ -96,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 
                 print(result)
                 
-                completion(result != currentVersion, nil)
+                completion(result > currentVersion, nil)
             } catch {
                 completion(nil, error)
             }
