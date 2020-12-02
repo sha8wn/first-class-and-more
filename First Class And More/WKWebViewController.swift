@@ -198,11 +198,15 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
     }
     
     @objc func backBtnPressed() {
-        webView.goBack()
+        if webView.canGoBack {
+            webView.goBack()
+        }
     }
     
     @objc func forwardBtnPressed() {
-        webView.goForward()
+        if webView.canGoForward {
+            webView.goForward()
+        }
     }
     
     @objc func refreshBtnPressed() {
