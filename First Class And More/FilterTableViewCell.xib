@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="roboto-condensed.regular.ttf">
+            <string>RobotoCondensed-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterCell" id="KGk-i7-Jjw" customClass="FilterTableViewCell" customModule="First_Class_And_More" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkboxOff" translatesAutoresizingMaskIntoConstraints="NO" id="U4q-ep-BB9">
+                        <rect key="frame" x="12" y="13.5" width="16" height="16.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="U4q-ep-BB9" secondAttribute="height" multiplier="1:1" id="h0j-st-6Gk"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaX-oe-t3X">
+                        <rect key="frame" x="40" y="9" width="268" height="25"/>
+                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="21"/>
+                        <color key="textColor" red="0.42745098039215684" green="0.43137254901960786" blue="0.44313725490196076" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRB-6g-DJj">
+                        <rect key="frame" x="243" y="9" width="65" height="24.5"/>
+                        <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
+                        <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                        <state key="normal" title="Button">
+                            <color key="titleColor" red="0.16862745098039217" green="0.6588235294117647" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="advancedBtnPressed" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hCk-Jn-q1P"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="wRB-6g-DJj" firstAttribute="leading" secondItem="XaX-oe-t3X" secondAttribute="trailing" constant="12" id="24Q-DS-rcB"/>
+                    <constraint firstAttribute="trailing" secondItem="XaX-oe-t3X" secondAttribute="trailing" constant="12" id="4CU-1d-jLX"/>
+                    <constraint firstItem="XaX-oe-t3X" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="HQU-To-F5P"/>
+                    <constraint firstItem="U4q-ep-BB9" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.05" id="Oo4-yX-Kac"/>
+                    <constraint firstItem="wRB-6g-DJj" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Qxg-uB-ced"/>
+                    <constraint firstAttribute="trailing" secondItem="wRB-6g-DJj" secondAttribute="trailing" constant="12" id="RUN-pT-CUk"/>
+                    <constraint firstItem="XaX-oe-t3X" firstAttribute="leading" secondItem="U4q-ep-BB9" secondAttribute="trailing" constant="12" id="TLC-56-n7R"/>
+                    <constraint firstItem="wRB-6g-DJj" firstAttribute="height" secondItem="U4q-ep-BB9" secondAttribute="height" constant="8" id="cxW-hD-ffU"/>
+                    <constraint firstItem="U4q-ep-BB9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="gsD-be-J7v"/>
+                    <constraint firstItem="U4q-ep-BB9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="sxD-Qt-ffk"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="24Q-DS-rcB"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="advancedBtn" destination="wRB-6g-DJj" id="dac-JQ-Zgi"/>
+                <outlet property="checkboxImageView" destination="U4q-ep-BB9" id="b6w-9a-pmn"/>
+                <outlet property="optionLabel" destination="XaX-oe-t3X" id="SlG-dp-oKE"/>
+                <outlet property="trailingToAdvancedBtn" destination="24Q-DS-rcB" id="gwE-Bv-zK7"/>
+                <outlet property="trailingToSuperview" destination="4CU-1d-jLX" id="kXf-Gh-nZN"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="checkboxOff" width="30" height="30"/>
+    </resources>
+</document>

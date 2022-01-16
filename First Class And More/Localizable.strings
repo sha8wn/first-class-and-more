@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  First Class And More
+
+  Created by Vadim on 22/01/2019.
+  Copyright © 2019 Shawn Frank. All rights reserved.
+*/
+
+"errorOccured" = "Ein Fehler ist aufgetreten..";
+"loading" = "Wird geladen..";
+"selectGender" = "Bitte Anrede auswählen.";
+"emptyName" = "Nachname fehlt!";
+"emptyEmail" = "E-Mail fehlt!";
+"invalidEmail" = "E-Mail ungültig!";
+"emptyPassword" = "Passwort fehlt!";
+"acceptPolicy" = "Bitte AGB und Datenschutzerklärung akzeptieren.";
+
+"newUser" = "Ich bin neu bei First Class & More und habe mich bisher noch nicht registriert";
+"newbie" = "neu bei First Class & More";
+"alreadySubscriber" = "Ich bin bereits First Class & More Newsletter-Empfänger";
+"subscriber" = "Newsletter-Empfänger";
+"premiumUser" = "Ich bin Premium-Mitglied bei First Class & More";
+"premiumer" = "Premium-Mitglied";
+"notSubscriber" = "Sie sind nicht Empfänger des Newsletters";

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>266072783071-upo14m8ts2l3dpq7kb95fnr4gbg7a029.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.266072783071-upo14m8ts2l3dpq7kb95fnr4gbg7a029</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDRryG78DvwcicTe_2MdUiF4r8IMTYkdsk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>266072783071</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>de.first-class-and-more</string>
+	<key>PROJECT_ID</key>
+	<string>swift-fcam-ios-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>swift-fcam-ios-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:266072783071:ios:786f81402a152bc6</string>
+	<key>DATABASE_URL</key>
+	<string>https://swift-fcam-ios-app.firebaseio.com</string>
+</dict>
+</plist>
