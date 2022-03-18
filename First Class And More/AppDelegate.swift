@@ -62,48 +62,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             case invalidResponse, invalidBundleInfo
         }
 
-    func isUpdateAvailable(completion: @escaping (Bool?, Error?) -> Void) throws -> URLSessionDataTask {
-        guard let info = Bundle.main.infoDictionary,
-            let currentVersion = info["CFBundleShortVersionString"] as? String,
-            let identifier = info["CFBundleIdentifier"] as? String,
-            let url = URL(string: "https://www.first-class-and-more.de/blog/fcam-api/app/v1/app-version/?auth=tZKWXujQ") else {
+        func isUpdateAvailable(completion: @escaping (Bool?, Error?) -> Void) throws -> URLSessionDataTask {
+            guard let info = Bundle.main.infoDictionary,
+                  let currentVersion = info["CFBundleShortVersionString"] as? String,
+                  let url = URL(string: "https://www.first-class-and-more.de/blog/fcam-api/app/v1/app-version-v2?auth=tZKWXujQ&app=1") else {
                 throw VersionError.invalidBundleInfo
-        }
-        print("url: ", url)
-        print("current version", currentVersion)
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            do {
-                if let error = error
-                {
-                    throw error
-                    
-                }
-                
-                if data == nil {
-                    throw VersionError.invalidResponse
-                }
-                
-                let data = data!
-                
-                print()
-                let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments]) as? [String: Any]
-                
-                print(json)
-                
-                guard let result = (json?["data"] as? String) else {
-                    throw VersionError.invalidResponse
-                }
-                
-                print(result)
-                
-                completion(result > currentVersion, nil)
-            } catch {
-                completion(nil, error)
             }
+            print("url: ", url)
+            print("current version", currentVersion)
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                do {
+                    if let error = error
+                    {
+                        throw error
+                        
+                    }
+                    
+                    if data == nil {
+                        throw VersionError.invalidResponse
+                    }
+                    
+                    let data = data!
+                    
+                    print()
+                    let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments]) as? [String: Any]
+                    
+                    guard let responseData = json?["data"] as? [String: Any],
+                          let version = responseData["version"] as? String
+                    else {
+                        throw VersionError.invalidResponse
+                    }
+                    
+                    print(version)
+                    
+                    completion(version > currentVersion, nil)
+                } catch {
+                    completion(nil, error)
+                }
+            }
+            task.resume()
+            return task
         }
-        task.resume()
-        return task
-    }
 
     _ = try? isUpdateAvailable { (update, error) in
             DispatchQueue.main.async {
