@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             case invalidResponse, invalidBundleInfo
         }
 
-        func isUpdateAvailable(completion: @escaping (Bool?, Error?) -> Void) throws -> URLSessionDataTask {
+        func isUpdateAvailable(completion: @escaping (Bool?, Bool?, Error?) -> Void) throws -> URLSessionDataTask {
             guard let info = Bundle.main.infoDictionary,
                   let currentVersion = info["CFBundleShortVersionString"] as? String,
                   let url = URL(string: "https://www.first-class-and-more.de/blog/fcam-api/app/v1/app-version-v2?auth=tZKWXujQ&app=1") else {
@@ -93,34 +93,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         throw VersionError.invalidResponse
                     }
                     
+                    
+                    var isUpdateForced = false
+                    
+                    if let forceUpdate = responseData["force_update"] as? Bool,
+                       forceUpdate {
+                        isUpdateForced = true
+                    }
+                    
                     print(version)
                     
-                    completion(version > currentVersion, nil)
+                    completion(version > currentVersion, isUpdateForced, nil)
                 } catch {
-                    completion(nil, error)
+                    completion(nil, nil, error)
                 }
             }
             task.resume()
             return task
         }
 
-    _ = try? isUpdateAvailable { (update, error) in
+    _ = try? isUpdateAvailable { (update, isUpdateForced, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     print(error)
-                } else if let update = update, update {
-                    self.showUpdateAlert()
+                } else if let update = update, update,
+                          let isUpdateForced = isUpdateForced {
+                    self.showUpdateAlert(isForced: isUpdateForced)
                 }
             }
         }
     }
     
-    private func showUpdateAlert() {
+    private func showUpdateAlert(isForced: Bool = true) {
         if var topController = UIApplication.shared.keyWindow?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
             }
-            topController.showPopupDialog(title: "Eine neue Version der First Class & More Reisedeals-App ist im App Store verfügbar. Möchten Sie jetzt updaten?", message: nil, cancelBtn: true, okBtnTitle: "Updaten", okBtnCompletion: {
+            
+            var popupTitle = "Eine neue Version der First Class & More Reisedeals-App ist im App Store verfügbar. Bitte führen Sie das Update jetzt durch, um die App weiter nutzen zu können."
+            
+            if !isForced {
+                popupTitle = "Eine neue Version der First Class & More Reisedeals-App ist im App Store verfügbar. Möchten Sie jetzt updaten?"
+            }
+            
+            topController.showPopupDialog(title: popupTitle,
+                                          message: nil,
+                                          cancelBtn: !isForced,
+                                          okBtnTitle: "Updaten",
+                                          okBtnCompletion: {
                 
                 if let url = URL(string: "itms-apps://itunes.apple.com/app/first-class-more-reisedeals/id1474514915"),
                     UIApplication.shared.canOpenURL(url) {
