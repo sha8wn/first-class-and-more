@@ -62,66 +62,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             case invalidResponse, invalidBundleInfo
         }
 
-    func isUpdateAvailable(completion: @escaping (Bool?, Error?) -> Void) throws -> URLSessionDataTask {
-        guard let info = Bundle.main.infoDictionary,
-            let currentVersion = info["CFBundleShortVersionString"] as? String,
-            let identifier = info["CFBundleIdentifier"] as? String,
-            let url = URL(string: "https://www.first-class-and-more.de/blog/fcam-api/app/v1/app-version/?auth=tZKWXujQ") else {
+        func isUpdateAvailable(completion: @escaping (Bool?, Bool?, Error?) -> Void) throws -> URLSessionDataTask {
+            guard let info = Bundle.main.infoDictionary,
+                  let currentVersion = info["CFBundleShortVersionString"] as? String,
+                  let url = URL(string: "https://www.first-class-and-more.de/blog/fcam-api/app/v1/app-version-v2?auth=tZKWXujQ&app=1") else {
                 throw VersionError.invalidBundleInfo
-        }
-        print("url: ", url)
-        print("current version", currentVersion)
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            do {
-                if let error = error
-                {
-                    throw error
-                    
-                }
-                
-                if data == nil {
-                    throw VersionError.invalidResponse
-                }
-                
-                let data = data!
-                
-                print()
-                let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments]) as? [String: Any]
-                
-                print(json)
-                
-                guard let result = (json?["data"] as? String) else {
-                    throw VersionError.invalidResponse
-                }
-                
-                print(result)
-                
-                completion(result > currentVersion, nil)
-            } catch {
-                completion(nil, error)
             }
+            print("url: ", url)
+            print("current version", currentVersion)
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                do {
+                    if let error = error
+                    {
+                        throw error
+                        
+                    }
+                    
+                    if data == nil {
+                        throw VersionError.invalidResponse
+                    }
+                    
+                    let data = data!
+                    
+                    print()
+                    let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments]) as? [String: Any]
+                    
+                    guard let responseData = json?["data"] as? [String: Any],
+                          let version = responseData["version"] as? String
+                    else {
+                        throw VersionError.invalidResponse
+                    }
+                    
+                    
+                    var isUpdateForced = false
+                    
+                    if let forceUpdate = responseData["force_update"] as? Bool,
+                       forceUpdate {
+                        isUpdateForced = true
+                    }
+                    
+                    print(version)
+                    
+                    completion(version > currentVersion, isUpdateForced, nil)
+                } catch {
+                    completion(nil, nil, error)
+                }
+            }
+            task.resume()
+            return task
         }
-        task.resume()
-        return task
-    }
 
-    _ = try? isUpdateAvailable { (update, error) in
+    _ = try? isUpdateAvailable { (update, isUpdateForced, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     print(error)
-                } else if let update = update, update {
-                    self.showUpdateAlert()
+                } else if let update = update, update,
+                          let isUpdateForced = isUpdateForced {
+                    self.showUpdateAlert(isForced: isUpdateForced)
                 }
             }
         }
     }
     
-    private func showUpdateAlert() {
+    private func showUpdateAlert(isForced: Bool = true) {
         if var topController = UIApplication.shared.keyWindow?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
             }
-            topController.showPopupDialog(title: "Eine neue Version der First Class & More Reisedeals-App ist im App Store verfügbar. Möchten Sie jetzt updaten?", message: nil, cancelBtn: true, okBtnTitle: "Updaten", okBtnCompletion: {
+            
+            var popupTitle = "Eine neue Version der First Class & More Reisedeals-App ist im App Store verfügbar. Bitte führen Sie das Update jetzt durch, um die App weiter nutzen zu können."
+            
+            if !isForced {
+                popupTitle = "Eine neue Version der First Class & More Reisedeals-App ist im App Store verfügbar. Möchten Sie jetzt updaten?"
+            }
+            
+            topController.showPopupDialog(title: popupTitle,
+                                          message: nil,
+                                          cancelBtn: !isForced,
+                                          okBtnTitle: "Updaten",
+                                          okBtnCompletion: {
                 
                 if let url = URL(string: "itms-apps://itunes.apple.com/app/first-class-more-reisedeals/id1474514915"),
                     UIApplication.shared.canOpenURL(url) {

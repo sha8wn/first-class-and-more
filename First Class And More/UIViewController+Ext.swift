@@ -31,7 +31,11 @@ extension UIViewController: NVActivityIndicatorViewable {
         cancelBtnAppearance.titleFont   = UIFont(name: "Roboto-Regular", size: 14.0)!
         cancelBtnAppearance.titleColor  = fcamDarkGold
         // creating popup
-        let popup = PopupDialog(title: title, message: message)
+        let popup = PopupDialog(title: title,
+                                message: message,
+                                tapGestureDismissal: cancelBtn,
+                                panGestureDismissal: cancelBtn)
+        
         popup.buttonAlignment = .horizontal
         popup.transitionStyle = .bounceUp
         let okBtn = DefaultButton(title: okBtnTitle ?? "OK") {
@@ -41,6 +45,7 @@ extension UIViewController: NVActivityIndicatorViewable {
             let cancelBtn = CancelButton(title: "ABBRECHEN".uppercased(), action: nil)
             popup.addButtons([cancelBtn, okBtn])
         } else {
+            okBtn.dismissOnTap = false
             popup.addButtons([okBtn])
         }
         present(popup, animated: true, completion: nil)
