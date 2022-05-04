@@ -11,62 +11,41 @@ import Foundation
 import SwiftyJSON
 import AlamofireObjectMapper
 
-extension Server {    
-    // get password salt
-    // success response
-    // {"data":"PcKrzZwFJJoi4ozZ","0":{"status":200}}
-    // error response
-    // {"code":"invalid_user","message":"User does not exist","data":{"status":404}}
-    func getPasswordSalt(email: String, сompletion: @escaping Completion) {
-        let getPasswordSaltURL = RouterUser.getPasswordSalt(email: email)
-        Alamofire.request(getPasswordSaltURL).responseObject { (response: DataResponse<StringResponse>) in
-            let responseValue = response.result.value
-            if let salt = responseValue?.data {
-                сompletion(salt, nil)
-                return
-            }
-            if let error = responseValue?.message {
-                сompletion(nil, .custom(error))
-                return
-            }
-            сompletion(nil, .cantGetPasswordSalt)
-        }
-    }
+extension Server {
     
-    // login request
-    // success response
-    // {"data":"PcKrzZwFJJoi4ozZ","0":{"status":200}}
-    // error response
-    // {"code":"invalid_password","message":"Invalid Password","data":{"status":401}}
-    func login(email: String, password: String, salt: String, сompletion: @escaping Completion) {
-        let defaults = UserDefaults.standard
-        let devicePushToken = defaults.string(forKey: kUDDevicePushToken) ?? "55f23078281e424a6a8c410de53205455c088e4aad32bdecfa3bcce981d1bf86"
-        let fcmToken = UserDefaults.standard.string(forKey: kUDFCMToken) ?? ""
-        let newPassword = "\("\(password)\(salt)".md5):\(salt)"
-        let loginURL = RouterUser.login(email: email, password: newPassword, devicePushToken: devicePushToken, fcmToken: fcmToken)
+    func login(email: String, password: String, сompletion: @escaping Completion) {
+        
+        let loginURL = RouterUser.login(email: email, password: password)
         Alamofire.request(loginURL).responseObject { (response: DataResponse<StringResponse>) in
+            
             let responseValue = response.result.value
-            print(#file, #line, responseValue?.data ?? "")
-            print(#file, #line, response.response ?? "")
-            print(#file, #line, response.request ?? "")
-            print(#file, #line, response.result.value?.response?.status ?? "")
-            if let token = responseValue?.data {
-                let userModel      = UserModel.sharedInstance
-                userModel.email    = email
-                userModel.password = password
-                userModel.token    = token
-                userModel.logined  = true
-                // save userModel
-                let data = NSKeyedArchiver.archivedData(withRootObject: userModel)
-                UserDefaults.standard.set(data, forKey: kUDSharedUserModel)
-                UserDefaults.standard.synchronize()
-                сompletion(true, nil)
-                return
+            
+            if let responseData = response.data {
+                let loginResponse = JSON(responseData)
+                
+                if let accessToken = loginResponse["access_token"].string {
+                
+                    let userModel      = UserModel.sharedInstance
+                    userModel.email    = email
+                    userModel.password = password
+                    userModel.token = accessToken
+                    userModel.isLoggedIn  = true
+                    
+                    // save userModel
+                    let data = NSKeyedArchiver.archivedData(withRootObject: userModel)
+                    UserDefaults.standard.set(data, forKey: kUDSharedUserModel)
+                    UserDefaults.standard.synchronize()
+                    
+                    сompletion(true, nil)
+                    return
+                }
             }
+            
             if let error = responseValue?.message {
                 сompletion(nil, .custom(error))
                 return
             }
+            
             сompletion(nil, .cantLogin)
         }
     }

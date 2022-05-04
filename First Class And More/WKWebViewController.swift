@@ -119,7 +119,7 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
         navigationItem.setLeftBarButton(backBarBtnItem, animated: false)
         navigationItem.rightBarButtonItem = nil
         if let deal = deal {
-            if UserModel.sharedInstance.logined, let id = deal.id {
+            if UserModel.sharedInstance.isLoggedIn, let id = deal.id {
                 favoriteBtn = UIButton(type: .custom)
                 favoriteBtn!.frame = CGRect(x: 0, y: 0, width: 22, height: 22)
                 let user = UserModel.sharedInstance
@@ -175,7 +175,7 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
                 webView.load(URLRequest(url: url))
             } else if var urlString = urlString {
                 
-                if UserModel.sharedInstance.logined && !urlString.contains(UserModel.sharedInstance.token) {
+                if UserModel.sharedInstance.isLoggedIn && !urlString.contains(UserModel.sharedInstance.token) {
                     
                     if urlString.contains("/blog/mobile/") && !urlString.contains("&t=") {
                         urlString.append("&t=\(UserModel.sharedInstance.token)")

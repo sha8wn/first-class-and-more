@@ -177,7 +177,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func checkUserToken() {
         let condition = reach!.isReachableViaWiFi() || reach!.isReachableViaWWAN()
-        if condition, UserModel.sharedInstance.logined {
+        if condition, UserModel.sharedInstance.isLoggedIn {
             Server.shared.checkUserToken() { statusCode, error in
                 if error == nil {
                     if let statusCode = statusCode as? Int {
@@ -202,25 +202,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func updateToken() {
         let condition = reach!.isReachableViaWiFi() || reach!.isReachableViaWWAN()
         let user = UserModel.sharedInstance
-        if condition, user.logined {
-            Server.shared.getPasswordSalt(email: user.email) { salt, error in
-                DispatchQueue.main.async {
-                    if error != nil {
-                        self.logout()
-                    } else {
-                        if let salt = salt as? String {
-                            self.getUserToken(email: user.email, password: user.password, salt: salt)
-                        }
-                    }
-                }
-            }
+        if condition, user.isLoggedIn {
+            self.getUserToken(email: user.email, password: user.password)
         }
     }
     
-    func getUserToken(email: String, password: String, salt: String) {
+    func getUserToken(email: String, password: String) {
         let condition = reach!.isReachableViaWiFi() || reach!.isReachableViaWWAN()
         if condition {
-            Server.shared.login(email: email, password: password, salt: salt) { success, error in
+            Server.shared.login(email: email, password: password) { success, error in
                 DispatchQueue.main.async {
                     if error != nil {
                         self.logout()

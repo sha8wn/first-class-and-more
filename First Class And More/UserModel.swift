@@ -46,7 +46,7 @@ class UserModel: NSObject, NSCoding {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "user_updated"), object: nil)
         }
     }
-    var logined: Bool                            = false
+    var isLoggedIn: Bool                            = false
     var favorites: [Int]                         = []
     var notificationSetting: Int                 = 1
     var isSubscribed: Bool                       = false
@@ -63,7 +63,7 @@ class UserModel: NSObject, NSCoding {
         self.email               = aDecoder.decodeObject(forKey: "email") as! String
         self.password            = aDecoder.decodeObject(forKey: "password") as! String
         self.token               = aDecoder.decodeObject(forKey: "token") as! String
-        self.logined             = aDecoder.decodeBool(forKey: "logined")
+        self.isLoggedIn             = aDecoder.decodeBool(forKey: "isLoggedIn")
         self.favorites           = aDecoder.decodeObject(forKey: "favorites") as! [Int]
         self.notificationSetting = aDecoder.decodeInteger(forKey: "notificationSetting")
         self.isSubscribed        = aDecoder.decodeBool(forKey: "isSubscribed")
@@ -78,7 +78,7 @@ class UserModel: NSObject, NSCoding {
         aCoder.encode(email, forKey: "email")
         aCoder.encode(password, forKey: "password")
         aCoder.encode(token, forKey: "token")
-        aCoder.encode(logined, forKey: "logined")
+        aCoder.encode(isLoggedIn, forKey: "isLoggedIn")
         aCoder.encode(favorites, forKey: "favorites")
         aCoder.encode(notificationSetting, forKey: "notificationSetting")
         aCoder.encode(isSubscribed, forKey: "isSubscribed")

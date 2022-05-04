@@ -245,7 +245,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                             break
                     }
                 case .Favoriten:
-                    if UserModel.sharedInstance.logined {
+                    if UserModel.sharedInstance.isLoggedIn {
                         if let ids = pages.filter({ $0.title == "Favoriten"}).first?.filters?.first?.map({ return $0.ids }) {
                             if ids.count > firstRowItemIndex {
                                 let filterIds = ids[firstRowItemIndex]
@@ -631,7 +631,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         
         let user = UserModel.sharedInstance
         
-        if user.logined {
+        if user.isLoggedIn {
             
             cell.favoriteButtonOutlet.isHidden = false
             
@@ -663,7 +663,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         if let indexPath = dealsView.dealsTableView.indexPathForRow(at: cell.center) {
             let index = indexPath.section
             let deal = deals[index]
-            if UserModel.sharedInstance.logined {
+            if UserModel.sharedInstance.isLoggedIn {
                 if let dealId = deal.id {
                     let favorites = UserModel.sharedInstance.favorites
                     if favorites.contains(dealId) {

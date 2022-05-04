@@ -91,7 +91,7 @@ class SFHomeViewController: SFSidebarViewController, SFHomeMeineDealsViewDelegat
         var mainDestinations = ["HomeVC", "DealTemplateVC", "DealTemplateVC", "FilterIntroVC"]
         var mainDeals = [nil, DealType.Favoriten, DealType.Endet_Bald, DealType.Filter_Definieren]
         
-        if !user.logined {
+        if !user.isLoggedIn {
             mainOptions = ["Meine Deals", "Endet bald", "Filter definieren"]
             mainDestinations = ["HomeVC", "DealTemplateVC", "FilterIntroVC"]
             mainDeals = [nil, DealType.Endet_Bald, DealType.Filter_Definieren]

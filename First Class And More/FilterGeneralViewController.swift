@@ -26,7 +26,7 @@ class FilterGeneralViewController: SFSidebarViewController {
         let header = UINib(nibName: "FilterGeneralHeader", bundle: nil)
         tableView.register(header, forHeaderFooterViewReuseIdentifier: "FilterGeneralHeader")
         let user = UserModel.sharedInstance
-        continueBtn.setTitle(!user.isGold && user.logined ? "Weiter" : "Fertig", for: .normal)
+        continueBtn.setTitle(!user.isGold && user.isLoggedIn ? "Weiter" : "Fertig", for: .normal)
     }
     
     func setupData() {
@@ -91,7 +91,7 @@ class FilterGeneralViewController: SFSidebarViewController {
         }
         saveData()
         let user = UserModel.sharedInstance
-        if !user.isGold && user.logined {
+        if !user.isGold && user.isLoggedIn {
             checkForSelectedFilters()
         } else {
             showMainScreen()

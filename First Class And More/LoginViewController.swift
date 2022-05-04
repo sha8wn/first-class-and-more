@@ -182,24 +182,13 @@ class LoginViewController: SFSidebarViewController {
         }
         if isConnectedToNetwork(repeatedFunction: loginBtnPressed) {
             startLoading(message: "Wird geladen..")
-            Server.shared.getPasswordSalt(email: email) { salt, error in
-                DispatchQueue.main.async {
-                    if error != nil {
-                        self.stopLoading()
-                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten.", message: "E-Mail-Adresse ist unbekannt.", cancelBtn: false)
-                    } else {
-                        if let salt = salt as? String {
-                            self.performLogin(email: email, password: password, salt: salt)
-                        }
-                    }
-                }
-            }
+            self.performLogin(email: email, password: password)
         }
     }
     
-    func performLogin(email: String, password: String, salt: String) {
+    func performLogin(email: String, password: String) {
         if isConnectedToNetwork(repeatedFunction: loginBtnPressed) {
-            Server.shared.login(email: email, password: password, salt: salt) { success, error in
+            Server.shared.login(email: email, password: password) { success, error in
                 DispatchQueue.main.async {
                     if error != nil {
                         self.stopLoading()

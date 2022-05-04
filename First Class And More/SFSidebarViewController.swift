@@ -42,7 +42,7 @@ class SFSidebarViewController: UIViewController
         
         let user = UserModel.sharedInstance
         self.navigationItem.setLeftBarButton(UIBarButtonItem(customView: sidebarButton), animated: false)
-        self.navigationItem.setRightBarButton(user.logined ? nil : UIBarButtonItem(customView: loginButton), animated: false)
+        self.navigationItem.setRightBarButton(user.isLoggedIn ? nil : UIBarButtonItem(customView: loginButton), animated: false)
     }
     
     func addHomeBtn() {
@@ -75,7 +75,7 @@ class SFSidebarViewController: UIViewController
         loginButton.frame = CGRect(x: 0, y: 0, width: 22, height: 22)
         loginButton.setImage(#imageLiteral(resourceName: "lock"), for: .normal)
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
-        self.navigationItem.setRightBarButton(user.logined ? nil : UIBarButtonItem(customView: loginButton), animated: false)
+        self.navigationItem.setRightBarButton(user.isLoggedIn ? nil : UIBarButtonItem(customView: loginButton), animated: false)
     }
     
     @objc private func sidebarButtonTapped()

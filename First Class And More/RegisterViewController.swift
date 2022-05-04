@@ -56,6 +56,9 @@ class RegisterViewController: UIViewController {
                 cancelBtn: false
             )
         }
+        
+        premiumEmailTextField.text = "platin@gmail.com"
+        premiumPasswordTextField.text = "Fcam20201"
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -235,24 +238,13 @@ class RegisterViewController: UIViewController {
         }
         if isConnectedToNetwork(repeatedFunction: loginBtnPressed) {
             startLoading(message: String(.loading))
-            Server.shared.getPasswordSalt(email: email) { salt, error in
-                DispatchQueue.main.async {
-                    if error != nil {
-                        self.stopLoading()
-                        self.showPopupDialog(title: String(.errorOccured), message: "E-Mail-Adresse ist unbekannt.", cancelBtn: false)
-                    } else {
-                        if let salt = salt as? String {
-                            self.performLogin(email: email, password: password, salt: salt)
-                        }
-                    }
-                }
-            }
+            performLogin(email: email, password: password)
         }
     }
 
-    func performLogin(email: String, password: String, salt: String) {
+    func performLogin(email: String, password: String) {
         if isConnectedToNetwork(repeatedFunction: loginBtnPressed) {
-            Server.shared.login(email: email, password: password, salt: salt) { success, error in
+            Server.shared.login(email: email, password: password) { success, error in
                 DispatchQueue.main.async {
                     if error != nil {
                         self.stopLoading()

@@ -109,7 +109,7 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
                 {
                     if destination != "FilterIntroVC"
                     {
-                        if dealType == .Favoriten, !UserModel.sharedInstance.logined {
+                        if dealType == .Favoriten, !UserModel.sharedInstance.isLoggedIn {
                             showPremiumAccessOnlyPopup()
                         }
                         else if let _ = self.storyboard?.instantiateViewController(withIdentifier: destination)
@@ -309,7 +309,7 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
         }
     
         if indexPath.row == menuOptions?[indexPath.section].optionName?.count {
-            if let name = menuOptions?[indexPath.section].optionName?[indexPath.row - 1], name == "Promotions", (UserModel.sharedInstance.isGold || !UserModel.sharedInstance.logined) {
+            if let name = menuOptions?[indexPath.section].optionName?[indexPath.row - 1], name == "Promotions", (UserModel.sharedInstance.isGold || !UserModel.sharedInstance.isLoggedIn) {
                 return 0
             }
             return 50
@@ -380,7 +380,7 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
     }
     
     func cardViewTapped() {
-        if UserModel.sharedInstance.logined {
+        if UserModel.sharedInstance.isLoggedIn {
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                 appDelegate.timer?.invalidate()
                 appDelegate.timer = nil

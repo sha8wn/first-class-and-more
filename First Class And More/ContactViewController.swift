@@ -59,7 +59,7 @@ class ContactViewController: UIViewController {
         
         setTextViewPlaceholder()
         
-        if UserModel.sharedInstance.logined {
+        if UserModel.sharedInstance.isLoggedIn {
             stackView.removeArrangedSubview(emailContainer)
             emailContainer.removeFromSuperview()
             stackView.removeArrangedSubview(genderContainer)
@@ -87,7 +87,7 @@ class ContactViewController: UIViewController {
     }
     
     @IBAction func sendBtnPressed() {
-        let isLoggedIn = UserModel.sharedInstance.logined
+        let isLoggedIn = UserModel.sharedInstance.isLoggedIn
         if isLoggedIn {
             name = UserModel.sharedInstance.name
             surname = UserModel.sharedInstance.surname

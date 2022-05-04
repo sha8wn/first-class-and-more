@@ -95,7 +95,7 @@ class SFSidebarView: UIView
         userContainer.backgroundColor = .white
         
         let user = UserModel.sharedInstance
-        let logined = user.logined
+        let isLoggedIn = user.isLoggedIn
         let userContainerSize = userContainer.frame.size
         let cardTierImage = user.membership.image
         let cardSize = CGSize(width: 0.9 * (CGFloat(348) / 3), height: 0.9 * (CGFloat(219) / 3))
@@ -116,7 +116,7 @@ class SFSidebarView: UIView
             width: expandImageView.frame.width / 2,
             height: expandImageView.frame.height / 2
         )
-        expandImageView.image = logined ? #imageLiteral(resourceName: "expand") : nil
+        expandImageView.image = isLoggedIn ? #imageLiteral(resourceName: "expand") : nil
         
         currentX += userTierImage.frame.size.width + 18
         
@@ -130,7 +130,7 @@ class SFSidebarView: UIView
         userTierLabel = SFFCAMLabel(frame:CGRect(x: currentX, y: currentY, width: userContainerSize.width - currentX - 5, height: CGFloat(10)))
         userTierLabel.fontSize = 12
         userTierLabel.textColor = .black
-        userTierLabel.isHidden = !logined
+        userTierLabel.isHidden = !isLoggedIn
         userTierLabel.text = user.membership.rawValue
         
         currentY += userTierLabel.frame.size.height + 6
@@ -138,7 +138,7 @@ class SFSidebarView: UIView
         userJoinLabel = SFFCAMLabel(frame:CGRect(x: currentX, y: currentY, width: userContainerSize.width - currentX - 5, height: CGFloat(10)))
         userJoinLabel.fontSize = 12
         userJoinLabel.textColor = fcamDarkGrey
-        userJoinLabel.isHidden = !logined
+        userJoinLabel.isHidden = !isLoggedIn
         userJoinLabel.text = "bis \(user.membershipExpires.date(format: "yyyy-MM-dd")?.string(format: "dd. MMMM yyyy") ?? "")"
         
         
@@ -148,14 +148,14 @@ class SFSidebarView: UIView
         loginLogoutButton = UIButton(frame: CGRect(x: currentX, y: currentY, width: 70, height: CGFloat(40)))
         loginLogoutButton.contentVerticalAlignment = .top
         loginLogoutButton.contentHorizontalAlignment = .left
-        let loginLogoutBtnTitle = logined ? "AUSLOGGEN" : "ANMELDUNG"
+        let loginLogoutBtnTitle = isLoggedIn ? "AUSLOGGEN" : "ANMELDUNG"
         loginLogoutButton.setTitle(loginLogoutBtnTitle, for: .normal)
         loginLogoutButton.setTitleColor(fcamGold, for: .normal)
         loginLogoutButton.setTitleColor(fcamDarkGold, for: .highlighted)
         loginLogoutButton.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 12)
         loginLogoutButton.addTarget(self, action: #selector(sidebarLoginLogoutButtonTapped), for: .touchUpInside)
         
-        userNameLabel.frame.origin.y = logined ? 50.0 : loginLogoutButton.frame.origin.y - 6 - userNameLabel.frame.height
+        userNameLabel.frame.origin.y = isLoggedIn ? 50.0 : loginLogoutButton.frame.origin.y - 6 - userNameLabel.frame.height
         
         tutorialButton = UIButton(type: .custom)
         tutorialButton.frame = CGRect(x: 0.0, y: userContainer.frame.height - 40.0 - 8.0, width: userContainer.frame.width, height: 40.0)
@@ -217,23 +217,23 @@ class SFSidebarView: UIView
     
     func updateUserView() {
         let user = UserModel.sharedInstance
-        let logined = user.logined
+        let isLoggedIn = user.isLoggedIn
         let cardTierImage = user.membership.image
         
         userTierImage.image = cardTierImage
-        expandImageView.image = logined ? #imageLiteral(resourceName: "expand") : nil
+        expandImageView.image = isLoggedIn ? #imageLiteral(resourceName: "expand") : nil
         userContainer.bringSubviewToFront(expandImageView)
         
-        let loginLogoutBtnTitle = logined ? "AUSLOGGEN" : "ANMELDUNG"
+        let loginLogoutBtnTitle = isLoggedIn ? "AUSLOGGEN" : "ANMELDUNG"
         loginLogoutButton.setTitle(loginLogoutBtnTitle, for: .normal)
         
         userNameLabel.text = "\(user.name) \(user.surname)"
-        userNameLabel.frame.origin.y = logined ? 50.0 : loginLogoutButton.frame.origin.y - 6 - userNameLabel.frame.height
+        userNameLabel.frame.origin.y = isLoggedIn ? 50.0 : loginLogoutButton.frame.origin.y - 6 - userNameLabel.frame.height
         
-        userTierLabel.isHidden = !logined
+        userTierLabel.isHidden = !isLoggedIn
         userTierLabel.text = user.membership.rawValue
         
-        userJoinLabel.isHidden = !logined
+        userJoinLabel.isHidden = !isLoggedIn
         userJoinLabel.text = "bis \(user.membershipExpires.date(format: "yyyy-MM-dd")?.string(format: "dd MMMM yyyy") ?? "")"
         menuContainer.layoutIfNeeded()
     }
@@ -260,7 +260,7 @@ class SFSidebarView: UIView
     
     @objc func sidebarLoginLogoutButtonTapped()
     {
-        if !UserModel.sharedInstance.logined {
+        if !UserModel.sharedInstance.isLoggedIn {
             delegate.loginBtnPressed()
         } else {
             showLogoutAlert()

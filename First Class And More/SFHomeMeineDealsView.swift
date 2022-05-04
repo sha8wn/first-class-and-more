@@ -80,7 +80,7 @@ extension SFHomeMeineDealsView: UICollectionViewDataSource, UICollectionViewDele
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if UserModel.sharedInstance.logined {
+        if UserModel.sharedInstance.isLoggedIn {
             return Constants.dealsCount + 1
         }
         
@@ -94,7 +94,7 @@ extension SFHomeMeineDealsView: UICollectionViewDataSource, UICollectionViewDele
         
         var dealType = DealType(rawValue: indexPath.row) ?? .Alle
         
-        if(indexPath.row != 0 && !UserModel.sharedInstance.logined && indexPath.row < Constants.dealsCount) {
+        if(indexPath.row != 0 && !UserModel.sharedInstance.isLoggedIn && indexPath.row < Constants.dealsCount) {
             dealType = DealType(rawValue: indexPath.row + 1) ?? .Alle
             offset += 1
         }
@@ -119,7 +119,7 @@ extension SFHomeMeineDealsView: UICollectionViewDataSource, UICollectionViewDele
         
         var offset = 0
         
-        if(indexPath.row != 0 && !UserModel.sharedInstance.logined && indexPath.row < Constants.dealsCount) {
+        if(indexPath.row != 0 && !UserModel.sharedInstance.isLoggedIn && indexPath.row < Constants.dealsCount) {
             offset += 1
         }
         
