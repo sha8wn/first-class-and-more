@@ -140,6 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                           message: nil,
                                           cancelBtn: !isForced,
                                           okBtnTitle: "Updaten",
+                                          canDismiss: false,
                                           okBtnCompletion: {
                 
                 if let url = URL(string: "itms-apps://itunes.apple.com/app/first-class-more-reisedeals/id1474514915"),
