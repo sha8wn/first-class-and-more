@@ -41,7 +41,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         setupPushNotifications(application)
 		loadInitialScreen()
         checkForAvailableUpdate()
+        configureNavBarIfRequired()
         return true
+    }
+    
+    private func configureNavBarIfRequired() {
+        //Fix Nav Bar tint issue in iOS 15.0 or later - is transparent w/o code below
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+            appearance.backgroundColor = fcamBlue
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
     }
 	
 	func loadInitialScreen() {
