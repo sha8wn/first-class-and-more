@@ -13,7 +13,7 @@ import NVActivityIndicatorView
 
 extension UIViewController: NVActivityIndicatorViewable {
     // popup
-    func showPopupDialog(title: String? = nil, message: String? = nil, cancelBtn: Bool = true, okBtnTitle: String? = nil, okBtnCompletion: (() -> Void)? = nil) {
+    func showPopupDialog(title: String? = nil, message: String? = nil, cancelBtn: Bool = true, okBtnTitle: String? = nil, canDismiss: Bool = true, okBtnCompletion: (() -> Void)? = nil) {
         // dialog appearance
         let dialogAppearance = PopupDialogDefaultView.appearance()
         dialogAppearance.backgroundColor      = .white
@@ -45,9 +45,13 @@ extension UIViewController: NVActivityIndicatorViewable {
             let cancelBtn = CancelButton(title: "ABBRECHEN".uppercased(), action: nil)
             popup.addButtons([cancelBtn, okBtn])
         } else {
-            okBtn.dismissOnTap = false
             popup.addButtons([okBtn])
         }
+        
+        if !canDismiss {
+            okBtn.dismissOnTap = false
+        }
+        
         present(popup, animated: true, completion: nil)
     }
     
