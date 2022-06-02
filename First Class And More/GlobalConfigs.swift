@@ -81,3 +81,6 @@ let kUDAdsLastDownloadDate          = "The last date ads were loaded"
 let kUDTimerSettingsObject          = "Timer settings object"
 let kUDAdsSettings                  = "Ads settings value"
 let kUDExpiredDealsEnabled          = "Expired deals key"
+
+// General Constants
+let kAppSource                      = 39

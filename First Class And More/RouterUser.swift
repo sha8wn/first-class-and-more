@@ -13,7 +13,7 @@ import SwiftyJSON
 enum RouterUser: URLRequestConvertible {
     case getPasswordSalt(email: String)
     case login(email: String, password: String)
-    case register(state: Int, email: String, surname: String, wantSubscribe: Bool)
+    case register(salutation: Int, email: String, surname: String, wantSubscribe: Bool)
     case checkSubscriber(email: String)
     case forgotPassword(email: String)
     case getSettings(token: String)
@@ -41,12 +41,13 @@ enum RouterUser: URLRequestConvertible {
                     "email": email,
                     "password": password
                 ]
-            case .register(let state, let email, let surname, let wantSubscribe):
+            case .register(let salutation, let email, let surname, let wantSubscribe):
                 return [
-                    "title_id": state,
-                    "name": surname,
+                    "salutation": salutation as Int,
+                    "last_name": surname,
                     "email": email,
-                    "subscribe": NSNumber(value: wantSubscribe).intValue
+                    "newsletter": wantSubscribe as Bool,
+                    "source": kAppSource as Int
                 ]
             case .checkSubscriber(let email):
                 return [
@@ -72,7 +73,7 @@ enum RouterUser: URLRequestConvertible {
             case .login:
                 return "/auth/fe/login"
             case .register:
-                return "/register/"
+                return "/subscribe"
             case .checkSubscriber:
                 return "/check-subscriber/"
             case .forgotPassword:
@@ -92,7 +93,10 @@ enum RouterUser: URLRequestConvertible {
         let baseURL = try Server.shared.url.asURL()
         var urlRequest = URLRequest(url: baseURL.appendingPathComponent(url))
         urlRequest.httpMethod = method.rawValue
-        urlRequest = try URLEncoding.default.encode(urlRequest, with: params)
+        urlRequest.addValue("application/json",
+                            forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params,
+                                                         options: .prettyPrinted)
         return urlRequest
     }
 }

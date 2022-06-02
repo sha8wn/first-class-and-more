@@ -56,9 +56,6 @@ class RegisterViewController: UIViewController {
                 cancelBtn: false
             )
         }
-        
-        premiumEmailTextField.text = "platin@gmail.com"
-        premiumPasswordTextField.text = "Fcam20201"
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -155,7 +152,7 @@ class RegisterViewController: UIViewController {
 		}
         if isConnectedToNetwork(repeatedFunction: registerBtnPressed) {
             startLoading(message: String(.loading))
-            Server.shared.register(state: state, email: email, surname: surname, wantSubscribe: wantSubscribe) { success, error in
+            Server.shared.register(salutation: state, email: email, surname: surname, wantSubscribe: wantSubscribe) { success, error in
                 DispatchQueue.main.async {
                     self.stopLoading()
                     
@@ -173,7 +170,7 @@ class RegisterViewController: UIViewController {
                         if let success = success as? Bool, success {
                             let title = "Herzlich willkommen bei der First Class & More App!"
                             let message = "Wenn Sie erfahren möchten, wie die App genau funktioniert, dann wählen Sie im Menü bitte das Tutorial aus."
-                            self.showPopupDialog(title: title, message: message) {
+                            self.showPopupDialog(title: title, message: message, cancelBtn: false) {
                                 UserDefaults.standard.set(true, forKey: kUDUserRegistered)
                                 self.performSegue(withIdentifier: "showHome", sender: nil)
                             }
@@ -248,7 +245,7 @@ class RegisterViewController: UIViewController {
                 DispatchQueue.main.async {
                     if error != nil {
                         self.stopLoading()
-                        self.showPopupDialog(title: String(.errorOccured), message: "Das Passwort ist inkorrekt")
+                        self.showPopupDialog(title: String(.errorOccured), message: "Das Passwort ist inkorrekt", cancelBtn: false)
                     } else {
                         if let success = success as? Bool, success {
                             self.getUserInfo()

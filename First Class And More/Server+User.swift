@@ -51,22 +51,16 @@ extension Server {
     }
 
     // register
-    func register(state: Int, email: String, surname: String, wantSubscribe: Bool, сompletion: @escaping Completion) {
-        let registerURL = RouterUser.register(state: state, email: email, surname: surname, wantSubscribe: wantSubscribe)
+    func register(salutation: Int, email: String, surname: String, wantSubscribe: Bool, сompletion: @escaping Completion) {
+        let registerURL = RouterUser.register(salutation: salutation, email: email, surname: surname, wantSubscribe: wantSubscribe)
         Alamofire.request(registerURL).responseObject { (response: DataResponse<StringResponse>) in
             let responseValue = response.result.value
-            if responseValue?.code == "already_subscribe" {
-                сompletion(nil, .alreadySubscribe)
-                return
-            }
-            if let error = responseValue?.message {
-                сompletion(nil, .custom(error))
-                return
-            }
-            if let success = responseValue?.data, success == "success" {
+            
+            if let _ = responseValue?.message {
                 сompletion(true, nil)
                 return
             }
+            
             сompletion(nil, .cantRegister)
         }
     }
