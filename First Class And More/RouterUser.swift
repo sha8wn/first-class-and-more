@@ -14,6 +14,7 @@ enum RouterUser: URLRequestConvertible {
     case getPasswordSalt(email: String)
     case login(email: String, password: String)
     case register(salutation: Int, email: String, surname: String, wantSubscribe: Bool)
+    case subscribeNewsletter(email: String)
     case checkSubscriber(email: String)
     case forgotPassword(email: String)
     case getSettings(token: String)
@@ -23,10 +24,10 @@ enum RouterUser: URLRequestConvertible {
     
     var method: HTTPMethod {
         switch self {
-            case .getPasswordSalt, .getSettings, .checkUserToken, .checkSubscriber:
-                return .get
-            case .login, .forgotPassword, .subscribe, .register, .subscriberActivate:
-                return .post
+        case .getPasswordSalt, .getSettings, .checkUserToken, .checkSubscriber:
+            return .get
+        case .login, .forgotPassword, .subscribe, .subscribeNewsletter, .register, .subscriberActivate:
+            return .post
         }
     }
     
@@ -49,6 +50,14 @@ enum RouterUser: URLRequestConvertible {
                     "newsletter": wantSubscribe as Bool,
                     "source": kAppSource as Int
                 ]
+            
+            case .subscribeNewsletter(let email):
+                return [
+                    "email": email,
+                    "newsletter": true,
+                    "source": kAppSource as Int
+                ]
+            
             case .checkSubscriber(let email):
                 return [
                     "email": email
@@ -72,9 +81,9 @@ enum RouterUser: URLRequestConvertible {
                 return "/pw-salt/"
             case .login:
                 return "/auth/fe/login"
-            case .register:
-                return "/subscribe"
-            case .checkSubscriber:
+            case .register, .subscribeNewsletter:
+                    return "/subscribe"
+                case .checkSubscriber:
                 return "/check-subscriber/"
             case .forgotPassword:
                 return "/forgot-password/"
