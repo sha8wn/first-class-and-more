@@ -10,6 +10,12 @@ import Alamofire
 import Foundation
 import SwiftyJSON
 
+enum SubscriberType {
+    case regular // newsletter users or registered users
+    case premium // premium members
+    case unsubscribed // non registered users
+}
+
 enum RouterUser: URLRequestConvertible {
     case getPasswordSalt(email: String)
     case login(email: String, password: String)
@@ -24,9 +30,9 @@ enum RouterUser: URLRequestConvertible {
     
     var method: HTTPMethod {
         switch self {
-        case .getPasswordSalt, .getSettings, .checkUserToken, .checkSubscriber:
+        case .getPasswordSalt, .getSettings, .checkUserToken:
             return .get
-        case .login, .forgotPassword, .subscribe, .subscribeNewsletter, .register, .subscriberActivate:
+        case .login, .forgotPassword, .subscribe, .subscribeNewsletter, .register, .subscriberActivate, .checkSubscriber:
             return .post
         }
     }
@@ -84,7 +90,7 @@ enum RouterUser: URLRequestConvertible {
             case .register, .subscribeNewsletter:
                     return "/subscribe"
                 case .checkSubscriber:
-                return "/check-subscriber/"
+                return "/app/check_subscriber"
             case .forgotPassword:
                 return "/forgot-password/"
             case .getSettings:
@@ -104,8 +110,14 @@ enum RouterUser: URLRequestConvertible {
         urlRequest.httpMethod = method.rawValue
         urlRequest.addValue("application/json",
                             forHTTPHeaderField: "Content-Type")
-        urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params,
-                                                         options: .prettyPrinted)
+        if method == .get {
+            urlRequest = try URLEncoding.default.encode(urlRequest, with: params)
+        }
+        else {
+            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params,
+                                                             options: .prettyPrinted)
+        }
+        
         return urlRequest
     }
 }

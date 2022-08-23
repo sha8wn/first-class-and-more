@@ -100,21 +100,55 @@ extension Server {
     // check subscriber
     func checkSubscriber(email: String, сompletion: @escaping Completion) {
         let checkSubscriberURL = RouterUser.checkSubscriber(email: email)
-        Alamofire.request(checkSubscriberURL).responseObject { (response: DataResponse<BoolResponse>) in
-            let responseValue = response.result.value
-            
-            if let error = responseValue?.message {
-                сompletion(nil, .custom(error))
-                return
-            }
-            
-            guard let intValue = responseValue?.data?.status else {
+        Alamofire.request(checkSubscriberURL)
+            .validate()
+            .responseObject { (response: DataResponse<BoolResponse>) in
+                let responseValue = response.result.value
+                
+                switch response.result {
+                case .success(_):
+                    
+                    if let responseData = response.data {
+                        let verifyResponse = JSON(responseData)
+                        
+                        if let userStatus = verifyResponse["message"].string {
+                            
+                            if userStatus == "subscriber" {
+                                сompletion(SubscriberType.regular, nil)
+                                return
+                            }
+                            
+                            if userStatus == "premium-member" {
+                                сompletion(SubscriberType.premium, nil)
+                                return
+                            }
+                        }
+                    }
+                    
+                    сompletion(SubscriberType.unsubscribed, nil)
+                    
+                case .failure(_):
+                    if let responseData = response.data {
+                        let errorResponse = JSON(responseData)
+                        
+                        if let errorString = errorResponse["error"].string,
+                           errorString == "Email address not available." {
+                            сompletion(SubscriberType.unsubscribed, nil)
+                            return
+                        }
+                        
+                        сompletion(nil, .cantCheckSubscriber)
+                        return
+                    }
+                }
+                
+                if let error = responseValue?.message {
+                    сompletion(nil, .custom(error))
+                    return
+                }
+                
                 сompletion(nil, .cantCheckSubscriber)
-                return
             }
-            
-            сompletion(intValue, nil)
-        }
     }
     
     // forgot password
