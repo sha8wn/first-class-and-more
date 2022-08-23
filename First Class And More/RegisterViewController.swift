@@ -137,18 +137,63 @@ class RegisterViewController: UIViewController {
             showPopupDialog(title: String(.errorOccured), message: String(.selectGender), cancelBtn: false)
             return
         }
-		guard let surname = surnameTextField.text, !surname.isEmpty else {
-			showPopupDialog(title: String(.errorOccured), message: String(.emptyName), cancelBtn: false)
-			return
-		}
-		guard let email = emailTextField.text, !email.isEmpty else {
-			showPopupDialog(title: String(.errorOccured), message: String(.emptyEmail), cancelBtn: false)
-			return
-		}
-		guard email.isValidEmail else {
-			showPopupDialog(title: String(.errorOccured), message: String(.invalidEmail), cancelBtn: false)
-			return
-		}
+        guard let surname = surnameTextField.text, !surname.isEmpty else {
+            showPopupDialog(title: String(.errorOccured), message: String(.emptyName), cancelBtn: false)
+            return
+        }
+        guard let email = emailTextField.text, !email.isEmpty else {
+            showPopupDialog(title: String(.errorOccured), message: String(.emptyEmail), cancelBtn: false)
+            return
+        }
+        guard email.isValidEmail else {
+            showPopupDialog(title: String(.errorOccured), message: String(.invalidEmail), cancelBtn: false)
+            return
+        }
+        
+        if isConnectedToNetwork(repeatedFunction: registerBtnPressed) {
+            startLoading(message: String(.loading))
+            Server.shared.checkSubscriber(email: email) { userStatus, error in
+                self.stopLoading()
+                
+                if let error = error {
+                    switch error {
+                    case .alreadySubscribe:
+                        self.showPopupDialog(title: "Sie sind bereits für den Newsletter registriert.", message: error.description, cancelBtn: false) {
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    default:
+                        self.showPopupDialog(title: String(.errorOccured), message: error.description, cancelBtn: false)
+                    }
+                    
+                    return
+                }
+                
+                switch userStatus as? SubscriberType {
+                    
+                case .regular:
+                    let title = "Herzlich willkommen bei der First Class & More App!"
+                    let message = "Wenn Sie erfahren möchten, wie die App genau funktioniert, dann wählen Sie im Menü bitte das Tutorial aus."
+                    self.showPopupDialog(title: title, message: message, cancelBtn: false) {
+                        UserDefaults.standard.set(true, forKey: kUDUserRegistered)
+                        self.performSegue(withIdentifier: "showHome", sender: nil)
+                    }
+                    
+                case .premium:
+                    self.type = .premium
+                    self.premiumEmailTextField.text = email
+                    self.setupView()
+                    
+                default:
+                    self.performRegistration(state: state, email: email, surname: surname, wantSubscribe: self.wantSubscribe)
+                }
+            }
+        }
+        
+        
+    }
+    
+    private func performRegistration(state: Int, email: String, surname: String, wantSubscribe: Bool) {
+        
         if isConnectedToNetwork(repeatedFunction: registerBtnPressed) {
             startLoading(message: String(.loading))
             Server.shared.register(salutation: state, email: email, surname: surname, wantSubscribe: wantSubscribe) { success, error in
