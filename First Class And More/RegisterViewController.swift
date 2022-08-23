@@ -102,7 +102,6 @@ class RegisterViewController: UIViewController {
         newsLetterEmailTextField.addDoneButtonOnKeyboard()
         premiumEmailTextField.addDoneButtonOnKeyboard()
         premiumPasswordTextField.addDoneButtonOnKeyboard()
-        
     }
     
     @IBAction func forgotPassword() {
@@ -194,33 +193,27 @@ class RegisterViewController: UIViewController {
 			showPopupDialog(title: String(.errorOccured), message: String(.invalidEmail), cancelBtn: false)
 			return
 		}
-        if isConnectedToNetwork(repeatedFunction: loginBtnPressed) {
+        if isConnectedToNetwork(repeatedFunction: signInBtnPressed) {
             startLoading(message: String(.loading))
-            Server.shared.checkSubscriber(email: email) { status, error in
+            Server.shared.subscribeToNewsletter (email: email) { success, error in
                 DispatchQueue.main.async {
                     self.stopLoading()
 					if let error = error {
 						self.showPopupDialog(title: String(.errorOccured), message: error.description, cancelBtn: false)
 						return
 					}
-                    guard let status = status as? Int else {
-                        self.showPopupDialog(title: String(.errorOccured), message: String(.notSubscriber), cancelBtn: false)
-                        return
-                    }
-                    guard status > 0 else {
-                        self.showPopupDialog(title: String(.errorOccured), message: String(.notSubscriber), cancelBtn: false)
-                        return
-                    }
                     
-                    if status == 1 {
+                    if let success = success as? Bool, success {
                         UserModel.sharedInstance.isSubscribed = true
                         UserDefaults.standard.set(true, forKey: kUDUserRegistered)
                         self.performSegue(withIdentifier: "showHome", sender: nil)
-                    } else if status == 2 {
+                    }
+                    
+                    /*else if status == 2 {
                         self.type = .premium
                         self.premiumEmailTextField.text = email
                         self.setupView()
-                    }
+                    }*/
                 }
             }
         }

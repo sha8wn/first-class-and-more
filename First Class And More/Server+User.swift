@@ -24,7 +24,7 @@ extension Server {
                 let loginResponse = JSON(responseData)
                 
                 if let accessToken = loginResponse["access_token"].string {
-                
+                    
                     let userModel      = UserModel.sharedInstance
                     userModel.email    = email
                     userModel.password = password
@@ -49,7 +49,7 @@ extension Server {
             сompletion(nil, .cantLogin)
         }
     }
-
+    
     // register
     func register(salutation: Int, email: String, surname: String, wantSubscribe: Bool, сompletion: @escaping Completion) {
         let registerURL = RouterUser.register(salutation: salutation, email: email, surname: surname, wantSubscribe: wantSubscribe)
@@ -64,7 +64,39 @@ extension Server {
             сompletion(nil, .cantRegister)
         }
     }
-
+    
+    func subscribeToNewsletter(email: String, сompletion: @escaping Completion) {
+        let newsletterSubscribeURL = RouterUser.subscribeNewsletter(email: email)
+        Alamofire.request(newsletterSubscribeURL)
+            .validate()
+            .responseObject { (response: DataResponse<StringResponse>) in
+                
+                switch response.result {
+                case .success(_):
+                    if let _ = response.data {
+                        сompletion(true, nil)
+                        return
+                    }
+                    
+                case .failure(_):
+                    if let responseData = response.data {
+                        let errorResponse = JSON(responseData)
+                        
+                        if let errorString = errorResponse["error"].string {
+                            сompletion(nil, .custom(errorString))
+                            return
+                        }
+                        
+                        сompletion(nil, .cantCheckSubscriber)
+                        return
+                    }
+                    
+                }
+                
+                сompletion(nil, .cantCheckSubscriber)
+            }
+    }
+    
     // check subscriber
     func checkSubscriber(email: String, сompletion: @escaping Completion) {
         let checkSubscriberURL = RouterUser.checkSubscriber(email: email)
@@ -84,7 +116,7 @@ extension Server {
             сompletion(intValue, nil)
         }
     }
-
+    
     // forgot password
     func forgotPassword(email: String, сompletion: @escaping Completion) {
         let forgotPasswordURL = RouterUser.forgotPassword(email: email)
@@ -109,7 +141,7 @@ extension Server {
         let token = UserModel.sharedInstance.token
         let getSettingsURL = RouterUser.getSettings(token: token)
         Alamofire.request(getSettingsURL).responseObject { (response: DataResponse<SettingsResponse>) in
-            let responseValue = response.result.value            
+            let responseValue = response.result.value
             print(#file, #line, responseValue?.data ?? "")
             print(#file, #line, response.response ?? "")
             print(#file, #line, response.request ?? "")
