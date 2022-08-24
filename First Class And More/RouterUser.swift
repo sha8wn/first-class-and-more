@@ -70,10 +70,10 @@ enum RouterUser: URLRequestConvertible {
                 "email": email
             ]
             
-        case .getUserProfile(_):
+        case .getSettings(_), .getUserProfile(_):
             return [:]
         
-        case .getSettings(let token), .checkUserToken(let token):
+        case .checkUserToken(let token):
             return [
                 "token": token
             ]
@@ -101,7 +101,7 @@ enum RouterUser: URLRequestConvertible {
         case.getUserProfile:
             return "/auth/fe/self"
         case .getSettings:
-            return "/settings/"
+            return "app/settings"
         case .checkUserToken:
             return "/token-status/"
         case .subscribe:

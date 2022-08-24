@@ -267,24 +267,6 @@ extension Server {
             let defaults = UserDefaults.standard
             // update user model
             if let settingsObject = responseValue?.data {
-                if let customer = settingsObject.customer {
-                    let userModel = UserModel.sharedInstance
-                    if let name = customer.name {
-                        userModel.name = name
-                    }
-                    if let surname = customer.surname {
-                        userModel.surname = surname
-                    }
-                    if let membership = customer.membership {
-                        userModel.membership = membership
-                    }
-                    if let membershipExpires = customer.membershipExpires {
-                        userModel.membershipExpires = membershipExpires
-                    }
-                    // save userModel
-                    let data = NSKeyedArchiver.archivedData(withRootObject: userModel)
-                    defaults.set(data, forKey: kUDSharedUserModel)
-                }
                 // urls
                 if let urls = settingsObject.urls {
                     // update settings urls

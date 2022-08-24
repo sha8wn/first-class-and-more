@@ -317,8 +317,7 @@ class RegisterViewController: UIViewController {
                     }
                     else {
                         if let success = success as? Bool, success {
-                            UserDefaults.standard.set(true, forKey: kUDUserRegistered)
-                            self.performSegue(withIdentifier: "showHome", sender: nil)
+                            self.getSettings()
                         }
                     }
                 }
