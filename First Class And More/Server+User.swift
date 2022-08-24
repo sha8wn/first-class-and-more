@@ -170,6 +170,90 @@ extension Server {
         }
     }
     
+    func getUserProfile(сompletion: @escaping Completion) {
+        let getUserProfileURL = RouterUser.getUserProfile(token: UserModel.sharedInstance.token)
+        
+        Alamofire.request(getUserProfileURL)
+            .validate()
+            .responseObject { (response: DataResponse<StringResponse>) in
+                
+                let responseValue = response.result.value
+                print(#file, #line, responseValue?.data ?? "")
+                print(#file, #line, response.response ?? "")
+                print(#file, #line, response.request ?? "")
+                print(#file, #line, response.result.value?.response?.status ?? "")
+                
+                switch response.result {
+                case .success(_):
+                    
+                    if let responseData = response.data {
+                        let userProfileResponse = JSON(responseData)
+                        let userModel = UserModel.sharedInstance
+                        
+                        if let name = userProfileResponse["first_name"].string {
+                            userModel.name = name
+                        }
+                        
+                        if let surname = userProfileResponse["last_name"].string {
+                            userModel.surname = surname
+                        }
+                        
+                        if let membership = userProfileResponse["membership"].int {
+                            
+                            if membership == 1 {
+                                userModel.membership = .none
+                            }
+                            
+                            if membership == 2 {
+                                userModel.membership = .gold
+                            }
+                            
+                            if membership == 3 {
+                                userModel.membership = .platin
+                            }
+                            
+                            if membership == 4 {
+                                userModel.membership = .diamont
+                            }
+                        }
+                        
+                        if let membershipExpires = userProfileResponse["membership_expiry"].string {
+                            userModel.membershipExpires = membershipExpires
+                        }
+                        
+                        // save userModel
+                        let data = NSKeyedArchiver.archivedData(withRootObject: userModel)
+                        UserDefaults.standard.set(data, forKey: kUDSharedUserModel)
+                        UserDefaults.standard.synchronize()
+                        
+                        сompletion(true, nil)
+                        return
+                    }
+                    
+                case .failure(_):
+                    if let responseData = response.data {
+                        let errorResponse = JSON(responseData)
+                        
+                        if let errorString = errorResponse["error"].string,
+                           errorString == "Unable to retrieve user profile" {
+                            сompletion(SubscriberType.unsubscribed, nil)
+                            return
+                        }
+                        
+                        сompletion(nil, .cantCheckSubscriber)
+                        return
+                    }
+                }
+                
+                if let error = responseValue?.message {
+                    сompletion(nil, .custom(error))
+                    return
+                }
+                
+                сompletion(nil, .cantCheckSubscriber)
+            }
+    }
+    
     // get settings
     func getSettings(сompletion: @escaping Completion) {
         let token = UserModel.sharedInstance.token

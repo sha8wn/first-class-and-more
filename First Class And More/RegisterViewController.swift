@@ -308,6 +308,26 @@ class RegisterViewController: UIViewController {
 
     func getUserInfo() {
         if isConnectedToNetwork(repeatedFunction: getUserInfo) {
+            Server.shared.getUserProfile() { success, error in
+                DispatchQueue.main.async {
+                    self.stopLoading()
+                    
+                    if error != nil {
+                        self.showPopupDialog(title: String(.errorOccured), message: error!.description)
+                    }
+                    else {
+                        if let success = success as? Bool, success {
+                            UserDefaults.standard.set(true, forKey: kUDUserRegistered)
+                            self.performSegue(withIdentifier: "showHome", sender: nil)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func getSettings() {
+        if isConnectedToNetwork(repeatedFunction: getSettings) {
             Server.shared.getSettings() { success, error in
                 DispatchQueue.main.async {
                     self.stopLoading()
