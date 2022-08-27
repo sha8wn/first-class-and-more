@@ -126,12 +126,13 @@ extension SFHomeCarouselView: InfiniteScrollingBehaviourDelegate {
 	
 	func didSelectItem(atIndexPath indexPath: IndexPath, originalIndex: Int, andData data: InfiniteScollingData, inInfiniteScrollingBehaviour behaviour: InfiniteScrollingBehaviour) -> Void {
 		guard let slide = data as? SlideModel else { return }
+        
+        let user = UserModel.sharedInstance
 		
-		if let access = slide.access, access == 1 {
+        if let access = slide.membership, user.hasAccess(to: access) {
 			delegate?.slideSelected(slide: slide)
 		} else {
 			delegate?.showPopup()
 		}
 	}
-	
 }

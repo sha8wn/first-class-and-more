@@ -31,7 +31,21 @@ enum RouterOther: URLRequestConvertible {
     
     var params: Parameters {
         switch self {
-            case .getSliderData(let token), .getAdvertisements(let token), .getAppVersion(let token):
+            case .getSliderData(_):
+        
+                let userModel = UserModel.sharedInstance
+                
+                if !userModel.token.isEmpty {
+                    return [
+                        "query": "{\"key\":\"app_slider_members\"}"
+                    ]
+                }
+            
+                return [
+                    "query": "{\"key\":\"app_slider_guest\"}"
+                ]
+            
+            case .getAdvertisements(let token), .getAppVersion(let token):
                 return [
                     "token": token
                 ]
@@ -74,7 +88,7 @@ enum RouterOther: URLRequestConvertible {
     var url: String {
         switch self {
         case .getSliderData:
-            return "/slider/"
+            return "/settings/"
         case .updatePushNotificationSettings:
             return "/notifications/"
         case .getAdvertisements:
@@ -100,16 +114,28 @@ enum RouterOther: URLRequestConvertible {
     }
     
     func asURLRequest() throws -> URLRequest {
-        let baseURL = try Server.shared.url.asURL()
-        var url = baseURL.appendingPathComponent(self.url)
+        var baseURL = try Server.shared.url.asURL()
         
-        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-        urlComponents.queryItems = [URLQueryItem(name: "auth", value: Server.shared.apiKey)]
-        url = urlComponents.url!
+        switch self {
+        case .getSliderData:
+            baseURL =  try Server.shared.sliderURL.asURL()
+        default:
+            break
+        }
         
-        var urlRequest = URLRequest(url: url)
+        var urlRequest = URLRequest(url: baseURL.appendingPathComponent(url))
         urlRequest.httpMethod = method.rawValue
-        urlRequest = try self.encoding.encode(urlRequest, with: self.params)
+        urlRequest.addValue("application/json",
+                            forHTTPHeaderField: "Content-Type")
+        
+        if method == .get {
+            urlRequest = try URLEncoding.default.encode(urlRequest, with: params)
+        }
+        else {
+            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params,
+                                                             options: .prettyPrinted)
+        }
+        
         return urlRequest
     }
 }

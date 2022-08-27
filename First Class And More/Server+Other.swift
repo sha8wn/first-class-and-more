@@ -12,26 +12,44 @@ import SwiftyJSON
 import AlamofireObjectMapper
 
 extension Server {
-    // get my deals
+    // get slider data
     func getSliderData(сompletion: @escaping Completion) {
         let token = UserModel.sharedInstance.token
         let getSliderDataURL = RouterOther.getSliderData(token: token)
-        Alamofire.request(getSliderDataURL).responseObject { (response: DataResponse<SliderDataResponse>) in
-            let responseValue = response.result.value
-            print(#file, #line, responseValue?.data ?? "")
-            print(#file, #line, response.response ?? "")
-            print(#file, #line, response.request ?? "")
-            print(#file, #line, response.result.value?.response?.status ?? "")
-            if let slides = responseValue?.data {
-                print(#file, #line, slides)
-                сompletion(slides, nil)
-                return
+        Alamofire.request(getSliderDataURL)
+            .validate()
+            .responseArray { (response: DataResponse<[SlideModel]>) in
+            
+                let responseValue = response.result.value
+            
+                
+                if let responseData = response.data {
+                    let slidesResponse = JSON(responseData)
+                    print(slidesResponse)
+                }
+                
+                if let slides = responseValue, !slides.isEmpty {
+                    for slide in slides {
+                        print(slide)
+                    }
+                }
+            
+            switch response.result {
+                
+            case .success(_):
+                if let responseData = response.data {
+                    let slidesResponse = JSON(responseData)
+                    print(slidesResponse)
+                    
+                    if let slides = responseValue {
+                        сompletion(slides, nil)
+                        return
+                    }
+                }
+            
+            case .failure(_):
+                сompletion(nil, .cantGetSliderData)
             }
-            if let error = responseValue?.message {
-                сompletion(nil, .custom(error))
-                return
-            }
-            сompletion(nil, .cantGetSliderData)
         }
     }
     
