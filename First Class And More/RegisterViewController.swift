@@ -220,7 +220,7 @@ class RegisterViewController: UIViewController {
                             }
                         }
                         
-                        Server.shared.subscriberActivate(email: email, сompletion: { _, _ in })
+                        // Server.shared.subscriberActivate(email: email, сompletion: { _, _ in })
                     }
                 }
             }
