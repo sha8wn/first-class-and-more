@@ -21,9 +21,9 @@ class Response: Mappable {
     required init?(map: Map) { }
     
     func mapping(map: Map) {
-        code      <- map["code"]
-        message   <- map["message"]
-        errorData <- map["data"]
+        //code      <- map["code"]
+        //message   <- map["message"]
+        //errorData <- map["data"]
 //        data      <- map["data"]
         response  <- map["0"]
     }

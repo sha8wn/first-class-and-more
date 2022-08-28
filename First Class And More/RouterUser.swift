@@ -24,13 +24,14 @@ enum RouterUser: URLRequestConvertible {
     case checkSubscriber(email: String)
     case forgotPassword(email: String)
     case getSettings(token: String)
+    case getUserProfile(token: String)
     case checkUserToken(token: String)
     case subscribe(email: String)
     case subscriberActivate(email: String)
     
     var method: HTTPMethod {
         switch self {
-        case .getPasswordSalt, .getSettings, .checkUserToken:
+        case .getPasswordSalt, .getSettings, .getUserProfile, .checkUserToken:
             return .get
         case .login, .forgotPassword, .subscribe, .subscribeNewsletter, .register, .subscriberActivate, .checkSubscriber:
             return .post
@@ -39,68 +40,74 @@ enum RouterUser: URLRequestConvertible {
     
     var params: Parameters {
         switch self {
-            case .getPasswordSalt(let email), .forgotPassword(let email):
-                return [
-                    "login": email
-                ]
-            case .login(let email, let password):
-                return [
-                    "email": email,
-                    "password": password
-                ]
-            case .register(let salutation, let email, let surname, let wantSubscribe):
-                return [
-                    "salutation": salutation as Int,
-                    "last_name": surname,
-                    "email": email,
-                    "newsletter": wantSubscribe as Bool,
-                    "source": kAppSource as Int
-                ]
+        case .getPasswordSalt(let email), .forgotPassword(let email):
+            return [
+                "login": email
+            ]
+        case .login(let email, let password):
+            return [
+                "email": email,
+                "password": password
+            ]
+        case .register(let salutation, let email, let surname, let wantSubscribe):
+            return [
+                "salutation": salutation as Int,
+                "last_name": surname,
+                "email": email,
+                "newsletter": wantSubscribe as Bool,
+                "source": kAppSource as Int
+            ]
             
-            case .subscribeNewsletter(let email):
-                return [
-                    "email": email,
-                    "newsletter": true,
-                    "source": kAppSource as Int
-                ]
+        case .subscribeNewsletter(let email):
+            return [
+                "email": email,
+                "newsletter": true,
+                "source": kAppSource as Int
+            ]
             
-            case .checkSubscriber(let email):
-                return [
-                    "email": email
-                ]
-            case .getSettings(let token), .checkUserToken(let token):
-                return [
-                    "token": token
-                ]
-            case .subscribe(let email):
-                return [
-                    "email": email
-                ]
-            case .subscriberActivate(let email):
-                return ["email": email]
+        case .checkSubscriber(let email):
+            return [
+                "email": email
+            ]
+            
+        case .getSettings(_), .getUserProfile(_):
+            return [:]
+        
+        case .checkUserToken(let token):
+            return [
+                "token": token
+            ]
+        case .subscribe(let email):
+            return [
+                "email": email
+            ]
+        case .subscriberActivate(let email):
+            return ["email": email]
         }
     }
     
     var url: String {
         switch self {
-            case .getPasswordSalt:
-                return "/pw-salt/"
-            case .login:
-                return "/auth/fe/login"
-            case .register, .subscribeNewsletter:
-                    return "/subscribe"
-                case .checkSubscriber:
-                return "/app/check_subscriber"
-            case .forgotPassword:
-                return "/forgot-password/"
-            case .getSettings:
-                return "/settings/"
-            case .checkUserToken:
-                return "/token-status/"
-            case .subscribe:
-                return "/access-code/"
-            case .subscriberActivate:
-                return "/subscriber-activate/"
+        case .getPasswordSalt:
+            return "/pw-salt/"
+        case .login:
+            return "/auth/fe/login"
+        case .register, .subscribeNewsletter:
+            return "/subscribe"
+        case .checkSubscriber:
+            return "/app/check_subscriber"
+        case .forgotPassword:
+            return "/forgot-password/"
+        case.getUserProfile:
+            return "/auth/fe/self"
+        case .getSettings:
+            return "app/settings"
+        case .checkUserToken:
+            return "/token-status/"
+        case .subscribe:
+            return "/access-code/"
+        case .subscriberActivate:
+            return "/subscriber-activate/"
         }
     }
     
@@ -116,6 +123,13 @@ enum RouterUser: URLRequestConvertible {
         else {
             urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params,
                                                              options: .prettyPrinted)
+        }
+        
+        let userModel = UserModel.sharedInstance
+        
+        if !userModel.token.isEmpty {
+            urlRequest.setValue("Bearer \(userModel.token)",
+                                forHTTPHeaderField: "Authorization")
         }
         
         return urlRequest

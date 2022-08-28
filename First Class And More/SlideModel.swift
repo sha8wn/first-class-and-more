@@ -10,23 +10,25 @@ import Foundation
 import ObjectMapper
 
 struct SlideModel: Mappable, InfiniteScollingData {
-    var id: Int?
+    var id: String?
     var title: String?
     var shortTitle: String?
     var url: String?
     var imageUrl: String?
-    var premium: Premium = .none
-    var access: Int?
+    var membership: Int?
+    //var premium: Premium = .none
+    //var access: Int?
     
-    init?(map: Map) { }
+    init(map: Map) { }
 
     mutating func mapping(map: Map) {
-        id         <- map["id"]
+        id         <- map["_id"]
         title      <- map["title"]
         shortTitle <- map["short_title"]
         url        <- map["url"]
-        imageUrl   <- map["image"]
-        premium    <- (map["premium"], EnumTransform<Premium>())
-        access     <- map["access"]
+        imageUrl   <- map["featured"]
+        membership <- map["membership"]
+        //premium    <- (map["premium"], EnumTransform<Premium>())
+        //access     <- map["access"]
     }
 }

@@ -93,4 +93,19 @@ class UserModel: NSObject, NSCoding {
         }
     }
     
+    func hasAccess(to accessLevel: Int) -> Bool {
+        var userAccessLevel = 1
+        
+        if membership == .gold {
+            userAccessLevel = 2
+        }
+        else if membership == .platin {
+            userAccessLevel = 3
+        }
+        else if membership == .diamont {
+            userAccessLevel = 4
+        }
+        
+        return userAccessLevel >= accessLevel
+    }
 }
