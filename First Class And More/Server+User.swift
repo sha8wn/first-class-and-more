@@ -53,16 +53,33 @@ extension Server {
     // register
     func register(salutation: Int, email: String, surname: String, wantSubscribe: Bool, сompletion: @escaping Completion) {
         let registerURL = RouterUser.register(salutation: salutation, email: email, surname: surname, wantSubscribe: wantSubscribe)
-        Alamofire.request(registerURL).responseObject { (response: DataResponse<StringResponse>) in
-            let responseValue = response.result.value
-            
-            if let _ = responseValue?.message {
-                сompletion(true, nil)
-                return
+        Alamofire.request(registerURL)
+            .validate()
+            .responseObject { (response: DataResponse<StringResponse>) in
+                
+                switch response.result {
+                case .success(_):
+                    if let _ = response.data {
+                        сompletion(true, nil)
+                        return
+                    }
+                    
+                case .failure(_):
+                    if let responseData = response.data {
+                        let errorResponse = JSON(responseData)
+                        
+                        if let errorString = errorResponse["error"].string {
+                            сompletion(nil, .custom(errorString))
+                            return
+                        }
+                        
+                        сompletion(nil, .cantRegister)
+                        return
+                    }
+                }
+                
+                сompletion(nil, .cantRegister)
             }
-            
-            сompletion(nil, .cantRegister)
-        }
     }
     
     func subscribeToNewsletter(email: String, сompletion: @escaping Completion) {
@@ -154,20 +171,33 @@ extension Server {
     // forgot password
     func forgotPassword(email: String, сompletion: @escaping Completion) {
         let forgotPasswordURL = RouterUser.forgotPassword(email: email)
-        Alamofire.request(forgotPasswordURL).responseObject { (response: DataResponse<StringResponse>) in
-            let responseValue = response.result.value
-            if let success = responseValue?.data {
-                print(#file, #line, success)
-                print(#file, #line, success == "success")
-                сompletion(success == "success", nil)
-                return
+        Alamofire.request(forgotPasswordURL)
+            .validate()
+            .responseObject { (response: DataResponse<StringResponse>) in
+                
+                switch response.result {
+                case .success(_):
+                    if let responseData = response.data {
+                        let forgotPasswordResponse = JSON(responseData)
+                        print(forgotPasswordResponse)
+                        сompletion(true, nil)
+                        return
+                    }
+                    
+                case .failure(_):
+                    
+                    if let responseData = response.data {
+                        let forgotPasswordErrorResponse = JSON(responseData)
+                        
+                        if let error = forgotPasswordErrorResponse["error"].string {
+                            сompletion(nil, .custom(error))
+                            return
+                        }
+                    }
+                    
+                    сompletion(nil, .cantSendForgotPassword)
+                }
             }
-            if let error = responseValue?.message {
-                сompletion(nil, .custom(error))
-                return
-            }
-            сompletion(nil, .cantSendForgotPassword)
-        }
     }
     
     func getUserProfile(сompletion: @escaping Completion) {
