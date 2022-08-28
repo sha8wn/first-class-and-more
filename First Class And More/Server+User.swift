@@ -100,6 +100,12 @@ extension Server {
                         let errorResponse = JSON(responseData)
                         
                         if let errorString = errorResponse["error"].string {
+                            
+                            if errorString == "Duplicate key: email" {
+                                сompletion(true, nil)
+                                return
+                            }
+                            
                             сompletion(nil, .custom(errorString))
                             return
                         }
