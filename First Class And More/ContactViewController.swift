@@ -33,6 +33,7 @@ class ContactViewController: UIViewController {
     
     fileprivate var email: String?
     fileprivate var genderTitle: String?
+    fileprivate var genderTitleInt: Int?
     fileprivate var name: String?
     fileprivate var surname: String?
     fileprivate var subject: String?
@@ -64,6 +65,7 @@ class ContactViewController: UIViewController {
             emailContainer.removeFromSuperview()
             stackView.removeArrangedSubview(genderContainer)
             genderContainer.removeFromSuperview()
+            genderTitleInt = UserModel.sharedInstance.salutation
             stackView.removeArrangedSubview(nameContainer)
             nameContainer.removeFromSuperview()
             stackView.removeArrangedSubview(surnameContainer)
@@ -78,11 +80,13 @@ class ContactViewController: UIViewController {
     
     @IBAction func manRadioButtonPressed() {
         self.genderTitle = self.manRadioBtn.title(for: .normal)
+        self.genderTitleInt = 1
         self.womenRadioBtn.isSelected = false
     }
     
     @IBAction func womanRadioButtonPressed() {
         self.genderTitle = self.womenRadioBtn.title(for: .normal)
+        self.genderTitleInt = 2
         self.manRadioBtn.isSelected = false
     }
     
@@ -118,7 +122,7 @@ class ContactViewController: UIViewController {
         
         startLoading()
         if isConnectedToNetwork(repeatedFunction: sendBtnPressed) {
-            Server.shared.sendMessage(email: email ?? "", title: genderTitle ?? "", name: name ?? "", surname: surname ?? "", subject: subject ?? "", message: message ?? "") { (answer, error) in
+            Server.shared.sendMessage(email: email ?? "", title: genderTitleInt ?? 1, name: name ?? "", surname: surname ?? "", subject: subject ?? "", message: message ?? "") { (answer, error) in
                 DispatchQueue.main.async {
                     self.stopLoading()
                     if error != nil {

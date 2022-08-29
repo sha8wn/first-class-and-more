@@ -17,7 +17,7 @@ enum RouterOther: URLRequestConvertible {
     case getProfilesAndTests(token: String, id: Int, page: Int)
     case subscribeNewsletter(email: String)
     case changeAdsSettings(ads: Int, pushToken: String, fcmToken: String)
-    case sendMessage(email: String, title: String, name: String, surname: String, subject: String, message: String)
+    case sendMessage(email: String, title: Int, name: String, surname: String, subject: String, message: String)
     case getAppVersion(token: String)
     
     var method: HTTPMethod {
@@ -75,12 +75,18 @@ enum RouterOther: URLRequestConvertible {
                 ]
         case .sendMessage(let email, let title, let name, let surname, let subject, let message):
             return [
-                "email": email,
-                "title": title,
-                "name": name,
-                "surname": surname,
-                "subject": subject,
-                "message": message
+                "type": 1,
+                "sub_type": 9,
+                "user": [
+                    "email": email,
+                    "salutation": title,
+                    "first_name": name,
+                    "last_name": surname,
+                ],
+                "meta": [
+                    "subject": subject,
+                    "message": message
+                ]
             ]
         }
     }
@@ -100,7 +106,7 @@ enum RouterOther: URLRequestConvertible {
         case .changeAdsSettings:
             return "/ad-settings"
         case .sendMessage:
-            return "/contact-request"
+            return "/enquiry"
         case .getAppVersion:
             return "/app-version/"
         }
