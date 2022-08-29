@@ -40,9 +40,13 @@ enum RouterUser: URLRequestConvertible {
     
     var params: Parameters {
         switch self {
-        case .getPasswordSalt(let email), .forgotPassword(let email):
+        case .getPasswordSalt(let email):
             return [
                 "login": email
+            ]
+        case .forgotPassword(let email):
+            return [
+                "email": email
             ]
         case .login(let email, let password):
             return [
@@ -97,7 +101,7 @@ enum RouterUser: URLRequestConvertible {
         case .checkSubscriber:
             return "/app/check_subscriber"
         case .forgotPassword:
-            return "/forgot-password/"
+            return "/auth/fe/forgot"
         case.getUserProfile:
             return "/auth/fe/self"
         case .getSettings:

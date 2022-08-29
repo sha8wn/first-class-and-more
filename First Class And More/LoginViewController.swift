@@ -217,18 +217,36 @@ class LoginViewController: SFSidebarViewController {
     
     func getUserInfo() {
         if isConnectedToNetwork(repeatedFunction: getUserInfo) {
-            Server.shared.checkSubscriber(email: UserModel.sharedInstance.email) { isSubscribed, error in
-                guard error == nil else { return }
-                guard let isSubscribed = isSubscribed as? Bool else { return }
-                UserModel.sharedInstance.isSubscribed = isSubscribed
+            Server.shared.getUserProfile() { success, error in
+                DispatchQueue.main.async {
+                    self.stopLoading()
+                    
+                    if error != nil {
+                        //self.showPopupDialog(title: String(.errorOccured), message: error!.description)
+                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                    }
+                    else {
+                        if let success = success as? Bool, success {
+                            self.getSettings()
+                        }
+                    }
+                }
             }
+        }
+    }
+    
+    func getSettings() {
+        if isConnectedToNetwork(repeatedFunction: getSettings) {
             Server.shared.getSettings() { success, error in
                 DispatchQueue.main.async {
                     self.stopLoading()
                     if error != nil {
+                        //self.showPopupDialog(title: String(.errorOccured), message: error!.description)
                         self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
                     } else {
                         if let success = success as? Bool, success {
+                            UserDefaults.standard.set(true, forKey: kUDUserRegistered)
+                            
                             if let navigationVC = self.navigationController as? SFSidebarNavigationController {
                                 navigationVC.sidebarContainer.updateUserView()
                                 if let topViewController = navigationVC.topViewController as? SFSidebarViewController {
@@ -247,6 +265,39 @@ class LoginViewController: SFSidebarViewController {
             }
         }
     }
+    
+//    func getUserInfo2() {
+//        if isConnectedToNetwork(repeatedFunction: getUserInfo) {
+//            Server.shared.checkSubscriber(email: UserModel.sharedInstance.email) { isSubscribed, error in
+//                guard error == nil else { return }
+//                guard let isSubscribed = isSubscribed as? Bool else { return }
+//                UserModel.sharedInstance.isSubscribed = isSubscribed
+//            }
+//            Server.shared.getSettings() { success, error in
+//                DispatchQueue.main.async {
+//                    self.stopLoading()
+//                    if error != nil {
+//                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+//                    } else {
+//                        if let success = success as? Bool, success {
+//                            if let navigationVC = self.navigationController as? SFSidebarNavigationController {
+//                                navigationVC.sidebarContainer.updateUserView()
+//                                if let topViewController = navigationVC.topViewController as? SFSidebarViewController {
+//                                    topViewController.updateNavigationButtons()
+//                                }
+//                                if self.shouldReturn {
+//                                    self.shouldReturn = false
+//                                    navigationVC.setViewControllers([navigationVC.webVC], animated: false)
+//                                } else {
+//                                    navigationVC.setViewControllers([navigationVC.homeVC], animated: true)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 // MARK: MKTextField Delegate
