@@ -20,20 +20,8 @@ extension Server {
             .validate()
             .responseArray { (response: DataResponse<[SlideModel]>) in
             
-                let responseValue = response.result.value
-            
+            let responseValue = response.result.value
                 
-                if let responseData = response.data {
-                    let slidesResponse = JSON(responseData)
-                    print(slidesResponse)
-                }
-                
-                if let slides = responseValue, !slides.isEmpty {
-                    for slide in slides {
-                        print(slide)
-                    }
-                }
-            
             switch response.result {
                 
             case .success(_):
@@ -161,23 +149,30 @@ extension Server {
         }
     }
     
-    func sendMessage(email: String, title: String, name: String, surname: String, subject: String, message: String, сompletion: @escaping Completion) {
+    func sendMessage(email: String, title: Int, name: String, surname: String, subject: String, message: String, сompletion: @escaping Completion) {
         let route = RouterOther.sendMessage(email: email, title: title, name: name, surname: surname, subject: subject, message: message)
-        Alamofire.request(route).responseObject { (response: DataResponse<StringResponse>) in
-            let responseValue = response.result.value
-            print(#file, #line, response.request ?? "")
-            print(#file, #line, response.response ?? "")
-            print(#file, #line, response.data ?? "")
-            print(#file, #line, response.result.value ?? "")
-            if let success = responseValue?.data, success == "success" {
-                сompletion(true, nil)
-                return
-            }
-            if let error = responseValue?.message {
-                сompletion(nil, .custom(error))
-                return
-            }
-            сompletion(nil, .custom("Vorgang konnte nicht abgeschlossen werden. Versuche es erneut."))
+        Alamofire.request(route)
+            .validate()
+            .responseObject { (response: DataResponse<StringResponse>) in
+                
+                print(#file, #line, response.request ?? "")
+                print(#file, #line, response.response ?? "")
+                print(#file, #line, response.data ?? "")
+                print(#file, #line, response.result.value ?? "")
+                
+                switch response.result {
+                    
+                case .success(_):
+                    if let responseData = response.data {
+                        let response = JSON(responseData)
+                        print(response)
+                        сompletion(true, nil)
+                        return
+                    }
+                    
+                case .failure(_):
+                    сompletion(nil, .custom("Vorgang konnte nicht abgeschlossen werden. Versuche es erneut."))
+                }
         }
     }
     

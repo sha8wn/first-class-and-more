@@ -253,6 +253,13 @@ extension Server {
                             }
                         }
                         
+                        if let salutation = userProfileResponse["salutation"].int {
+                            userModel.salutation = salutation
+                        }
+                        else {
+                            userModel.salutation = 1
+                        }
+                        
                         if let membershipExpires = userProfileResponse["membership_expiry"].string {
                             userModel.membershipExpires = membershipExpires
                         }
