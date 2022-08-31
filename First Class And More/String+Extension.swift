@@ -16,4 +16,20 @@ extension String {
     func removeWhitespace() -> String {
         return self.replace(string: "\n", replacement: "")
     }
+    
+    func convertToDictionary() -> [String: Any]? {
+        if let data = data(using: .utf8) {
+            do {
+                let myJson = try JSONSerialization.jsonObject(with: data,
+                                                              options: JSONSerialization.ReadingOptions.allowFragments) as! [String: Any]
+                
+                return myJson
+                
+            } catch {
+                return nil
+            }
+        }
+        
+        return nil
+    }
 }
