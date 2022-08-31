@@ -39,6 +39,7 @@ final class FileProvider {
         let quickLookController = QLPreviewController()
         quickLookController.dataSource = self
         quickLookController.navigationItem.leftBarButtonItems = nil
+        quickLookController.navigationItem.hidesBackButton = true
         
         // Setting Up the Logo
         let logo = UIImage(named: "NavLogo")
