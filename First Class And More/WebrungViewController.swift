@@ -31,8 +31,22 @@ class WebrungViewController: SFSidebarViewController {
             }
         }
         
+        static func type(_ apiParameter: Int) -> PromotionsType {
+            if apiParameter == 3 {
+                return .top
+            }
+            
+            if apiParameter == 4 {
+                return .none
+            }
+            
+            return .all
+        }
+        
         static var allCases: [PromotionsType] = [.all, .top, .none]
     }
+    
+    var appSettings: [String: Any] = [:]
     
     var selectedPromotionsType: PromotionsType = .all
 
@@ -59,7 +73,11 @@ class WebrungViewController: SFSidebarViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        getAdSettings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,19 +92,30 @@ class WebrungViewController: SFSidebarViewController {
     }
     
     func setupUI() {
-        var hasStoredValue = false
-        if let dict = UserDefaults.standard.value(forKey: kUDAdsSettings) as? [String: Bool] {
-            for type in PromotionsType.allCases {
-                if let isSelected = dict[type.key], isSelected {
-                    selectedPromotionsType = type
-                    selectRadioButton(for: type)
-                    hasStoredValue = true
+        selectRadioButton(for: selectedPromotionsType)
+    }
+    
+    func getAdSettings() {
+        if isConnectedToNetwork(repeatedFunction: getAdSettings) {
+            startLoading(message: "Wird geladen..")
+            
+            Server.shared.getAdSettings { settings, error in
+                DispatchQueue.main.async {
+                    self.stopLoading()
+                    
+                    if error != nil {
+                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                    }
+                    else {
+                        if let settings = settings as? [String: Any],
+                            let adSetting = settings["ad_setting"] as? Int {
+                            self.selectedPromotionsType = PromotionsType.type(adSetting)
+                            self.setupUI()
+                            self.appSettings = settings
+                        }
+                    }
                 }
             }
-        }
-        
-        if !hasStoredValue {
-            selectRadioButton(for: .all)
         }
     }
     
@@ -99,6 +128,7 @@ class WebrungViewController: SFSidebarViewController {
         
         selectedPromotionsType = type
         selectRadioButton(for: type)
+        appSettings["ad_setting"] = type.apiParameter
     }
     
     @IBAction func saveButtonPressed() {
@@ -140,13 +170,6 @@ class WebrungViewController: SFSidebarViewController {
     }
     
     private func sendAndSave() {
-        let dict: [String: Bool] = [
-            PromotionsType.all.key: selectedPromotionsType == .all,
-            PromotionsType.top.key: selectedPromotionsType == .top,
-            PromotionsType.none.key: selectedPromotionsType == .none
-        ]
-        UserDefaults.standard.set(dict, forKey: kUDAdsSettings)
-        UserDefaults.standard.synchronize()
         let value = selectedPromotionsType.apiParameter
         updateAdsSettings(value)
     }
@@ -156,23 +179,32 @@ class WebrungViewController: SFSidebarViewController {
             self.updateAdsSettings(ads)
         }) {
             startLoading()
-            Server.shared.changeAdsSettings(ads) { response, error in
-                DispatchQueue.main.async {
-                    self.stopLoading()
-                    
-                    var title = ""
-                    var message = ""
-                    
-                    if let description = error?.description {
-                        title = "Ein Fehler ist aufgetreten..."
-                        message = description
-                    } else {
-                        title = "Promotions"
-                        message = "Ihre Promotion Einstellungen wurden gespeichert."
+            
+            do {
+                let userSettings = try appSettings.toJson()
+                
+                Server.shared.changeUserSettings(userSettings) { response, error in
+                    DispatchQueue.main.async {
+                        self.stopLoading()
+                        
+                        var title = ""
+                        var message = ""
+                        
+                        if let description = error?.description {
+                            title = "Ein Fehler ist aufgetreten..."
+                            message = description
+                        } else {
+                            title = "Promotions"
+                            message = "Ihre Promotion Einstellungen wurden gespeichert."
+                        }
+                        
+                        self.showPopupDialog(title: title, message: message)
                     }
-                    
-                    self.showPopupDialog(title: title, message: message)
                 }
+            }
+            catch {
+                self.showPopupDialog(title: "Ein Fehler ist aufgetreten...",
+                                     message: "Vorgang konnte nicht abgeschlossen werden. Versuche es erneut.")
             }
         }
     }

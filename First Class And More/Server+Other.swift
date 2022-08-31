@@ -127,25 +127,25 @@ extension Server {
         }
     }
     
-    func changeAdsSettings(_ ads: Int, сompletion: @escaping Completion) {
-        let pushToken = UserDefaults.standard.string(forKey: kUDDevicePushToken) ?? "55f23078281e424a6a8c410de53205455c088e4aad32bdecfa3bcce981d1bf86"
-        let fcmToken = UserDefaults.standard.string(forKey: kUDFCMToken) ?? ""
-        let changeAdsSettingsURL = RouterOther.changeAdsSettings(ads: ads, pushToken: pushToken, fcmToken: fcmToken)
-        Alamofire.request(changeAdsSettingsURL).responseObject { (response: DataResponse<StringResponse>) in
-            let responseValue = response.result.value
-            print(#file, #line, response.request ?? "")
-            print(#file, #line, response.response ?? "")
-            print(#file, #line, response.data ?? "")
-            print(#file, #line, response.result.value ?? "")
-            if let success = responseValue?.data, success == "success" {
-                сompletion(true, nil)
-                return
-            }
-            if let error = responseValue?.message {
-                сompletion(nil, .custom(error))
-                return
-            }
-            сompletion(nil, .custom("Vorgang konnte nicht abgeschlossen werden. Versuche es erneut."))
+    func changeUserSettings(_ settings: String, сompletion: @escaping Completion) {
+        let changeAdsSettingsURL = RouterOther.changeUserSettings(settings: settings)
+        Alamofire.request(changeAdsSettingsURL)
+            .validate()
+            .responseObject { (response: DataResponse<StringResponse>) in
+                print(#file, #line, response.request ?? "")
+                print(#file, #line, response.response ?? "")
+                print(#file, #line, response.data ?? "")
+                print(#file, #line, response.result.value ?? "")
+                
+                switch response.result {
+                    
+                case .success(_):
+                    сompletion(true, nil)
+                    return
+                    
+                case .failure(_):
+                    сompletion(nil, .custom("Vorgang konnte nicht abgeschlossen werden. Versuche es erneut."))
+                }
         }
     }
     

@@ -206,6 +206,43 @@ extension Server {
             }
     }
     
+    func getAdSettings(сompletion: @escaping Completion) {
+        let getUserProfileURL = RouterUser.getUserProfile(token: UserModel.sharedInstance.token)
+        
+        Alamofire.request(getUserProfileURL)
+            .validate()
+            .responseObject { (response: DataResponse<StringResponse>) in
+                
+                let responseValue = response.result.value
+                print(#file, #line, responseValue?.data ?? "")
+                print(#file, #line, response.response ?? "")
+                print(#file, #line, response.request ?? "")
+                print(#file, #line, response.result.value?.response?.status ?? "")
+                
+                switch response.result {
+                    case .success(_):
+                    
+                    if let responseData = response.data {
+                        let userProfileResponse = JSON(responseData)
+                        let customerMeta = userProfileResponse["meta"]
+                        
+                        if let appDataJSONString = customerMeta["app_data"].string,
+                           let appData = appDataJSONString.convertToDictionary() {
+    
+                            сompletion(appData, nil)
+                            return
+                        }
+                        
+                        // set default ad settings
+                        сompletion(["favourites": [], "ad_setting": 1], nil)
+                    }
+                    
+                    case .failure(_):
+                        сompletion(nil, .cantGetSettings)
+                }
+            }
+    }
+    
     func getUserProfile(сompletion: @escaping Completion) {
         let getUserProfileURL = RouterUser.getUserProfile(token: UserModel.sharedInstance.token)
         

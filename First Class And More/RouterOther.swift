@@ -16,7 +16,7 @@ enum RouterOther: URLRequestConvertible {
     case getAdvertisements(token: String)
     case getProfilesAndTests(token: String, id: Int, page: Int)
     case subscribeNewsletter(email: String)
-    case changeAdsSettings(ads: Int, pushToken: String, fcmToken: String)
+    case changeUserSettings(settings: String)
     case sendMessage(email: String, title: Int, name: String, surname: String, subject: String, message: String)
     case getAppVersion(token: String)
     
@@ -24,7 +24,7 @@ enum RouterOther: URLRequestConvertible {
         switch self {
             case .getSliderData, .getAdvertisements, .getProfilesAndTests, .getAppVersion:
                 return .get
-        case .updatePushNotificationSettings, .subscribeNewsletter, .changeAdsSettings, .sendMessage:
+        case .updatePushNotificationSettings, .subscribeNewsletter, .changeUserSettings, .sendMessage:
                 return .post
         }
     }
@@ -67,11 +67,11 @@ enum RouterOther: URLRequestConvertible {
                     "email": email
                 ]
                 return params
-            case .changeAdsSettings(let ads, let pushToken, let fcmToken):
+            case .changeUserSettings(let userSettings):
                 return [
-                    "ads": ads,
-                    "device": pushToken,
-                    "fcm_token":fcmToken
+                    "meta": [
+                        "app_data": userSettings
+                    ]
                 ]
         case .sendMessage(let email, let title, let name, let surname, let subject, let message):
             return [
@@ -103,8 +103,8 @@ enum RouterOther: URLRequestConvertible {
             return "/category-deals/"
         case .subscribeNewsletter:
             return "/subscribe/"
-        case .changeAdsSettings:
-            return "/ad-settings"
+        case .changeUserSettings:
+            return "/self/profile"
         case .sendMessage:
             return "/enquiry"
         case .getAppVersion:
@@ -138,8 +138,16 @@ enum RouterOther: URLRequestConvertible {
             urlRequest = try URLEncoding.default.encode(urlRequest, with: params)
         }
         else {
+            print(params)
             urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params,
                                                              options: .prettyPrinted)
+        }
+        
+        let userModel = UserModel.sharedInstance
+        
+        if !userModel.token.isEmpty {
+            urlRequest.setValue("Bearer \(userModel.token)",
+                                forHTTPHeaderField: "Authorization")
         }
         
         return urlRequest
