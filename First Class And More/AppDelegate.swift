@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         func isUpdateAvailable(completion: @escaping (Bool?, Bool?, Error?) -> Void) throws -> URLSessionDataTask {
             guard let info = Bundle.main.infoDictionary,
                   let currentVersion = info["CFBundleShortVersionString"] as? String,
-                  let url = URL(string: "https://www.first-class-and-more.de/blog/fcam-api/app/v1/app-version-v2?auth=tZKWXujQ&app=1") else {
+                  let url = URL(string: "http://fcnm-be-staging.eu-central-1.elasticbeanstalk.com/api/v1/app/settings") else {
                 throw VersionError.invalidBundleInfo
             }
             print("url: ", url)
@@ -101,7 +101,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments]) as? [String: Any]
                     
                     guard let responseData = json?["data"] as? [String: Any],
-                          let version = responseData["version"] as? String
+                          let appVersions = responseData["app"] as? [String: Any],
+                          let iOSVersion = appVersions["ios"] as? [String: Any],
+                          let version = iOSVersion["version"] as? String
                     else {
                         throw VersionError.invalidResponse
                     }
@@ -109,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     
                     var isUpdateForced = false
                     
-                    if let forceUpdate = responseData["force_update"] as? Bool,
+                    if let forceUpdate = iOSVersion["force_update"] as? Bool,
                        forceUpdate {
                         isUpdateForced = true
                     }
