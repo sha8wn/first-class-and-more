@@ -179,23 +179,32 @@ class WebrungViewController: SFSidebarViewController {
             self.updateAdsSettings(ads)
         }) {
             startLoading()
-            Server.shared.changeAdsSettings(ads) { response, error in
-                DispatchQueue.main.async {
-                    self.stopLoading()
-                    
-                    var title = ""
-                    var message = ""
-                    
-                    if let description = error?.description {
-                        title = "Ein Fehler ist aufgetreten..."
-                        message = description
-                    } else {
-                        title = "Promotions"
-                        message = "Ihre Promotion Einstellungen wurden gespeichert."
+            
+            do {
+                let userSettings = try appSettings.toJson()
+                
+                Server.shared.changeUserSettings(userSettings) { response, error in
+                    DispatchQueue.main.async {
+                        self.stopLoading()
+                        
+                        var title = ""
+                        var message = ""
+                        
+                        if let description = error?.description {
+                            title = "Ein Fehler ist aufgetreten..."
+                            message = description
+                        } else {
+                            title = "Promotions"
+                            message = "Ihre Promotion Einstellungen wurden gespeichert."
+                        }
+                        
+                        self.showPopupDialog(title: title, message: message)
                     }
-                    
-                    self.showPopupDialog(title: title, message: message)
                 }
+            }
+            catch {
+                self.showPopupDialog(title: "Ein Fehler ist aufgetreten...",
+                                     message: "Vorgang konnte nicht abgeschlossen werden. Versuche es erneut.")
             }
         }
     }

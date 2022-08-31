@@ -102,6 +102,7 @@
 		2B97770E1E619BD300760821 /* SFSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97770D1E619BD300760821 /* SFSettingsViewController.swift */; };
 		2B9777201E61A86000760821 /* SevenSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97771F1E61A86000760821 /* SevenSwitch.swift */; };
 		2BBD153822C3DA60008D882C /* SFQLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD153722C3DA60008D882C /* SFQLPreviewController.swift */; };
+		2BCE89C128BF4D2700D3C3F6 /* Dictionary+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCE89C028BF4D2700D3C3F6 /* Dictionary+JSON.swift */; };
 		AB4648D6C167B8182CCBADBC /* Pods_First_Class_And_More.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD9D5CF66998954A6A74D890 /* Pods_First_Class_And_More.framework */; };
 		DD00285E225516290084F851 /* TPKeyboardAvoidingSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD00285D225516290084F851 /* TPKeyboardAvoidingSwift.swift */; };
 		DD1C4E9B224AA5BC00E88513 /* FiltersHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1C4E9A224AA5BC00E88513 /* FiltersHelper.swift */; };
@@ -255,6 +256,7 @@
 		2B97770D1E619BD300760821 /* SFSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFSettingsViewController.swift; sourceTree = "<group>"; };
 		2B97771F1E61A86000760821 /* SevenSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SevenSwitch.swift; sourceTree = "<group>"; };
 		2BBD153722C3DA60008D882C /* SFQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFQLPreviewController.swift; sourceTree = "<group>"; };
+		2BCE89C028BF4D2700D3C3F6 /* Dictionary+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+JSON.swift"; sourceTree = "<group>"; };
 		8ED6B572F04DC4AFB5FE1B54 /* Pods-First Class And More.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-First Class And More.debug.xcconfig"; path = "Target Support Files/Pods-First Class And More/Pods-First Class And More.debug.xcconfig"; sourceTree = "<group>"; };
 		BD9D5CF66998954A6A74D890 /* Pods_First_Class_And_More.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_First_Class_And_More.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3EED4AAE81E6B07DA3B7781 /* Pods-First Class And More.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-First Class And More.release.xcconfig"; path = "Target Support Files/Pods-First Class And More/Pods-First Class And More.release.xcconfig"; sourceTree = "<group>"; };
@@ -617,6 +619,7 @@
 		2B53C53B1E5B115200980353 /* Subclasses & Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				2BCE89BF28BF4D1700D3C3F6 /* Dictionary */,
 				2B63191B2314572F00F64075 /* String */,
 				DD3030C321F9A59600CEBF5E /* CollectionView */,
 				E63C859C20D14E8F000A8469 /* Deeplinks */,
@@ -818,6 +821,14 @@
 				2B97771F1E61A86000760821 /* SevenSwitch.swift */,
 			);
 			name = SevenSwitch;
+			sourceTree = "<group>";
+		};
+		2BCE89BF28BF4D1700D3C3F6 /* Dictionary */ = {
+			isa = PBXGroup;
+			children = (
+				2BCE89C028BF4D2700D3C3F6 /* Dictionary+JSON.swift */,
+			);
+			name = Dictionary;
 			sourceTree = "<group>";
 		};
 		4C7F0DDD2FC2DE632F8F1447 /* Frameworks */ = {
@@ -1271,6 +1282,7 @@
 				27722E4C1EAD57990036AB2D /* SettingsResponse.swift in Sources */,
 				2B53C5681E5B854200980353 /* SFFCAMLabel.swift in Sources */,
 				E6A904751FD47C78008AC947 /* ProfilesAndTestsCollectionViewCell.swift in Sources */,
+				2BCE89C128BF4D2700D3C3F6 /* Dictionary+JSON.swift in Sources */,
 				E6E6260B1FF3CC6D001E2D7C /* FullScreenCardViewController.swift in Sources */,
 				27915DE21F3757D800EE151B /* WebrungViewController.swift in Sources */,
 				27E1C4EB1EA6A8C300F64E59 /* Errors.swift in Sources */,
