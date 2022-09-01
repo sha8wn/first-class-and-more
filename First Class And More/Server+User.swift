@@ -110,13 +110,12 @@ extension Server {
                             return
                         }
                         
-                        сompletion(nil, .cantCheckSubscriber)
+                        сompletion(nil, .custom("Vorgang konnte nicht abgeschlossen werden. Versuche es erneut."))
                         return
                     }
-                    
                 }
                 
-                сompletion(nil, .cantCheckSubscriber)
+                сompletion(nil, .custom("Vorgang konnte nicht abgeschlossen werden. Versuche es erneut."))
             }
     }
     

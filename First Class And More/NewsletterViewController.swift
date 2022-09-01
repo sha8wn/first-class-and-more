@@ -62,18 +62,15 @@ class NewsletterViewController: UIViewController {
         }
         startLoading()
         if isConnectedToNetwork(repeatedFunction: subscribeBtnPressed) {
-            Server.shared.subscribeNewsletter(email) { answer, error in
+            Server.shared.subscribeToNewsletter (email: email) { success, error in
                 DispatchQueue.main.async {
                     self.stopLoading()
-                    if error != nil {
-                        if error!.description == "Email Address already subscribe with us" {
-                            self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "E-Mail-Adresse ist bereits registriert")
-                        }
-                        else {
-                            self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
-                        }
-                        
-                    } else if let success = answer as? Bool, success {
+                    if let error = error {
+                        self.showPopupDialog(title: String(.errorOccured), message: error.description, cancelBtn: false)
+                        return
+                    }
+                    
+                    if let success = success as? Bool, success {
                         self.showPopupDialog(title: "Erfolg!", cancelBtn: false, okBtnCompletion: {
                             self.closeBtnPressed()
                         })
