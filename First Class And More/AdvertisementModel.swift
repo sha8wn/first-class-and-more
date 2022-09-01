@@ -12,50 +12,47 @@ import ObjectMapper
 class AdvertisementModel: NSObject, NSCoding, Mappable {
     
     var url: String = ""
-    var mode: String = ""
+    var isExternal: Bool = false
     var title: String = ""
     var expiry: String = ""
     var imageUrl: String = ""
-    var classification: String = ""
     
     required init?(map: Map) { }
-    init(title: String, mode: String, imageUrl: String, url: String, expiry: String, classification: String) {
+    
+    init(title: String, isExternal: Bool, imageUrl: String, url: String, expiry: String) {
         self.title    = title
-        self.mode     = mode
+        self.isExternal = isExternal
         self.imageUrl = imageUrl
         self.url      = url
         self.expiry   = expiry
-        self.classification = classification
     }
     
     func mapping(map: Map) {
         title           <- map["title"]
-        mode            <- map["mode"]
+        isExternal      <- map["is_external"]
         imageUrl        <- map["image"]
         url             <- map["url"]
-        expiry          <- map["expiry"]
-        classification  <- map["classification"]
+        expiry          <- map["expire_at"]
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         guard let title = aDecoder.decodeObject(forKey: "title") as? String,
             let url = aDecoder.decodeObject(forKey: "url") as? String,
-            let mode = aDecoder.decodeObject(forKey: "mode") as? String,
+            let isExternal = aDecoder.decodeObject(forKey: "isExternal") as? Bool,
             let expiry = aDecoder.decodeObject(forKey: "expiry") as? String,
-            let imageUrl = aDecoder.decodeObject(forKey: "imageUrl") as? String,
-            let classification  = aDecoder.decodeObject(forKey: "classification") as? String else {
+            let imageUrl = aDecoder.decodeObject(forKey: "imageUrl") as? String else {
                 print(#file, #line, "Decoding failed.")
                 return nil
         }
-        self.init(title: title, mode: mode, imageUrl: imageUrl, url: url, expiry: expiry, classification: classification)
+        
+        self.init(title: title, isExternal: isExternal, imageUrl: imageUrl, url: url, expiry: expiry)
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(title, forKey: "title")
-        aCoder.encode(mode, forKey: "mode")
+        aCoder.encode(isExternal, forKey: "isExternal")
         aCoder.encode(imageUrl, forKey: "imageUrl")
         aCoder.encode(url, forKey: "url")
         aCoder.encode(expiry, forKey: "expiry")
-        aCoder.encode(classification, forKey: "classification")
     }
 }
