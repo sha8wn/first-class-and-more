@@ -253,12 +253,6 @@ class RegisterViewController: UIViewController {
                         UserDefaults.standard.set(true, forKey: kUDUserRegistered)
                         self.performSegue(withIdentifier: "showHome", sender: nil)
                     }
-                    
-                    /*else if status == 2 {
-                        self.type = .premium
-                        self.premiumEmailTextField.text = email
-                        self.setupView()
-                    }*/
                 }
             }
         }
