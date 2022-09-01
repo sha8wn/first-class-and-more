@@ -72,21 +72,34 @@ extension Server {
     
     // get advertisements
     func getAdvertisements(сompletion: @escaping Completion) {
-        let token = UserModel.sharedInstance.token
-        let getAdvertisementsURL = RouterOther.getAdvertisements(token: token)
-        Alamofire.request(getAdvertisementsURL).responseObject { (response: DataResponse<AdvertisementsResponse>) in
-            let responseValue = response.result.value
-            print(#file, #line, responseValue?.data ?? "")
-            print(#file, #line, response.response ?? "")
-            print(#file, #line, response.request ?? "")
-            print(#file, #line, response.result.value?.response?.status ?? "")
-            
-            if let error = responseValue?.message {
-                сompletion(nil, .custom(error))
-                return
+        let getAdvertisementsURL = RouterOther.getAdvertisements
+        
+        Alamofire.request(getAdvertisementsURL)
+            .validate()
+            .responseObject { (response: DataResponse<AdvertisementsResponse>) in
+                let responseValue = response.result.value
+                print(#file, #line, responseValue?.data ?? "")
+                print(#file, #line, response.response ?? "")
+                print(#file, #line, response.request ?? "")
+                print(#file, #line, response.result.value?.response?.status ?? "")
+                
+                
+                switch response.result {
+                    
+                case .success(_):
+                    сompletion(responseValue?.data ?? [AdvertisementModel](), nil)
+                    return
+                    
+                case .failure(_):
+                    сompletion(nil, nil)
+                }
+                
+//                if let error = responseValue?.message {
+//                    сompletion(nil, .custom(error))
+//                    return
+//                }
+//                сompletion(responseValue?.data ?? [AdvertisementModel](), nil)
             }
-            сompletion(responseValue?.data ?? [AdvertisementModel](), nil)
-        }
     }
     
     func getProfilesAndTests(_ id: Int, page: Int, сompletion: @escaping Completion) {

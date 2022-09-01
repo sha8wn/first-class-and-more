@@ -13,7 +13,7 @@ import SwiftyJSON
 enum RouterOther: URLRequestConvertible {
     case getSliderData(token: String)
     case updatePushNotificationSettings(setting: Int, token: String, deviceToken: String, fcmToken: String)
-    case getAdvertisements(token: String)
+    case getAdvertisements
     case getProfilesAndTests(token: String, id: Int, page: Int)
     case subscribeNewsletter(email: String)
     case changeUserSettings(settings: String)
@@ -45,7 +45,10 @@ enum RouterOther: URLRequestConvertible {
                     "query": "{\"key\":\"app_slider_guest\"}"
                 ]
             
-            case .getAdvertisements(let token), .getAppVersion(let token):
+            case .getAdvertisements:
+                return [:]
+            
+            case .getAppVersion(let token):
                 return [
                     "token": token
                 ]
@@ -98,7 +101,7 @@ enum RouterOther: URLRequestConvertible {
         case .updatePushNotificationSettings:
             return "/notifications/"
         case .getAdvertisements:
-            return "/advertisements/"
+            return "/app/promo"
         case .getProfilesAndTests:
             return "/category-deals/"
         case .subscribeNewsletter:
