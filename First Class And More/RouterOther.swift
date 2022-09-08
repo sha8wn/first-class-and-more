@@ -152,6 +152,10 @@ enum RouterOther: URLRequestConvertible {
             urlRequest.setValue("Bearer \(userModel.token)",
                                 forHTTPHeaderField: "Authorization")
         }
+        else if case .getSliderData = self {
+            urlRequest.setValue("Basic dW1haXI6RmNubTMyNjY=",
+                                forHTTPHeaderField: "Authorization")
+        }
         
         return urlRequest
     }

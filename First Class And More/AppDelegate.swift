@@ -198,16 +198,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 if error == nil {
                     if let statusCode = statusCode as? Int {
                         switch statusCode {
-                            case 1:
+                            case 200:
                                 break
-                            case 2:
-                                // update token
+                            case 401:
                                 self.updateToken()
-                            case 3:
-                                // logout
-                                self.logout()
                             default:
-                                break
+                                self.updateToken()
                         }
                     }
                 }
