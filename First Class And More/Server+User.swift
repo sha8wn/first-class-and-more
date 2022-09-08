@@ -426,22 +426,21 @@ extension Server {
     
     // check user token
     func checkUserToken(сompletion: @escaping Completion) {
-        let token = UserModel.sharedInstance.token
-        let checkUserTokenURL = RouterUser.checkUserToken(token: token)
-        Alamofire.request(checkUserTokenURL).responseObject { (response: DataResponse<CheckUserTokenResponse>) in
-            let responseValue = response.result.value
-            // update user model
-            if let statusCode = responseValue?.data {
-                сompletion(statusCode, nil)
-                return
+        let checkUserTokenURL = RouterUser.checkUserToken
+        Alamofire.request(checkUserTokenURL)
+            .validate()
+            .responseObject { (response: DataResponse<CheckUserTokenResponse>) in
+                
+                switch response.result {
+                case .success(_):
+                    сompletion(200, nil)
+                    return
+                
+                case .failure(_):
+                    сompletion(401, nil)
+                    return
+                }
             }
-            // errors handling
-            if let error = responseValue?.message {
-                сompletion(nil, .custom(error))
-                return
-            }
-            сompletion(nil, .cantCheckUserToken)
-        }
     }
     
     func subscribe(email: String, сompletion: @escaping Completion) {

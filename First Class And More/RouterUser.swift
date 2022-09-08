@@ -25,15 +25,15 @@ enum RouterUser: URLRequestConvertible {
     case forgotPassword(email: String)
     case getSettings(token: String)
     case getUserProfile(token: String)
-    case checkUserToken(token: String)
+    case checkUserToken
     case subscribe(email: String)
     case subscriberActivate(email: String)
     
     var method: HTTPMethod {
         switch self {
-        case .getPasswordSalt, .getSettings, .getUserProfile, .checkUserToken:
+        case .getPasswordSalt, .getSettings, .getUserProfile:
             return .get
-        case .login, .forgotPassword, .subscribe, .subscribeNewsletter, .register, .subscriberActivate, .checkSubscriber:
+        case .login, .forgotPassword, .subscribe, .subscribeNewsletter, .register, .subscriberActivate, .checkSubscriber, .checkUserToken:
             return .post
         }
     }
@@ -77,10 +77,8 @@ enum RouterUser: URLRequestConvertible {
         case .getSettings(_), .getUserProfile(_):
             return [:]
         
-        case .checkUserToken(let token):
-            return [
-                "token": token
-            ]
+        case .checkUserToken:
+            return [:]
         case .subscribe(let email):
             return [
                 "email": email
@@ -107,7 +105,7 @@ enum RouterUser: URLRequestConvertible {
         case .getSettings:
             return "app/settings"
         case .checkUserToken:
-            return "/token-status/"
+            return "/auth/fe/refresh"
         case .subscribe:
             return "/access-code/"
         case .subscriberActivate:
