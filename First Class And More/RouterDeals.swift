@@ -26,7 +26,7 @@ enum RouterDeals: URLRequestConvertible {
         }
     }
     
-    case getMyDeals(token: String, page: Int, filters: [Int])
+    case getMyDeals(page: Int, filters: [Int])
     case getFavoriteDeals(token: String, page: Int, cat: Any?, filters: [Int])
     case addFavorite(id: Int, token: String)
     case deleteFavorite(id: Int, token: String)
@@ -49,13 +49,24 @@ enum RouterDeals: URLRequestConvertible {
     
     var params: Parameters {
         switch self {
-            case .getMyDeals(let token, let page, let filters), .getRecentDeals(let token, let page, let filters):
+            case .getMyDeals(let page, let filters):
+                let params: [String: Any] = [
+                    "query": "{\"page\":\(page), \"limit\": 20}"
+//                    "page": page,
+//                    "limit": 20,
+//					"exclude": getFiltersString(from: filters)
+                ]
+				return params
+            
+            case .getRecentDeals(let token, let page, let filters):
                 let params: [String: Any] = [
                     "token": token,
                     "page": page,
-					"exclude": getFiltersString(from: filters)
+                    "limit": 20,
+                    "exclude": getFiltersString(from: filters)
                 ]
-				return params
+            return params
+            
             case .getFavoriteDeals(let token, let page, let cat, let filters):
                 var params: [String: Any] = [
                     "token": token,
@@ -132,7 +143,7 @@ enum RouterDeals: URLRequestConvertible {
     var url: String {
         switch self {
             case .getMyDeals:
-                return "/my-deals/"
+                return "/posts"
             case .getFavoriteDeals, .addFavorite, .deleteFavorite:
                 return "/favourites/"
             case .getRecentDeals:
@@ -149,12 +160,33 @@ enum RouterDeals: URLRequestConvertible {
     }
     
     func asURLRequest() throws -> URLRequest {
-        let baseURL = try Server.shared.url.asURL()
+        let baseURL = try Server.shared.wpURL.asURL()
+        
         var urlRequest = URLRequest(url: baseURL.appendingPathComponent(url))
         urlRequest.httpMethod = method.rawValue
-        var params = self.params
-        params["auth"] = Server.shared.apiKey
-        urlRequest = try URLEncoding.default.encode(urlRequest, with: params)
+        urlRequest.addValue("application/json",
+                            forHTTPHeaderField: "Content-Type")
+        
+        if method == .get {
+            urlRequest = try URLEncoding.default.encode(urlRequest, with: params)
+        }
+        else {
+            print(params)
+            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params,
+                                                             options: .prettyPrinted)
+        }
+        
+        let userModel = UserModel.sharedInstance
+        
+        if !userModel.token.isEmpty {
+            urlRequest.setValue("Bearer \(userModel.token)",
+                                forHTTPHeaderField: "Authorization")
+        }
+        else {
+            urlRequest.setValue("Basic dW1haXI6RmNubTMyNjY=",
+                                forHTTPHeaderField: "Authorization")
+        }
+        
         return urlRequest
     }
 }

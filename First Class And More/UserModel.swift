@@ -68,7 +68,7 @@ class UserModel: NSObject, NSCoding {
         self.favorites           = aDecoder.decodeObject(forKey: "favorites") as! [Int]
         self.notificationSetting = aDecoder.decodeInteger(forKey: "notificationSetting")
         self.isSubscribed        = aDecoder.decodeBool(forKey: "isSubscribed")
-        self.salutation          = aDecoder.decodeObject(forKey: "salutation") as? Int ?? 1
+        self.salutation          = aDecoder.decodeInteger(forKey: "salutation")
     }
     
     func encode(with aCoder: NSCoder) {

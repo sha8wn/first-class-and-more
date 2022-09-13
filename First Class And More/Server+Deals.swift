@@ -28,7 +28,7 @@ extension Server {
         
         switch type {
             case .my:
-                url = RouterDeals.getMyDeals(token: token, page: page, filters: filterIdentifiers)
+                url = RouterDeals.getMyDeals(page: page, filters: filterIdentifiers)
             case .highlights:
                 if let highlightsType = param as? HighlightsType {
                     url = RouterDeals.getHighlights(type: highlightsType, token: token, page: page, filters: filterIdentifiers)
@@ -59,24 +59,30 @@ extension Server {
                 }
         }
         if let url = url {
-            Alamofire.request(url).responseObject { (response: DataResponse<DealsResponse>) in
-                let responseValue = response.result.value
-                print(#file, #line, responseValue?.data ?? "")
-                print(#file, #line, response.response ?? "")
-                print(#file, #line, response.request ?? "")
-                print(#file, #line, response.result.value?.response?.status ?? "")
-                if let deals = responseValue?.data {
-                    сompletion(deals, nil)
-                    return
-                }
-                if self.shouldIgnoreError(for: responseValue, type: type) {
-                    сompletion([], nil)
-                    return
-                }
-                if let error = responseValue?.message {
-                    сompletion(nil, .custom(error))
-                    return
-                }
+            Alamofire.request(url)
+                .validate()
+                .responseObject { (response: DataResponse<DealsResponse>) in
+                
+                    let responseValue = response.result.value
+                    
+                    switch response.result {
+                        
+                    case .success(_):
+                        if let responseData = response.data {
+                            let slidesResponse = JSON(responseData)
+                            print(slidesResponse)
+                            
+                            if let deals = responseValue {
+                                сompletion(deals.data, nil)
+                                return
+                            }
+                        }
+                    
+                    case .failure(_):
+                        сompletion(nil, .cantGetSliderData)
+                    }
+                    
+                    
                 сompletion(nil, .cantGetDeals)
             }.responseString(completionHandler: { response in
                 print(#file, #line, response.response ?? "")

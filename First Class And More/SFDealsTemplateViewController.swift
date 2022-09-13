@@ -735,19 +735,17 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         tableView.deselectRow(at: indexPath, animated: true)
         let index = indexPath.section
         let deal = deals[index]
-        if let access = deal.access {
-            if access == 0 {
+        if let dealMembership = deal.membership {
+            if deal.premium == Premium.gold && !UserModel.sharedInstance.hasAccess(to: dealMembership) {
                 
-                if deal.premium == Premium.gold {
-                    
-                    showPopupDialog(title: "", message: "Dieser Deal ist erst ab der GOLD-Mitgliedschaft freigegeben.", cancelBtn: false, okBtnCompletion: nil)
-                    
-                }
-                else {
-                    
-                    showPopupDialog(title: "", message: "Dieser Deal ist nur für PLATIN/DIAMANT-Mitglieder freigegeben.", cancelBtn: false, okBtnCompletion: nil)
-                    
-                }
+                showPopupDialog(title: "", message: "Dieser Deal ist erst ab der GOLD-Mitgliedschaft freigegeben.", cancelBtn: false, okBtnCompletion: nil)
+                
+            }
+            else if (deal.premium == Premium.platin || deal.premium == Premium.diamant)
+                        && !UserModel.sharedInstance.hasAccess(to: dealMembership) {
+                
+                showPopupDialog(title: "", message: "Dieser Deal ist nur für PLATIN/DIAMANT-Mitglieder freigegeben.", cancelBtn: false, okBtnCompletion: nil)
+                
             }
             else {
                 performSegue(withIdentifier: "showWKWebViewVC", sender: deal)

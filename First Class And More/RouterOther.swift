@@ -127,7 +127,7 @@ enum RouterOther: URLRequestConvertible {
         
         switch self {
         case .getSliderData:
-            baseURL =  try Server.shared.sliderURL.asURL()
+            baseURL =  try Server.shared.wpURL.asURL()
         default:
             break
         }
