@@ -30,8 +30,10 @@ extension Server {
             case .my:
                 url = RouterDeals.getMyDeals(page: page, filters: filterIdentifiers)
             case .highlights:
-                if let highlightsType = param as? HighlightsType {
-                    url = RouterDeals.getHighlights(type: highlightsType, token: token, page: page, filters: filterIdentifiers)
+                if let param = param as? [String: Any],
+                let type = param["type"] as? HighlightsType,
+                let filters = param["filters"] as? String {
+                    url = RouterDeals.getHighlights(type: type, params: filters, page: page, filters: filterIdentifiers)
                 }
             case .popular:
                 url = RouterDeals.getPopularDeals(token: token, page: page, filters: filterIdentifiers)
@@ -69,8 +71,8 @@ extension Server {
                         
                     case .success(_):
                         if let responseData = response.data {
-                            let slidesResponse = JSON(responseData)
-                            print(slidesResponse)
+                            let dealsResponse = JSON(responseData)
+                            print(dealsResponse)
                             
                             if let deals = responseValue {
                                 сompletion(deals.data, nil)
@@ -79,7 +81,7 @@ extension Server {
                         }
                     
                     case .failure(_):
-                        сompletion(nil, .cantGetSliderData)
+                        сompletion(nil, .cantGetDeals)
                     }
                     
                     

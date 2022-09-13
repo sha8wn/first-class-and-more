@@ -234,11 +234,14 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                         case 0:
                             loadDeals(.my)
                         case 1:
-                            loadDeals(.highlights, param: HighlightsType.ohneLogin)
+                            loadDeals(.highlights, param: ["type": HighlightsType.ohneLogin,
+                                                           "filters": "\"only_open\":1"])
                         case 2:
-                            loadDeals(.highlights, param: HighlightsType.gold)
+                            loadDeals(.highlights, param: ["type": HighlightsType.gold,
+                                                           "filters": "\"filters\":{\"membership\":\"2\"}"])
                         case 3:
-                            loadDeals(.highlights, param: HighlightsType.platin)
+                            loadDeals(.highlights, param: ["type": HighlightsType.platin,
+                                                           "filters": "\"filters\":{\"membership\":\"3,4\"}"])
                         case 4:
                             loadDeals(.popular)
                         default:
@@ -620,12 +623,12 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         } else {
             cell.dealsExpireDate.isHidden = true
         }
-        if let date = deal.date?.date(format: "yyyy-MM-dd") {
+        if let date = deal.date?.date(format: "yyyy-MM-dd HH:mm:ss") {
             cell.dealsDate.text = date.string(format: "dd-MM-yyyy")
         }
         cell.dealsCategory.text    = deal.shortTitle
         cell.dealsTitle.text       = deal.title
-        cell.dealsDescription.text = deal.teaser
+        cell.dealsDescription.text = deal.teaser?.withoutHtmlTags()
         cell.dealsTierRibbon.image = deal.premium.ribbon
         cell.dealsTierRibbon.isHidden = deal.premium.ribbon == nil
         

@@ -31,7 +31,7 @@ enum RouterDeals: URLRequestConvertible {
     case addFavorite(id: Int, token: String)
     case deleteFavorite(id: Int, token: String)
     case getRecentDeals(token: String, page: Int, filters: [Int])
-    case getHighlights(type: HighlightsType, token: String, page: Int, filters: [Int])
+    case getHighlights(type: HighlightsType, params: String, page: Int, filters: [Int])
     case getPopularDeals(token: String, page: Int, filters: [Int])
     case getExpiringDeals(token: String, page: Int, cat: Any?, filters: [Int])
     case getCategoryDeals(token: String, page: Int, cat: Any?, cat2: Any?, cat3: Any?, destinations: Any?, filters: [Int], orderBy: Sorting)
@@ -102,12 +102,11 @@ enum RouterDeals: URLRequestConvertible {
 					"exclude": getFiltersString(from: filters)
                 ]
 				return params
-            case .getHighlights(let type, let token, let page, let filters):
+            case .getHighlights(_, let params, let page, let filters):
                 let params: [String: Any] = [
-                    "mem": type.rawValue.uppercased(),
-                    "token": token,
-                    "page": page,
-					"exclude": getFiltersString(from: filters)
+                    "query": "{\"page\":\(page), \"limit\": 20, \(params)}"
+//                    "page": page,
+//					"exclude": getFiltersString(from: filters)
                 ]
 				return params
             case .getCategoryDeals(let token, let page, let cat, let cat2, let cat3, let destinations, let filters, let orderBy):
@@ -142,7 +141,7 @@ enum RouterDeals: URLRequestConvertible {
     
     var url: String {
         switch self {
-            case .getMyDeals:
+            case .getMyDeals, .getHighlights:
                 return "/posts"
             case .getFavoriteDeals, .addFavorite, .deleteFavorite:
                 return "/favourites/"
@@ -150,8 +149,6 @@ enum RouterDeals: URLRequestConvertible {
                 return "/recent-deals/"
             case .getExpiringDeals:
                 return "/expiring-deals/"
-            case .getHighlights:
-                return "/membership-deals/"
             case .getPopularDeals:
                 return "/popular-deals/"
             case .getCategoryDeals:
