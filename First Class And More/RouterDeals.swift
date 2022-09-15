@@ -26,7 +26,7 @@ enum RouterDeals: URLRequestConvertible {
         }
     }
     
-    case getMyDeals(page: Int, filters: [Int])
+    case getMyDeals(page: Int, params: String, filters: [Int])
     case getFavoriteDeals(token: String, page: Int, cat: Any?, filters: [Int])
     case addFavorite(id: Int, token: String)
     case deleteFavorite(id: Int, token: String)
@@ -49,14 +49,12 @@ enum RouterDeals: URLRequestConvertible {
     
     var params: Parameters {
         switch self {
-            case .getMyDeals(let page, let filters):
-                let params: [String: Any] = [
-                    "query": "{\"page\":\(page), \"limit\": 20}"
-//                    "page": page,
-//                    "limit": 20,
-//					"exclude": getFiltersString(from: filters)
+            case .getMyDeals(let page, let params, let filters):
+                let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
+                let finalParams: [String: Any] = [
+                    "query": "{\"page\":\(page), \"limit\": 20, \(filterQuery)}"
                 ]
-				return params
+				return finalParams
             
             case .getRecentDeals(let token, let page, let filters):
                 let params: [String: Any] = [
@@ -96,17 +94,17 @@ enum RouterDeals: URLRequestConvertible {
                 }
                 return params
             case .getPopularDeals(let params, let page, let filters):
-                let params: [String: Any] = [
-                    "query": "{\"page\":\(page), \"limit\": 20, \(params)}"
+                let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
+                let finalParams: [String: Any] = [
+                    "query": "{\"page\":\(page), \"limit\": 20, \(filterQuery)}"
                 ]
-				return params
+				return finalParams
             case .getHighlights(_, let params, let page, let filters):
-                let params: [String: Any] = [
-                    "query": "{\"page\":\(page), \"limit\": 20, \(params)}"
-//                    "page": page,
-//					"exclude": getFiltersString(from: filters)
+                let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
+                let finalParams: [String: Any] = [
+                    "query": "{\"page\":\(page), \"limit\": 20, \(filterQuery)}"
                 ]
-				return params
+				return finalParams
             case .getCategoryDeals(let token, let page, let cat, let cat2, let cat3, let destinations, let filters, let orderBy):
                 var params: [String: Any] = [
                     "token": token,

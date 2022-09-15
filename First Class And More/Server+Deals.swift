@@ -28,17 +28,21 @@ extension Server {
         
         switch type {
             case .my:
-                url = RouterDeals.getMyDeals(page: page, filters: filterIdentifiers)
+            if let param = param as? [String: Any],
+               let filterQuery = param["filters"] as? String {
+                url = RouterDeals.getMyDeals(page: page, params: filterQuery, filters: filterIdentifiers)
+            }
+                
             case .highlights:
                 if let param = param as? [String: Any],
                 let type = param["type"] as? HighlightsType,
-                let filters = param["filters"] as? String {
-                    url = RouterDeals.getHighlights(type: type, params: filters, page: page, filters: filterIdentifiers)
+                let filterQuery = param["filters"] as? String {
+                    url = RouterDeals.getHighlights(type: type, params: filterQuery, page: page, filters: filterIdentifiers)
                 }
             case .popular:
             if let param = param as? [String: Any],
-            let filters = param["filters"] as? String {
-                url = RouterDeals.getPopularDeals(params: filters, page: page, filters: filterIdentifiers)
+            let filterQuery = param["filters"] as? String {
+                url = RouterDeals.getPopularDeals(params: filterQuery, page: page, filters: filterIdentifiers)
             }
                 
             case .favoriten:

@@ -232,18 +232,18 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 case .Alle:
                     switch firstRowItemIndex {
                         case 0:
-                            loadDeals(.my)
+                            loadDeals(.my, param: ["filters": "\"filters\":{\"exclude\": %@}"])
                         case 1:
                             loadDeals(.highlights, param: ["type": HighlightsType.ohneLogin,
-                                                           "filters": "\"only_open\":1"])
+                                                           "filters": "\"only_open\":1, \"filters\":{\"exclude\": %@}"])
                         case 2:
                             loadDeals(.highlights, param: ["type": HighlightsType.gold,
-                                                           "filters": "\"filters\":{\"membership\":\"2\"}"])
+                                                           "filters": "\"filters\":{\"membership\":\"2\", \"exclude\": %@}"])
                         case 3:
                             loadDeals(.highlights, param: ["type": HighlightsType.platin,
-                                                           "filters": "\"filters\":{\"membership\":\"3,4\"}"])
+                                                           "filters": "\"filters\":{\"membership\":\"3,4\", \"exclude\": %@}"])
                         case 4:
-                            loadDeals(.popular, param: ["filters": "\"only_popular\":1"])
+                            loadDeals(.popular, param: ["filters": "\"only_popular\":1, \"filters\":{\"exclude\": %@}"])
                         default:
                             break
                     }
