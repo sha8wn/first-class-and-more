@@ -243,7 +243,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                             loadDeals(.highlights, param: ["type": HighlightsType.platin,
                                                            "filters": "\"filters\":{\"membership\":\"3,4\"}"])
                         case 4:
-                            loadDeals(.popular)
+                            loadDeals(.popular, param: ["filters": "\"only_popular\":1"])
                         default:
                             break
                     }
@@ -410,6 +410,11 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                     }
                     if error != nil {
                         guard self.dealType != .Favoriten else { return }
+
+                        if self.page != 1 {
+                            self.page -= 1
+                        }
+                        
                         self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
                     } else {
                         if let deals = deals as? [DealModel] {
@@ -627,7 +632,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
             cell.dealsDate.text = date.string(format: "dd-MM-yyyy")
         }
         cell.dealsCategory.text    = deal.shortTitle
-        cell.dealsTitle.text       = deal.title
+        cell.dealsTitle.text       = deal.title?.withoutHtmlTags()
         cell.dealsDescription.text = deal.teaser?.withoutHtmlTags()
         cell.dealsTierRibbon.image = deal.premium.ribbon
         cell.dealsTierRibbon.isHidden = deal.premium.ribbon == nil

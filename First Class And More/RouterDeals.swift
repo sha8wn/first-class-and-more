@@ -32,7 +32,7 @@ enum RouterDeals: URLRequestConvertible {
     case deleteFavorite(id: Int, token: String)
     case getRecentDeals(token: String, page: Int, filters: [Int])
     case getHighlights(type: HighlightsType, params: String, page: Int, filters: [Int])
-    case getPopularDeals(token: String, page: Int, filters: [Int])
+    case getPopularDeals(params: String, page: Int, filters: [Int])
     case getExpiringDeals(token: String, page: Int, cat: Any?, filters: [Int])
     case getCategoryDeals(token: String, page: Int, cat: Any?, cat2: Any?, cat3: Any?, destinations: Any?, filters: [Int], orderBy: Sorting)
     
@@ -95,11 +95,9 @@ enum RouterDeals: URLRequestConvertible {
                     params["fav"] = cat
                 }
                 return params
-            case .getPopularDeals(let token, let page, let filters):
+            case .getPopularDeals(let params, let page, let filters):
                 let params: [String: Any] = [
-                    "token": token,
-                    "page": page,
-					"exclude": getFiltersString(from: filters)
+                    "query": "{\"page\":\(page), \"limit\": 20, \(params)}"
                 ]
 				return params
             case .getHighlights(_, let params, let page, let filters):
@@ -141,7 +139,7 @@ enum RouterDeals: URLRequestConvertible {
     
     var url: String {
         switch self {
-            case .getMyDeals, .getHighlights:
+            case .getMyDeals, .getHighlights, .getPopularDeals:
                 return "/posts"
             case .getFavoriteDeals, .addFavorite, .deleteFavorite:
                 return "/favourites/"
@@ -149,8 +147,6 @@ enum RouterDeals: URLRequestConvertible {
                 return "/recent-deals/"
             case .getExpiringDeals:
                 return "/expiring-deals/"
-            case .getPopularDeals:
-                return "/popular-deals/"
             case .getCategoryDeals:
                 return "/category-deals/"
         }
@@ -173,16 +169,8 @@ enum RouterDeals: URLRequestConvertible {
                                                              options: .prettyPrinted)
         }
         
-        let userModel = UserModel.sharedInstance
-        
-        if !userModel.token.isEmpty {
-            urlRequest.setValue("Bearer \(userModel.token)",
-                                forHTTPHeaderField: "Authorization")
-        }
-        else {
-            urlRequest.setValue("Basic dW1haXI6RmNubTMyNjY=",
-                                forHTTPHeaderField: "Authorization")
-        }
+        urlRequest.setValue(Server.shared.basicAuth,
+                            forHTTPHeaderField: "Authorization")
         
         return urlRequest
     }

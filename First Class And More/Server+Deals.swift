@@ -36,7 +36,11 @@ extension Server {
                     url = RouterDeals.getHighlights(type: type, params: filters, page: page, filters: filterIdentifiers)
                 }
             case .popular:
-                url = RouterDeals.getPopularDeals(token: token, page: page, filters: filterIdentifiers)
+            if let param = param as? [String: Any],
+            let filters = param["filters"] as? String {
+                url = RouterDeals.getPopularDeals(params: filters, page: page, filters: filterIdentifiers)
+            }
+                
             case .favoriten:
                 url = RouterDeals.getFavoriteDeals(token: token, page: page, cat: param, filters: filterIdentifiers)
             case .expiring:

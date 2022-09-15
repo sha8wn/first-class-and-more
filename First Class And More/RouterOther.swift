@@ -148,12 +148,12 @@ enum RouterOther: URLRequestConvertible {
         
         let userModel = UserModel.sharedInstance
         
-        if !userModel.token.isEmpty {
-            urlRequest.setValue("Bearer \(userModel.token)",
+        if case .getSliderData = self {
+            urlRequest.setValue(Server.shared.basicAuth,
                                 forHTTPHeaderField: "Authorization")
         }
-        else if case .getSliderData = self {
-            urlRequest.setValue("Basic dW1haXI6RmNubTMyNjY=",
+        else if !userModel.token.isEmpty {
+            urlRequest.setValue("Bearer \(userModel.token)",
                                 forHTTPHeaderField: "Authorization")
         }
         
