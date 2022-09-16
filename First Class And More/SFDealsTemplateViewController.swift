@@ -384,7 +384,8 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                         }
                     }
                 case .Ohne_Login:
-                    loadDeals(.highlights, param: HighlightsType.ohneLogin)
+                    loadDeals(.highlights, param: ["type": HighlightsType.ohneLogin,
+                                                   "filters": "\"only_open\":1"])
                 case .Gold_Highlights:
                     loadDeals(.highlights, param: HighlightsType.gold)
                 case .Platin_Highlights:
