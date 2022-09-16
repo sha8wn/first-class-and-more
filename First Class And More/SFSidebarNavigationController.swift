@@ -145,11 +145,11 @@ class SFSidebarNavigationController : UINavigationController, SFSideBarViewDeleg
                         if let index = indexPath?.row,
                             let data = UserDefaults.standard.object(forKey: kUDSettingsPageDetails) as? Data,
                             let pageDetailsObject = NSKeyedUnarchiver.unarchiveObject(with: data) as? PageDetails {
-                            let categories: [[Int]] = [
-                                [908, 909],
-                                [1766],
-                                [255],
-                                [2385]
+                            let categories: [[String: String]] = [
+                                ["filters": "\"category\":\"destinations-profil\""],
+                                ["filters": "\"category\":\"airline-profil\""],
+                                ["filters": "\"filters\":{\"category\": [255]}"],
+                                ["filters": "\"filters\":{\"category\": [2385]}"]
                             ]
                             profileAndTestsVC.categories = categories[index - 1]
                             switch index - 1 {

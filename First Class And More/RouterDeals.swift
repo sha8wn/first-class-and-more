@@ -35,10 +35,11 @@ enum RouterDeals: URLRequestConvertible {
     case getPopularDeals(params: String, page: Int, filters: [Int])
     case getExpiringDeals(token: String, page: Int, cat: Any?, filters: [Int])
     case getCategoryDeals(token: String, page: Int, cat: Any?, cat2: Any?, cat3: Any?, destinations: Any?, filters: [Int], orderBy: Sorting)
+    case getSidebarCategoryDeals(page: Int, params: String)
     
     var method: HTTPMethod {
         switch self {
-            case .getMyDeals, .getFavoriteDeals, .getRecentDeals, .getExpiringDeals, .getHighlights, .getPopularDeals, .getCategoryDeals:
+            case .getMyDeals, .getFavoriteDeals, .getRecentDeals, .getExpiringDeals, .getHighlights, .getPopularDeals, .getCategoryDeals, .getSidebarCategoryDeals:
                 return .get
             case .addFavorite:
                 return .post
@@ -63,7 +64,13 @@ enum RouterDeals: URLRequestConvertible {
                     "limit": 20,
                     "exclude": getFiltersString(from: filters)
                 ]
-            return params
+                return params
+            
+            case .getSidebarCategoryDeals(let page, let params):
+                let finalParams: [String: Any] = [
+                    "query": "{\"page\":\(page), \"limit\": 20, \(params)}"
+                ]
+                return finalParams
             
             case .getFavoriteDeals(let token, let page, let cat, let filters):
                 var params: [String: Any] = [
@@ -137,7 +144,7 @@ enum RouterDeals: URLRequestConvertible {
     
     var url: String {
         switch self {
-            case .getMyDeals, .getHighlights, .getPopularDeals:
+            case .getMyDeals, .getHighlights, .getPopularDeals, .getSidebarCategoryDeals:
                 return "/posts"
             case .getFavoriteDeals, .addFavorite, .deleteFavorite:
                 return "/favourites/"

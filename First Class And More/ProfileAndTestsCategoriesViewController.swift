@@ -16,7 +16,7 @@ class ProfileAndTestsCategoriesViewController: SFSidebarViewController {
     var loadMoreDealsStatus: Bool = false
 	var deals: [DealModel] = []
 	
-    var categories: [Int] = []
+    var categories: [String: String] = [:]
     var orderBy: RouterDeals.Sorting = .none
     var layout: ProfileAndTestsViewController.Layout = .twoColumns
     
@@ -37,7 +37,7 @@ class ProfileAndTestsCategoriesViewController: SFSidebarViewController {
                 if page == 1 {
                     startLoading()
                 }
-                Server.shared.loadDeals(type: .category, param: categories, page: page, orderBy: orderBy) { deals, error in
+                Server.shared.loadDeals(type: .sidebarCategory, param: categories, page: page, orderBy: orderBy) { deals, error in
                     DispatchQueue.main.async {
                         if self.page == 1 {
                             self.stopLoading()
@@ -137,7 +137,7 @@ extension ProfileAndTestsCategoriesViewController: UICollectionViewDataSource, U
             )
         }
         cell.titleLabel.text = deal.title
-        if let date = deal.date?.date(format: "yyyy-MM-dd"), let label = cell.dateLabel {
+        if let date = deal.date?.date(format: "yyyy-MM-dd HH:mm:ss"), let label = cell.dateLabel {
             label.text = date.string(format: "dd. MMMM yyyy")
         }
         return cell
@@ -157,7 +157,7 @@ extension ProfileAndTestsCategoriesViewController: UICollectionViewDataSource, U
             imageHeight = width / 1.5
         }
         let titleHeight = deal.title?.size(withConstrainedWidth: width, font: UIFont(name: "Roboto-Medium", size: 17.0)!, numberOfLines: 3).height ?? 0
-        let dateHeight = deal.date?.date(format: "yyyy-MM-dd")?.string(format: "dd. MMMM yyyy")?.size(withConstrainedWidth: width, font: UIFont(name: "Roboto-Regular", size: 11.0)!, numberOfLines: 1).height ?? 0
+        let dateHeight = deal.date?.date(format: "yyyy-MM-dd HH:mm:ss")?.string(format: "dd. MMMM yyyy")?.size(withConstrainedWidth: width, font: UIFont(name: "Roboto-Regular", size: 11.0)!, numberOfLines: 1).height ?? 0
         let height = imageHeight + 12.0 + titleHeight + 4.0 + dateHeight
         return CGSize(width: width, height: height)
     }
@@ -166,8 +166,8 @@ extension ProfileAndTestsCategoriesViewController: UICollectionViewDataSource, U
         collectionView.deselectItem(at: indexPath, animated: true)
         let index = indexPath.row
         let deal = deals[index]
-        if let access = deal.access {
-            if access == 0 {
+        if let dealMembership = deal.membership {
+            if !UserModel.sharedInstance.hasAccess(to: dealMembership) {
                 showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "Dieses Profil ist nicht für Ihr Mitgliedschaftslevel freigegeben.", cancelBtn: false, okBtnCompletion: nil)
             } else {
                 performSegue(withIdentifier: "showWKWebViewVC", sender: deal)
