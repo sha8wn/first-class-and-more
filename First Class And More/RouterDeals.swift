@@ -26,13 +26,13 @@ enum RouterDeals: URLRequestConvertible {
         }
     }
     
-    case getMyDeals(token: String, page: Int, filters: [Int])
+    case getMyDeals(page: Int, params: String, filters: [Int])
     case getFavoriteDeals(token: String, page: Int, cat: Any?, filters: [Int])
     case addFavorite(id: Int, token: String)
     case deleteFavorite(id: Int, token: String)
     case getRecentDeals(token: String, page: Int, filters: [Int])
-    case getHighlights(type: HighlightsType, token: String, page: Int, filters: [Int])
-    case getPopularDeals(token: String, page: Int, filters: [Int])
+    case getHighlights(type: HighlightsType, params: String, page: Int, filters: [Int])
+    case getPopularDeals(params: String, page: Int, filters: [Int])
     case getExpiringDeals(token: String, page: Int, cat: Any?, filters: [Int])
     case getCategoryDeals(token: String, page: Int, cat: Any?, cat2: Any?, cat3: Any?, destinations: Any?, filters: [Int], orderBy: Sorting)
     
@@ -49,13 +49,22 @@ enum RouterDeals: URLRequestConvertible {
     
     var params: Parameters {
         switch self {
-            case .getMyDeals(let token, let page, let filters), .getRecentDeals(let token, let page, let filters):
+            case .getMyDeals(let page, let params, let filters):
+                let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
+                let finalParams: [String: Any] = [
+                    "query": "{\"page\":\(page), \"limit\": 20, \(filterQuery)}"
+                ]
+				return finalParams
+            
+            case .getRecentDeals(let token, let page, let filters):
                 let params: [String: Any] = [
                     "token": token,
                     "page": page,
-					"exclude": getFiltersString(from: filters)
+                    "limit": 20,
+                    "exclude": getFiltersString(from: filters)
                 ]
-				return params
+            return params
+            
             case .getFavoriteDeals(let token, let page, let cat, let filters):
                 var params: [String: Any] = [
                     "token": token,
@@ -84,21 +93,18 @@ enum RouterDeals: URLRequestConvertible {
                     params["fav"] = cat
                 }
                 return params
-            case .getPopularDeals(let token, let page, let filters):
-                let params: [String: Any] = [
-                    "token": token,
-                    "page": page,
-					"exclude": getFiltersString(from: filters)
+            case .getPopularDeals(let params, let page, let filters):
+                let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
+                let finalParams: [String: Any] = [
+                    "query": "{\"page\":\(page), \"limit\": 20, \(filterQuery)}"
                 ]
-				return params
-            case .getHighlights(let type, let token, let page, let filters):
-                let params: [String: Any] = [
-                    "mem": type.rawValue.uppercased(),
-                    "token": token,
-                    "page": page,
-					"exclude": getFiltersString(from: filters)
+				return finalParams
+            case .getHighlights(_, let params, let page, let filters):
+                let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
+                let finalParams: [String: Any] = [
+                    "query": "{\"page\":\(page), \"limit\": 20, \(filterQuery)}"
                 ]
-				return params
+				return finalParams
             case .getCategoryDeals(let token, let page, let cat, let cat2, let cat3, let destinations, let filters, let orderBy):
                 var params: [String: Any] = [
                     "token": token,
@@ -131,30 +137,42 @@ enum RouterDeals: URLRequestConvertible {
     
     var url: String {
         switch self {
-            case .getMyDeals:
-                return "/my-deals/"
+            case .getMyDeals, .getHighlights, .getPopularDeals:
+                return "/posts"
             case .getFavoriteDeals, .addFavorite, .deleteFavorite:
                 return "/favourites/"
             case .getRecentDeals:
                 return "/recent-deals/"
             case .getExpiringDeals:
                 return "/expiring-deals/"
-            case .getHighlights:
-                return "/membership-deals/"
-            case .getPopularDeals:
-                return "/popular-deals/"
             case .getCategoryDeals:
                 return "/category-deals/"
         }
     }
     
     func asURLRequest() throws -> URLRequest {
-        let baseURL = try Server.shared.url.asURL()
+        let baseURL = try Server.shared.wpURL.asURL()
+        
         var urlRequest = URLRequest(url: baseURL.appendingPathComponent(url))
         urlRequest.httpMethod = method.rawValue
-        var params = self.params
-        params["auth"] = Server.shared.apiKey
-        urlRequest = try URLEncoding.default.encode(urlRequest, with: params)
+        urlRequest.addValue("application/json",
+                            forHTTPHeaderField: "Content-Type")
+        
+        if method == .get {
+            urlRequest = try URLEncoding.default.encode(urlRequest, with: params)
+        }
+        else {
+            print(params)
+            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params,
+                                                             options: .prettyPrinted)
+        }
+        
+        urlRequest.setValue(Server.shared.basicAuth,
+                            forHTTPHeaderField: "Authorization")
+        
+        if let url = urlRequest.url {
+            print(url.absoluteString.removingPercentEncoding ?? "")
+        }
         return urlRequest
     }
 }

@@ -232,15 +232,18 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 case .Alle:
                     switch firstRowItemIndex {
                         case 0:
-                            loadDeals(.my)
+                            loadDeals(.my, param: ["filters": "\"filters\":{\"exclude\": %@}"])
                         case 1:
-                            loadDeals(.highlights, param: HighlightsType.ohneLogin)
+                            loadDeals(.highlights, param: ["type": HighlightsType.ohneLogin,
+                                                           "filters": "\"only_open\":1, \"filters\":{\"exclude\": %@}"])
                         case 2:
-                            loadDeals(.highlights, param: HighlightsType.gold)
+                            loadDeals(.highlights, param: ["type": HighlightsType.gold,
+                                                           "filters": "\"filters\":{\"membership\":\"2\", \"exclude\": %@}"])
                         case 3:
-                            loadDeals(.highlights, param: HighlightsType.platin)
+                            loadDeals(.highlights, param: ["type": HighlightsType.platin,
+                                                           "filters": "\"filters\":{\"membership\":\"3,4\", \"exclude\": %@}"])
                         case 4:
-                            loadDeals(.popular)
+                            loadDeals(.popular, param: ["filters": "\"only_popular\":1, \"filters\":{\"exclude\": %@}"])
                         default:
                             break
                     }
@@ -407,6 +410,11 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                     }
                     if error != nil {
                         guard self.dealType != .Favoriten else { return }
+
+                        if self.page != 1 {
+                            self.page -= 1
+                        }
+                        
                         self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
                     } else {
                         if let deals = deals as? [DealModel] {
@@ -620,12 +628,12 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         } else {
             cell.dealsExpireDate.isHidden = true
         }
-        if let date = deal.date?.date(format: "yyyy-MM-dd") {
+        if let date = deal.date?.date(format: "yyyy-MM-dd HH:mm:ss") {
             cell.dealsDate.text = date.string(format: "dd-MM-yyyy")
         }
         cell.dealsCategory.text    = deal.shortTitle
-        cell.dealsTitle.text       = deal.title
-        cell.dealsDescription.text = deal.teaser
+        cell.dealsTitle.text       = deal.title?.withoutHtmlTags()
+        cell.dealsDescription.text = deal.teaser?.withoutHtmlTags()
         cell.dealsTierRibbon.image = deal.premium.ribbon
         cell.dealsTierRibbon.isHidden = deal.premium.ribbon == nil
         
@@ -735,19 +743,17 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         tableView.deselectRow(at: indexPath, animated: true)
         let index = indexPath.section
         let deal = deals[index]
-        if let access = deal.access {
-            if access == 0 {
+        if let dealMembership = deal.membership {
+            if deal.premium == Premium.gold && !UserModel.sharedInstance.hasAccess(to: dealMembership) {
                 
-                if deal.premium == Premium.gold {
-                    
-                    showPopupDialog(title: "", message: "Dieser Deal ist erst ab der GOLD-Mitgliedschaft freigegeben.", cancelBtn: false, okBtnCompletion: nil)
-                    
-                }
-                else {
-                    
-                    showPopupDialog(title: "", message: "Dieser Deal ist nur für PLATIN/DIAMANT-Mitglieder freigegeben.", cancelBtn: false, okBtnCompletion: nil)
-                    
-                }
+                showPopupDialog(title: "", message: "Dieser Deal ist erst ab der GOLD-Mitgliedschaft freigegeben.", cancelBtn: false, okBtnCompletion: nil)
+                
+            }
+            else if (deal.premium == Premium.platin || deal.premium == Premium.diamant)
+                        && !UserModel.sharedInstance.hasAccess(to: dealMembership) {
+                
+                showPopupDialog(title: "", message: "Dieser Deal ist nur für PLATIN/DIAMANT-Mitglieder freigegeben.", cancelBtn: false, okBtnCompletion: nil)
+                
             }
             else {
                 performSegue(withIdentifier: "showWKWebViewVC", sender: deal)

@@ -27,7 +27,8 @@ extension String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT +0:00")
-        return dateFormatter.date(from: self)
+        let formattedDate = dateFormatter.date(from: self)
+        return formattedDate
     }
     
     var html2AttributedString: NSAttributedString? {

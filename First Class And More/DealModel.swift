@@ -11,6 +11,7 @@ import Foundation
 import ObjectMapper
 
 internal enum Premium: String {
+    case diamant = "DIAMANT"
     case platin = "PLATIN"
     case gold   = "GOLD"
     case none   = ""
@@ -32,6 +33,8 @@ internal enum Premium: String {
                 self = .platin
             case "gold":
                 self = .gold
+            case "diamant":
+                self = .diamant
             default:
                 self = .none
         }
@@ -44,35 +47,46 @@ struct DealModel: Mappable {
     var shortTitle: String?
     var date: String?
     var expireDate: String?
-    var expire: ExpireModel?
+    //var expire: ExpireModel?
     var imageUrlString: String?
     var teaser: String?
     var url: String?
     var premium: Premium = .none
+    var membership: Int? {
+        didSet {
+            if membership == 2 {
+                premium = .gold
+            }
+            else if membership == 3 {
+                premium = .platin
+            }
+        }
+    }
     var access: Int?
-    var sticky: Int?
+    var sticky: Bool?
     var appCat: Bool?
-    var categories: [Int]?
+    //var categories: [Int]?
     var rating: String?
     
     init?(map: Map) { }
     
     mutating func mapping(map: Map) {
-        id             <- map["id"]
+        id             <- map["_id"]
         title          <- map["title"]
         shortTitle     <- map["short_title"]
-        date           <- map["publish"]
-        expireDate     <- map["expire_date"]
-        expire         <- map["expire"]
-        imageUrlString <- map["image"]
+        date           <- map["created_at"]
+        expireDate     <- map["expiry_date"]
+        //expire         <- map["expire"]
+        imageUrlString <- map["featured"]
         teaser         <- map["teaser"]
-        url            <- map["url"]
-        premium        <- (map["premium"], EnumTransform<Premium>())
-        access         <- map["access"]
+        url            <- map["mobile_url"]
+        membership     <- map["membership"]
+        //premium        <- (map["premium"], EnumTransform<Premium>())
+        //access         <- map["access"]
         sticky         <- map["sticky"]
         appCat         <- map["app_cat"]
-        categories     <- map["cat"]
-        rating         <- map["miles_ratio"]
+        //categories     <- map["cat"]
+        rating         <- map["post_rating"]
     }
 }
 

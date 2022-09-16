@@ -14,8 +14,9 @@ final class Server {
 	
 	let baseUrl: String = "https://www.first-class-and-more.de"
     let url: String = "http://fcnm-be-staging.eu-central-1.elasticbeanstalk.com/api/v1"
-    let sliderURL: String = "http://fcnm-wp-staging.eu-central-1.elasticbeanstalk.com/api/fcnm/v1"
+    let wpURL: String = "http://fcnm-wp-staging.eu-central-1.elasticbeanstalk.com/api/fcnm/v1"
     let apiKey: String = "tZKWXujQ"
+    let basicAuth = "Basic dW1haXI6ekVVQyBvS3VxIGVQMmggR2pVQSBxdmNMIFVWT2M="
     
     public typealias Completion = (_ answer: Any?, _ error: Errors?) -> Void
 }
