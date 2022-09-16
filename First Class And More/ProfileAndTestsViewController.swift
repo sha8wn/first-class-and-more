@@ -16,7 +16,7 @@ class ProfileAndTestsViewController: SFSidebarViewController {
     @IBOutlet weak var introLabel: UITextView!
 	@IBOutlet weak var introLabelHeight: NSLayoutConstraint!
     
-    var categories: [Int] = []
+    var categories: [String: String] = [:]
     var profileAndTest: ProfileAndTest? {
         didSet {
            setupUI()

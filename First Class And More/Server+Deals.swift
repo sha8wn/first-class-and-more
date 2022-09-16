@@ -16,7 +16,7 @@ internal enum HighlightsType: String {
 }
 
 internal enum DealRequest {
-    case my, highlights, popular, favoriten, expiring, category
+    case my, highlights, popular, favoriten, expiring, category, sidebarCategory
 }
 
 extension Server {
@@ -66,6 +66,12 @@ extension Server {
                     }
                 } else {
                     url = RouterDeals.getCategoryDeals(token: token, page: page, cat: param, cat2: nil, cat3: nil, destinations: nil, filters: filterIdentifiers, orderBy: orderBy)
+                }
+            
+            case .sidebarCategory:
+                if let param = param as? [String: Any],
+                   let filterQuery = param["filters"] as? String {
+                    url = RouterDeals.getSidebarCategoryDeals(page: page, params: filterQuery)
                 }
         }
         if let url = url {
