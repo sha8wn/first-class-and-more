@@ -170,6 +170,9 @@ enum RouterDeals: URLRequestConvertible {
         urlRequest.setValue(Server.shared.basicAuth,
                             forHTTPHeaderField: "Authorization")
         
+        if let url = urlRequest.url {
+            print(url.absoluteString.removingPercentEncoding ?? "")
+        }
         return urlRequest
     }
 }

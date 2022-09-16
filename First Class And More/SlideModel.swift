@@ -25,7 +25,7 @@ struct SlideModel: Mappable, InfiniteScollingData {
         id         <- map["_id"]
         title      <- map["title"]
         shortTitle <- map["short_title"]
-        url        <- map["url"]
+        url        <- map["mobile_url"]
         imageUrl   <- map["featured"]
         membership <- map["membership"]
         //premium    <- (map["premium"], EnumTransform<Premium>())
