@@ -33,7 +33,7 @@ enum RouterDeals: URLRequestConvertible {
     case getRecentDeals(token: String, page: Int, filters: [Int])
     case getHighlights(type: HighlightsType, params: String, page: Int, filters: [Int])
     case getPopularDeals(params: String, page: Int, filters: [Int])
-    case getExpiringDeals(token: String, page: Int, cat: Any?, filters: [Int])
+    case getExpiringDeals(page: Int, params: String, filters: [Int])
     case getCategoryDeals(token: String, page: Int, cat: Any?, cat2: Any?, cat3: Any?, destinations: Any?, filters: [Int], orderBy: Sorting)
     case getSidebarCategoryDeals(page: Int, params: String)
     
@@ -87,19 +87,13 @@ enum RouterDeals: URLRequestConvertible {
                     "fav": id,
                     "token": token
                 ]
-            case .getExpiringDeals(let token, let page, let cat, let filters):
-                var params: [String: Any] = [
-                    "token": token,
-                    "page": page,
-                    "exclude": getFiltersString(from: filters)
+            case .getExpiringDeals(let page, let params, let filters):
+                let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
+                let finalParams: [String: Any] = [
+                    "query": "{\"page\":\(page), \"limit\": 20, \(filterQuery)}"
                 ]
-                if let cat = cat as? [Int] {
-                    params["cat"] = cat.compactMap { String($0) }.joined(separator: ",")
-                }
-                if let cat = cat as? Int {
-                    params["fav"] = cat
-                }
-                return params
+                
+                return finalParams
             case .getPopularDeals(let params, let page, let filters):
                 let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
                 let finalParams: [String: Any] = [
@@ -144,14 +138,12 @@ enum RouterDeals: URLRequestConvertible {
     
     var url: String {
         switch self {
-            case .getMyDeals, .getHighlights, .getPopularDeals, .getSidebarCategoryDeals:
+        case .getMyDeals, .getHighlights, .getPopularDeals, .getSidebarCategoryDeals, .getExpiringDeals:
                 return "/posts"
             case .getFavoriteDeals, .addFavorite, .deleteFavorite:
                 return "/favourites/"
             case .getRecentDeals:
                 return "/recent-deals/"
-            case .getExpiringDeals:
-                return "/expiring-deals/"
             case .getCategoryDeals:
                 return "/category-deals/"
         }
