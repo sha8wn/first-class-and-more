@@ -285,16 +285,18 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                             if secondRowItemIndex > 0 {
                                 secondFilterIds = secondRowIds[secondRowItemIndex] ?? []
                             }
-                            
+                                
+                            var filteredDestinationIds: [Int] = []
+                                
+                            if let destinations = self.destinations {
+                                filteredDestinationIds = destinations.filter({ !$0.selected }).compactMap({ $0.id })
+                                
+                                filteredDestinationIds = destinations.filter({ !$0.selected }).isEmpty ? [] : filteredDestinationIds
+                            }
+                               
                             let combinedCategoryFilter = firstFilterIds + secondFilterIds
                             
-//                            if let destinations = self.destinations {
-//                                var filteredDestinationIds = destinations.filter({ $0.selected }).compactMap({ $0.id })
-//                                filteredDestinationIds = destinations.filter({ !$0.selected }).isEmpty ? [] : filteredDestinationIds
-//                                loadDeals(.category, param: ["first": mainFilterIds, "second": firstFilterIds, "third": secondFilterIds, "destinations": filteredDestinationIds])
-//                                return
-//                            }
-                            loadDeals(.category, param: ["filters": "\"filters\":{\"exclude\": %@, \"category\": \(combinedCategoryFilter)}"])
+                            loadDeals(.category, param: ["filters": "\"filters\":{\"exclude\": %@, \"category\": \(combinedCategoryFilter), \"destinations\": \(filteredDestinationIds)}"])
                             }
                         }
                     }

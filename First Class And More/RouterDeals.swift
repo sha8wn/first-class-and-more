@@ -34,7 +34,7 @@ enum RouterDeals: URLRequestConvertible {
     case getHighlights(type: HighlightsType, params: String, page: Int, filters: [Int])
     case getPopularDeals(params: String, page: Int, filters: [Int])
     case getExpiringDeals(page: Int, params: String, filters: [Int])
-    case getCategoryDeals(page: Int, params: String, filters: [Int], destinations: Any?)
+    case getCategoryDeals(page: Int, params: String, filters: [Int])
     case getSidebarCategoryDeals(page: Int, params: String)
     
     var method: HTTPMethod {
@@ -82,11 +82,13 @@ enum RouterDeals: URLRequestConvertible {
                     params["cat"] = cat.compactMap { String($0) }.joined(separator: ",")
                 }
                 return params
+            
             case .addFavorite(let id, let token), .deleteFavorite(let id, let token):
                 return [
                     "fav": id,
                     "token": token
                 ]
+            
             case .getExpiringDeals(let page, let params, let filters):
                 let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
                 let finalParams: [String: Any] = [
@@ -94,19 +96,22 @@ enum RouterDeals: URLRequestConvertible {
                 ]
                 
                 return finalParams
+            
             case .getPopularDeals(let params, let page, let filters):
                 let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
                 let finalParams: [String: Any] = [
                     "query": "{\"page\":\(page), \"limit\": 20, \(filterQuery)}"
                 ]
 				return finalParams
+            
             case .getHighlights(_, let params, let page, let filters):
                 let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
                 let finalParams: [String: Any] = [
                     "query": "{\"page\":\(page), \"limit\": 20, \(filterQuery)}"
                 ]
 				return finalParams
-            case .getCategoryDeals(let page, let params, let filters, let destinations):
+            
+            case .getCategoryDeals(let page, let params, let filters):
                 let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
                 let finalParams: [String: Any] = [
                     "query": "{\"page\":\(page), \"limit\": 20, \(filterQuery)}"
@@ -153,6 +158,7 @@ enum RouterDeals: URLRequestConvertible {
         if let url = urlRequest.url {
             print(url.absoluteString.removingPercentEncoding ?? "")
         }
+        
         return urlRequest
     }
 }

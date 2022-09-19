@@ -84,7 +84,7 @@ extension DestinationsFilterViewController: UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DestinationFilterTableCell", for: indexPath) as! DestinationFilterTableViewCell
         let destination = destinations[indexPath.row]
-        cell.nameLabel.text = destination.name
+        cell.nameLabel.text = destination.name?.withoutHtmlTags().stringByDecodingHTMLEntities
         cell.sevenSwitch.on = destination.selected
         cell.sevenSwitchTapped = sevenSwitchTapped
         return cell
