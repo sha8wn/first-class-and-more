@@ -34,7 +34,7 @@ enum RouterDeals: URLRequestConvertible {
     case getHighlights(type: HighlightsType, params: String, page: Int, filters: [Int])
     case getPopularDeals(params: String, page: Int, filters: [Int])
     case getExpiringDeals(page: Int, params: String, filters: [Int])
-    case getCategoryDeals(token: String, page: Int, cat: Any?, cat2: Any?, cat3: Any?, destinations: Any?, filters: [Int], orderBy: Sorting)
+    case getCategoryDeals(page: Int, params: String, filters: [Int], destinations: Any?)
     case getSidebarCategoryDeals(page: Int, params: String)
     
     var method: HTTPMethod {
@@ -106,29 +106,12 @@ enum RouterDeals: URLRequestConvertible {
                     "query": "{\"page\":\(page), \"limit\": 20, \(filterQuery)}"
                 ]
 				return finalParams
-            case .getCategoryDeals(let token, let page, let cat, let cat2, let cat3, let destinations, let filters, let orderBy):
-                var params: [String: Any] = [
-                    "token": token,
-                    "page": page,
-                    "exclude": getFiltersString(from: filters)
+            case .getCategoryDeals(let page, let params, let filters, let destinations):
+                let filterQuery = params.replacingOccurrences(of: "%@", with: "\(filters)")
+                let finalParams: [String: Any] = [
+                    "query": "{\"page\":\(page), \"limit\": 20, \(filterQuery)}"
                 ]
-                if let cat = cat as? [Int] {
-                    params["cat"] = cat.compactMap { String($0) }.joined(separator: ",")
-                }
-                if let cat2 = cat2 as? [Int] {
-                    params["cat2"] = cat2.compactMap { String($0) }.joined(separator: ",")
-                    params["op"] = "and"
-                }
-                if let cat3 = cat3 as? [Int] {
-                    params["cat3"] = cat3.compactMap { String($0) }.joined(separator: ",")
-                }
-                if let destinations = destinations as? [Int] {
-                    params["des"] = destinations.compactMap { String($0) }.joined(separator: ",")
-                }
-                if orderBy != .none {
-                    params["order_by"] = orderBy.toString
-                }
-                return params
+                return finalParams
         }
     }
 	
@@ -138,14 +121,12 @@ enum RouterDeals: URLRequestConvertible {
     
     var url: String {
         switch self {
-        case .getMyDeals, .getHighlights, .getPopularDeals, .getSidebarCategoryDeals, .getExpiringDeals:
+        case .getMyDeals, .getHighlights, .getPopularDeals, .getSidebarCategoryDeals, .getExpiringDeals, .getCategoryDeals:
                 return "/posts"
             case .getFavoriteDeals, .addFavorite, .deleteFavorite:
                 return "/favourites/"
             case .getRecentDeals:
                 return "/recent-deals/"
-            case .getCategoryDeals:
-                return "/category-deals/"
         }
     }
     
