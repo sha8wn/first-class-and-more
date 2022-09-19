@@ -260,14 +260,16 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                     }
                 case .Endet_Bald:
                     if let ids = pages.filter({ $0.title == "Endet bald"}).first?.filters?.first?.map({ return $0.ids }) {
-                        if ids.count > firstRowItemIndex {
-                            let filterIds = ids[firstRowItemIndex]
-                            if firstRowItemIndex != 0 && ids[firstRowItemIndex] == nil {
-                                loadDeals(.expiring, param: 1)
-                            } else {
-                                loadDeals(.expiring, param: filterIds)
+                        
+                        var categoryFilter: [Int] = []
+                        
+                        if firstRowItemIndex != 0 {
+                            if let filterIds = ids[firstRowItemIndex] {
+                                categoryFilter = filterIds
                             }
                         }
+                        
+                        loadDeals(.expiring, param: ["filters": "\"only_expiring\":1, \"filters\":{\"exclude\": %@, \"category\": \(categoryFilter)}"])
                     }
                 case .Flüge:
                     if let filters = pages.filter({ $0.title == "Flüge" }).first?.filters, filters.count > 1,
@@ -636,8 +638,8 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
             cell.dealsDate.text = date.string(format: "dd-MM-yyyy")
         }
         cell.dealsCategory.text    = deal.shortTitle
-        cell.dealsTitle.text       = deal.title?.withoutHtmlTags()
-        cell.dealsDescription.text = deal.teaser?.withoutHtmlTags()
+        cell.dealsTitle.text       = deal.title?.withoutHtmlTags().stringByDecodingHTMLEntities
+        cell.dealsDescription.text = deal.teaser?.withoutHtmlTags().stringByDecodingHTMLEntities
         cell.dealsTierRibbon.image = deal.premium.ribbon
         cell.dealsTierRibbon.isHidden = deal.premium.ribbon == nil
         

@@ -47,8 +47,13 @@ extension Server {
                 
             case .favoriten:
                 url = RouterDeals.getFavoriteDeals(token: token, page: page, cat: param, filters: filterIdentifiers)
+            
             case .expiring:
-                url = RouterDeals.getExpiringDeals(token: token, page: page, cat: param, filters: filterIdentifiers)
+                if let param = param as? [String: Any],
+                   let filterQuery = param["filters"] as? String {
+                    url = RouterDeals.getExpiringDeals(page: page, params: filterQuery, filters: filterIdentifiers)
+                }
+                
             case .category:
                 if let dict = param as? [String: Any] {
                     
