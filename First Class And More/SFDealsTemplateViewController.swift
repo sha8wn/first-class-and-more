@@ -386,16 +386,19 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 case .Hotel_Programme:
                     if let ids = pages.filter({ $0.title == "Hotelprogramme"}).first?.filters?.first?.map({ return $0.ids }) {
                         if ids.count > firstRowItemIndex {
-                            //let filterIds = ids[firstRowItemIndex]
                             
-                            let mainFilterIds = ids.first
+                            var filterIds: [Int] = []
                             
-                            var firstFilterIds: [Int]? = nil
-                            if firstRowItemIndex > 0 {
-                                firstFilterIds = ids[firstRowItemIndex] ?? nil
+                            if let mainFilterId = ids.first,
+                                let mainFilterId = mainFilterId {
+                                filterIds = mainFilterId
                             }
                             
-                            loadDeals(.category, param: ["first": mainFilterIds, "second": firstFilterIds])
+                            if firstRowItemIndex >= 1, let firstFilters = ids[firstRowItemIndex] {
+                                filterIds.append(contentsOf: firstFilters)
+                            }
+                            
+                            loadDeals(.category, param: ["filters": "\"filters\":{\"exclude\": %@, \"category\": \(filterIds)}"])
                         }
                     }
                 
