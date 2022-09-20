@@ -279,8 +279,14 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                             var firstFilterIds: [Int] = []
                             var secondFilterIds: [Int] = []
                             
-                            if firstRowItemIndex >= 0 {
-                                firstFilterIds = firstRowIds[firstRowItemIndex] ?? []
+                            if let mainFilterId = firstRowIds.first,
+                                let mainFilterId = mainFilterId {
+                                firstFilterIds = mainFilterId
+                            }
+                            
+                            if firstRowItemIndex >= 1, let firstFilters = firstRowIds[firstRowItemIndex] {
+                                firstFilterIds.append(contentsOf: firstFilters)
+                            }
                                 
                             if secondRowItemIndex > 0 {
                                 secondFilterIds = secondRowIds[secondRowItemIndex] ?? []
@@ -298,21 +304,23 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                             
                             loadDeals(.category, param: ["filters": "\"filters\":{\"exclude\": %@, \"category\": \(combinedCategoryFilter), \"destinations\": \(filteredDestinationIds)}"])
                             }
-                        }
                     }
                 case .Meilen_Programme:
                     if let ids = pages.filter({ $0.title == "Meilenprogramme"}).first?.filters?.first?.map({ return $0.ids }) {
                         if ids.count > firstRowItemIndex {
                             
-                            let mainFilterIds = ids.first
+                            var filterIds: [Int] = []
                             
-                            var firstFilterIds: [Int]? = nil
-                            if firstRowItemIndex > 0 {
-                                firstFilterIds = ids[firstRowItemIndex] ?? nil
+                            if let mainFilterId = ids.first,
+                                let mainFilterId = mainFilterId {
+                                filterIds = mainFilterId
                             }
                             
-                            //let filterIds = ids[firstRowItemIndex]
-                            loadDeals(.category, param: ["first": mainFilterIds, "second": firstFilterIds])
+                            if firstRowItemIndex >= 1, let firstFilters = ids[firstRowItemIndex] {
+                                filterIds.append(contentsOf: firstFilters)
+                            }
+                            
+                            loadDeals(.category, param: ["filters": "\"filters\":{\"exclude\": %@, \"category\": \(filterIds)}"])
                         }
                     }
                 case .Vielflieger_Status:
