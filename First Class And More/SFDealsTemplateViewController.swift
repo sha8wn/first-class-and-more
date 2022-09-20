@@ -467,11 +467,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                             }
                             if !self.expiredDealsEnabled && self.dealType != .Endet_Bald {
                                 self.deals = self.deals.filter {
-                                    if let expireDate = $0.expireDate?.date(format: "yyyy-MM-dd") {
-                                        return Date().compare(expireDate) != .orderedDescending
-                                    } else {
-                                        return true
-                                    }
+                                    return $0.expiryStatus != 1
                                 }
                             }
                         }

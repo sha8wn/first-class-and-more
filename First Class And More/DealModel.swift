@@ -47,7 +47,7 @@ struct DealModel: Mappable {
     var shortTitle: String?
     var date: String?
     var expireDate: String?
-    //var expire: ExpireModel?
+    var expiryStatus: Int?
     var imageUrlString: String?
     var teaser: String?
     var url: String?
@@ -65,7 +65,6 @@ struct DealModel: Mappable {
     var access: Int?
     var sticky: Bool?
     var appCat: Bool?
-    //var categories: [Int]?
     var rating: String?
     
     init?(map: Map) { }
@@ -76,17 +75,14 @@ struct DealModel: Mappable {
         shortTitle     <- map["short_title"]
         date           <- map["created_at"]
         expireDate     <- map["expiry_date"]
-        //expire         <- map["expire"]
         imageUrlString <- map["featured"]
         teaser         <- map["teaser"]
         url            <- map["mobile_url"]
         membership     <- map["membership"]
-        //premium        <- (map["premium"], EnumTransform<Premium>())
-        //access         <- map["access"]
         sticky         <- map["sticky"]
         appCat         <- map["app_cat"]
-        //categories     <- map["cat"]
         rating         <- map["post_rating"]
+        expiryStatus   <- map["expiry_statues"]
     }
 }
 
