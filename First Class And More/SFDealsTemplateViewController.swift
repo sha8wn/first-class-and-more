@@ -326,24 +326,31 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 case .Vielflieger_Status:
                     if let ids = pages.filter({ $0.title == "Vielfliegerstatus"}).first?.filters?.first?.map({ return $0.ids }) {
                         if ids.count > firstRowItemIndex {
-                            //let filterIds = ids[firstRowItemIndex]
                             
-                            let mainFilterIds = ids.first
+                            var filterIds: [Int] = []
                             
-                            var firstFilterIds: [Int]? = nil
-                            if firstRowItemIndex > 0 {
-                                firstFilterIds = ids[firstRowItemIndex] ?? nil
+                            if let mainFilterId = ids.first,
+                                let mainFilterId = mainFilterId {
+                                filterIds = mainFilterId
                             }
                             
+                            if firstRowItemIndex >= 1, let firstFilters = ids[firstRowItemIndex] {
+                                filterIds.append(contentsOf: firstFilters)
+                            }
+                                
+                            var filteredDestinationIds: [Int] = []
+                                
                             if let destinations = self.destinations {
-                                var filteredDestinationIds = destinations.filter({ $0.selected }).compactMap({ $0.id })
+                                filteredDestinationIds = destinations.filter({ !$0.selected }).compactMap({ $0.id })
+                                
                                 filteredDestinationIds = destinations.filter({ !$0.selected }).isEmpty ? [] : filteredDestinationIds
-                                loadDeals(.category, param: ["first": mainFilterIds, "second": firstFilterIds, "destinations": filteredDestinationIds])
-                                return
                             }
-                            loadDeals(.category, param: firstFilterIds)
+                               
+                            loadDeals(.category, param: ["filters": "\"filters\":{\"exclude\": %@, \"category\": \(filterIds), \"destinations\": \(filteredDestinationIds)}"])
+                            }
+                            
                         }
-                    }
+                
                 case .Hotels:
                     if let ids = pages.filter({ $0.title == "Hotels"}).first?.filters?.first?.map({ return $0.ids }) {
                         if ids.count > firstRowItemIndex {
