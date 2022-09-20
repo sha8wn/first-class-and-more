@@ -276,25 +276,28 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                         let firstRowIds = filters.first?.map({ return $0.ids }), let secondRowIds = filters.last?.map({ return $0.ids }) {
                         if firstRowIds.count > firstRowItemIndex && secondRowIds.count > secondRowItemIndex {
                             
-                            let mainFilterIds = firstRowIds.first
+                            var firstFilterIds: [Int] = []
+                            var secondFilterIds: [Int] = []
                             
-                            var firstFilterIds: [Int]? = nil
-                            if firstRowItemIndex > 0 {
-                                firstFilterIds = firstRowIds[firstRowItemIndex] ?? nil
-                            }
-                            
-                            var secondFilterIds: [Int]? = nil
+                            if firstRowItemIndex >= 0 {
+                                firstFilterIds = firstRowIds[firstRowItemIndex] ?? []
+                                
                             if secondRowItemIndex > 0 {
-                                secondFilterIds = secondRowIds[secondRowItemIndex] ?? nil
+                                secondFilterIds = secondRowIds[secondRowItemIndex] ?? []
                             }
-                            
+                                
+                            var filteredDestinationIds: [Int] = []
+                                
                             if let destinations = self.destinations {
-                                var filteredDestinationIds = destinations.filter({ $0.selected }).compactMap({ $0.id })
+                                filteredDestinationIds = destinations.filter({ !$0.selected }).compactMap({ $0.id })
+                                
                                 filteredDestinationIds = destinations.filter({ !$0.selected }).isEmpty ? [] : filteredDestinationIds
-                                loadDeals(.category, param: ["first": mainFilterIds, "second": firstFilterIds, "third": secondFilterIds, "destinations": filteredDestinationIds])
-                                return
                             }
-                            loadDeals(.category, param: ["first": firstFilterIds, "second": secondFilterIds])
+                               
+                            let combinedCategoryFilter = firstFilterIds + secondFilterIds
+                            
+                            loadDeals(.category, param: ["filters": "\"filters\":{\"exclude\": %@, \"category\": \(combinedCategoryFilter), \"destinations\": \(filteredDestinationIds)}"])
+                            }
                         }
                     }
                 case .Meilen_Programme:
