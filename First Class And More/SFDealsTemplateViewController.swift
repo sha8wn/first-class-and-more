@@ -631,6 +631,8 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                     dvc.pageLoaded = false
                     dvc.deal = sender as? DealModel
                     dvc.dealType = dealType
+                    dvc.favorites = favorites
+                    dvc.appSettings = appSettings
                 case "showUnlockFiltersVC":
                     let dvc = segue.destination as! UnlockFIltersViewController
                     dvc.delegate = self
@@ -798,7 +800,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         
         appSettings["favourites"] = favoritesString
         
-        if isConnectedToNetwork(repeatedFunction: { self.updateFavorites(indexPath: indexPath) }) {
+        if isConnectedToNetwork(repeatedFunction: { self.updateFavorites(indexPath: indexPath, action: action) }) {
             startLoading()
             
             do {

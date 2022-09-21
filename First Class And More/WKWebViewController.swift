@@ -29,6 +29,9 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
     
     var isDisplayingPromotion = false
     
+    var favorites: Set<String>?
+    var appSettings: [String: Any] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(willDisplayPromotion(_:)), name: Notification.Name("promotionWillDisplay"), object: nil)
@@ -118,23 +121,6 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
         let backBarBtnItem = UIBarButtonItem(customView: backBtn)
         navigationItem.setLeftBarButton(backBarBtnItem, animated: false)
         navigationItem.rightBarButtonItem = nil
-        if let deal = deal {
-            if UserModel.sharedInstance.isLoggedIn, let id = deal.id {
-                favoriteBtn = UIButton(type: .custom)
-                favoriteBtn!.frame = CGRect(x: 0, y: 0, width: 22, height: 22)
-                let user = UserModel.sharedInstance
-                favoriteBtn!.setImage(user.favorites.contains(id) ? #imageLiteral(resourceName: "FavoriteButtonRed") : #imageLiteral(resourceName: "FavoriteButtonWhite"), for: .normal)
-                favoriteBtn!.addTarget(self, action: #selector(favoriteBtnPressed), for: .touchUpInside)
-                let favoriteBarBtnItem = UIBarButtonItem(customView: favoriteBtn!)
-                navigationItem.setRightBarButton(favoriteBarBtnItem, animated: false)
-            }
-            let leftBtn = UIButton(type: .custom)
-            leftBtn.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-            leftBtn.setImage(#imageLiteral(resourceName: "backBtn"), for: .normal)
-            leftBtn.addTarget(self, action: #selector(leftBtnPressed), for: .touchUpInside)
-            let leftBarBtnItem = UIBarButtonItem(customView: leftBtn)
-            navigationItem.setLeftBarButton(leftBarBtnItem, animated: false)
-        }
         
         if !isUISetup {
             setupUI()
@@ -144,10 +130,14 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
         if !pageLoaded {
             pageLoaded = true
             loadNeededPage()
+            
+            if appSettings.isEmpty {
+                getFavorites()
+            }
+            else {
+                configureFavoritesButton()
+            }
         }
-        
-        
-        
         //self.urlAdd.text = urlString
     }
 
@@ -259,67 +249,107 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
         }
     }
     
+    func getFavorites() {
+        if isConnectedToNetwork(repeatedFunction: getFavorites) {
+            
+            Server.shared.getFavorites { settings, error in
+                DispatchQueue.main.async {
+                    
+                    if error != nil {
+                        // handle error
+                    }
+                    else {
+                        if let settings = settings as? [String: Any] {
+                            if let favoritesString = settings["favourites"] as? String, !favoritesString.isEmpty {
+                                let favoriteIds = favoritesString.components(separatedBy: ",")
+                                self.favorites = Set(favoriteIds)
+                                self.appSettings = settings
+                            }
+                            else {
+                                self.favorites = []
+                            }
+                            
+                            self.configureFavoritesButton()
+                        }
+                        else {
+                            // handle error
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func configureFavoritesButton() {
+        if let deal = self.deal {
+            if UserModel.sharedInstance.isLoggedIn, let id = deal.id, let favorites = favorites {
+                self.favoriteBtn = UIButton(type: .custom)
+                self.favoriteBtn!.frame = CGRect(x: 0, y: 0, width: 22, height: 22)
+                self.favoriteBtn!.setImage(favorites.contains("\(id)") ? #imageLiteral(resourceName: "FavoriteButtonRed") : #imageLiteral(resourceName: "FavoriteButtonWhite"), for: .normal)
+                self.favoriteBtn!.addTarget(self, action: #selector(self.favoriteBtnPressed), for: .touchUpInside)
+                let favoriteBarBtnItem = UIBarButtonItem(customView: self.favoriteBtn!)
+                self.navigationItem.setRightBarButton(favoriteBarBtnItem, animated: false)
+            }
+            
+            let leftBtn = UIButton(type: .custom)
+            leftBtn.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+            leftBtn.setImage(#imageLiteral(resourceName: "backBtn"), for: .normal)
+            leftBtn.addTarget(self, action: #selector(leftBtnPressed), for: .touchUpInside)
+            let leftBarBtnItem = UIBarButtonItem(customView: leftBtn)
+            navigationItem.setLeftBarButton(leftBarBtnItem, animated: false)
+        }
+    }
+    
     // favorite btn press
     @objc func favoriteBtnPressed() {
-        if let dealId = deal?.id {
-            let favorites = UserModel.sharedInstance.favorites
-            if favorites.contains(dealId) {
-                deleteFavorite(id: dealId)
+        if let dealId = deal?.id, favorites != nil {
+            if favorites!.contains("\(dealId)") {
+                favorites!.remove("\(dealId)")
+                updateFavorites(action: "delete")
             } else {
-                addFavorite(id: dealId)
+                favorites!.insert("\(dealId)")
+                updateFavorites()
             }
         }
     }
     
-    // delete deal from favorites
-    func deleteFavorite(id: Int) {
-        if isConnectedToNetwork(repeatedFunction: { self.deleteFavorite(id: id) }) {
+    func updateFavorites(action: String = "add") {
+        var favoritesString = ""
+        
+        if let favorites = favorites {
+            favoritesString = favorites.joined(separator: ",")
+        }
+        
+        appSettings["favourites"] = favoritesString
+        
+        if isConnectedToNetwork(repeatedFunction: { self.updateFavorites(action: action) }) {
             startLoading()
-            Server.shared.deleteFavorite(id: id) { success, error in
-                DispatchQueue.main.async {
-                    self.stopLoading()
-                    if error != nil {
-                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
-                    } else {
-                        if let success = success as? Bool, success {
-                            let user = UserModel.sharedInstance
-                            if let indexOfFavorite = user.favorites.index(of: id) {
-                                self.favoriteBtn?.setImage(#imageLiteral(resourceName: "FavoriteButtonWhite"), for: .normal)
-                                user.favorites.remove(at: indexOfFavorite)
-                                let data     = NSKeyedArchiver.archivedData(withRootObject: user)
-                                let defaults = UserDefaults.standard
-                                defaults.set(data, forKey: kUDSharedUserModel)
-                                defaults.synchronize()
-                            }
+            
+            do {
+                let userSettings = try appSettings.toJson()
+                
+                Server.shared.changeUserSettings(userSettings) { response, error in
+                    DispatchQueue.main.async {
+                        self.stopLoading()
+                        
+                        if error != nil {
+                            self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                            return
                         }
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    
-    func addFavorite(id: Int) {
-        if isConnectedToNetwork(repeatedFunction: { self.addFavorite(id: id) }) {
-            startLoading()
-            Server.shared.addFavorite(id: id) { success, error in
-                DispatchQueue.main.async {
-                    self.stopLoading()
-                    if error != nil {
-                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
-                    } else {
-                        if let success = success as? Bool, success {
-                            let user = UserModel.sharedInstance
-                            user.favorites.append(id)
+                        
+                        // success
+                        if action == "add" {
                             self.favoriteBtn?.setImage(#imageLiteral(resourceName: "FavoriteButtonRed"), for: .normal)
-                            let data     = NSKeyedArchiver.archivedData(withRootObject: user)
-                            let defaults = UserDefaults.standard
-                            defaults.set(data, forKey: kUDSharedUserModel)
-                            defaults.synchronize()
+                        }
+                        else {
+                            self.favoriteBtn?.setImage(#imageLiteral(resourceName: "FavoriteButtonWhite"), for: .normal)
                         }
                     }
                 }
+            }
+            catch {
+                self.showPopupDialog(title: "Ein Fehler ist aufgetreten...",
+                                     message: "Vorgang konnte nicht abgeschlossen werden. Versuche es erneut.")
             }
         }
     }
