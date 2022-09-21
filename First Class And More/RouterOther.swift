@@ -157,6 +157,11 @@ enum RouterOther: URLRequestConvertible {
                                 forHTTPHeaderField: "Authorization")
         }
         
+        if let url = urlRequest.url, case .changeUserSettings = self {
+            print(params)
+            print(url)
+        }
+        
         return urlRequest
     }
 }
