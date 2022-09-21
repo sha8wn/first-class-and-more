@@ -31,7 +31,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
     var expiredDealsBtn: UIButton?
     var applyFilters: Bool = true
     var dealsLoaded: Bool = false
-    var favorites: [String: String]?
+    var favorites: Set<String>?
 
     var expiredDealsEnabled: Bool {
         get {
@@ -498,7 +498,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                         if let settings = settings as? [String: Any],
                             let favoritesString = settings["favourites"] as? String {
                             let favoriteIds = favoritesString.components(separatedBy: ",")
-                            self.favorites = Dictionary.init(uniqueKeysWithValues: favoriteIds.map { ($0, "") })
+                            self.favorites = Set(favoriteIds)
                             self.getDeals()
                         }
                         else {
@@ -708,9 +708,8 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
             
             cell.favoriteButtonOutlet.isHidden = false
             
-            if let dealId = deal.id {
-                let favorites = UserModel.sharedInstance.favorites
-                let favoriteBtnImage = favorites.contains(dealId) ? #imageLiteral(resourceName: "FavoriteButtonRed") : #imageLiteral(resourceName: "FavoriteButtonWhite")
+            if let dealId = deal.id, let favorites = favorites {
+                let favoriteBtnImage = favorites.contains("\(dealId)") ? #imageLiteral(resourceName: "FavoriteButtonRed") : #imageLiteral(resourceName: "FavoriteButtonWhite")
                 cell.favoriteButtonOutlet.setImage(favoriteBtnImage, for: .normal)
             }
             cell.favoriteBtnAction = favoriteBtnAction
