@@ -31,6 +31,8 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
     var expiredDealsBtn: UIButton?
     var applyFilters: Bool = true
     var dealsLoaded: Bool = false
+    var favorites: Set<String>?
+    var appSettings: [String: Any] = [:]
 
     var expiredDealsEnabled: Bool {
         get {
@@ -66,7 +68,9 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 }
             }
             
-            getDeals()
+            if favorites == nil {
+                getFavorites()
+            }
         }
     }
     
@@ -250,9 +254,32 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 case .Favoriten:
                     if UserModel.sharedInstance.isLoggedIn {
                         if let ids = pages.filter({ $0.title == "Favoriten"}).first?.filters?.first?.map({ return $0.ids }) {
-                            if ids.count > firstRowItemIndex {
-                                let filterIds = ids[firstRowItemIndex]
-                                loadDeals(.favoriten, param: filterIds)
+                            
+                            guard let favorites = favorites else {
+                                quitDealLoadProcess()
+                                return
+                            }
+
+                            if favorites.isEmpty {
+                                quitDealLoadProcess()
+                                return
+                            }
+                            
+                            var include: [Int] = []
+                            
+                            include = favorites.map { Int($0)! }
+                            
+                            if ids.count > firstRowItemIndex, firstRowItemIndex > 0 {
+                                var categoryFilter: [Int] = []
+                                
+                                if let filterIds = ids[firstRowItemIndex] {
+                                    categoryFilter = filterIds
+                                }
+                                
+                                loadDeals(.my, param: ["filters": "\"filters\":{\"include\": \(include), \"category\": \(categoryFilter)}"])
+                            }
+                            else {
+                                loadDeals(.my, param: ["filters": "\"filters\":{\"include\": \(include)}"])
                             }
                         }
                     } else {
@@ -433,6 +460,14 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         }
     }
     
+    func quitDealLoadProcess() {
+        stopLoading()
+        
+        UIView.animate(withDuration: 0.5) {
+            self.dealsView.alpha = 1.0
+        }
+    }
+    
     func loadDeals(_ type: DealRequest, param: Any? = nil) {
         if isConnectedToNetwork(repeatedFunction: {
             self.loadDeals(type, param: param)
@@ -474,6 +509,40 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                     }
                     UIView.animate(withDuration: 0.5) {
                         self.dealsView.alpha = 1.0
+                    }
+                }
+            }
+        }
+    }
+    
+    func getFavorites() {
+        if isConnectedToNetwork(repeatedFunction: getFavorites) {
+            startLoading()
+            
+            Server.shared.getFavorites { settings, error in
+                DispatchQueue.main.async {
+                    
+                    if error != nil {
+                        self.stopLoading()
+                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                    }
+                    else {
+                        if let settings = settings as? [String: Any] {
+                            if let favoritesString = settings["favourites"] as? String, !favoritesString.isEmpty {
+                                let favoriteIds = favoritesString.components(separatedBy: ",")
+                                self.favorites = Set(favoriteIds)
+                                self.appSettings = settings
+                            }
+                            else {
+                                self.favorites = []
+                            }
+                            
+                            self.getDeals()
+                        }
+                        else {
+                            self.stopLoading()
+                            self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                        }
                     }
                 }
             }
@@ -562,6 +631,8 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                     dvc.pageLoaded = false
                     dvc.deal = sender as? DealModel
                     dvc.dealType = dealType
+                    dvc.favorites = favorites
+                    dvc.appSettings = appSettings
                 case "showUnlockFiltersVC":
                     let dvc = segue.destination as! UnlockFIltersViewController
                     dvc.delegate = self
@@ -677,9 +748,8 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
             
             cell.favoriteButtonOutlet.isHidden = false
             
-            if let dealId = deal.id {
-                let favorites = UserModel.sharedInstance.favorites
-                let favoriteBtnImage = favorites.contains(dealId) ? #imageLiteral(resourceName: "FavoriteButtonRed") : #imageLiteral(resourceName: "FavoriteButtonWhite")
+            if let dealId = deal.id, let favorites = favorites {
+                let favoriteBtnImage = favorites.contains("\(dealId)") ? #imageLiteral(resourceName: "FavoriteButtonRed") : #imageLiteral(resourceName: "FavoriteButtonWhite")
                 cell.favoriteButtonOutlet.setImage(favoriteBtnImage, for: .normal)
             }
             cell.favoriteBtnAction = favoriteBtnAction
@@ -706,12 +776,13 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
             let index = indexPath.section
             let deal = deals[index]
             if UserModel.sharedInstance.isLoggedIn {
-                if let dealId = deal.id {
-                    let favorites = UserModel.sharedInstance.favorites
-                    if favorites.contains(dealId) {
-                        deleteFavorite(id: dealId, indexPath: indexPath)
+                if let dealId = deal.id, favorites != nil {
+                    if favorites!.contains("\(dealId)") {
+                        favorites!.remove("\(dealId)")
+                        updateFavorites(indexPath: indexPath, action: "delete")
                     } else {
-                        addFavorite(id: dealId, indexPath: indexPath)
+                        favorites!.insert("\(dealId)")
+                        updateFavorites(indexPath: indexPath)
                     }
                 }
             } else {
@@ -720,55 +791,42 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         }
     }
     
-    func deleteFavorite(id: Int, indexPath: IndexPath) {
-        if isConnectedToNetwork(repeatedFunction: { self.deleteFavorite(id: id, indexPath: indexPath) }) {
+    func updateFavorites(indexPath: IndexPath, action: String = "add") {
+        var favoritesString = ""
+        
+        if let favorites = favorites {
+            favoritesString = favorites.joined(separator: ",")
+        }
+        
+        appSettings["favourites"] = favoritesString
+        
+        if isConnectedToNetwork(repeatedFunction: { self.updateFavorites(indexPath: indexPath, action: action) }) {
             startLoading()
-            Server.shared.deleteFavorite(id: id) { success, error in
-                DispatchQueue.main.async {
-                    self.stopLoading()
-                    if error != nil {
-                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
-                    } else {
-                        if let success = success as? Bool, success {
-                            let user = UserModel.sharedInstance
-                            if let indexOfFavorite = user.favorites.index(of: id) {
-                                user.favorites.remove(at: indexOfFavorite)
-                                let data     = NSKeyedArchiver.archivedData(withRootObject: user)
-                                let defaults = UserDefaults.standard
-                                defaults.set(data, forKey: kUDSharedUserModel)
-                                defaults.synchronize()
-                                self.dealsView.dealsTableView.reloadRows(at: [indexPath], with: .automatic)
-                                if self.dealType == .Favoriten {
-                                    self.deals.remove(at: indexPath.section)
-                                }
-                            }
+            
+            do {
+                let userSettings = try appSettings.toJson()
+                
+                Server.shared.changeUserSettings(userSettings) { response, error in
+                    DispatchQueue.main.async {
+                        self.stopLoading()
+                        
+                        if error != nil {
+                            self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                            return
                         }
+                        
+                        if self.dealType == .Favoriten && action == "delete" {
+                            self.deals.remove(at: indexPath.section)
+                        }
+                        
+                        // update success
+                        self.dealsView.dealsTableView.reloadRows(at: [indexPath], with: .automatic)
                     }
                 }
             }
-        }
-    }
-    
-    func addFavorite(id: Int, indexPath: IndexPath) {
-        if isConnectedToNetwork(repeatedFunction: { self.addFavorite(id: id, indexPath: indexPath) }) {
-            startLoading()
-            Server.shared.addFavorite(id: id) { success, error in
-                DispatchQueue.main.async {
-                    self.stopLoading()
-                    if error != nil {
-                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
-                    } else {
-                        if let success = success as? Bool, success {
-                            let user = UserModel.sharedInstance
-                            user.favorites.append(id)
-                            let data     = NSKeyedArchiver.archivedData(withRootObject: user)
-                            let defaults = UserDefaults.standard
-                            defaults.set(data, forKey: kUDSharedUserModel)
-                            defaults.synchronize()
-                            self.dealsView.dealsTableView.reloadRows(at: [indexPath], with: .automatic)
-                        }
-                    }
-                }
+            catch {
+                self.showPopupDialog(title: "Ein Fehler ist aufgetreten...",
+                                     message: "Vorgang konnte nicht abgeschlossen werden. Versuche es erneut.")
             }
         }
     }

@@ -82,7 +82,7 @@ struct DealModel: Mappable {
         sticky         <- map["sticky"]
         appCat         <- map["app_cat"]
         rating         <- map["post_rating"]
-        expiryStatus   <- map["expiry_statues"]
+        expiryStatus   <- map["expiry_status"]
     }
 }
 

@@ -242,6 +242,43 @@ extension Server {
             }
     }
     
+    func getFavorites(сompletion: @escaping Completion) {
+        let getUserProfileURL = RouterUser.getUserProfile(token: UserModel.sharedInstance.token)
+        
+        Alamofire.request(getUserProfileURL)
+            .validate()
+            .responseObject { (response: DataResponse<StringResponse>) in
+                
+                let responseValue = response.result.value
+                print(#file, #line, responseValue?.data ?? "")
+                print(#file, #line, response.response ?? "")
+                print(#file, #line, response.request ?? "")
+                print(#file, #line, response.result.value?.response?.status ?? "")
+                
+                switch response.result {
+                    case .success(_):
+                    
+                    if let responseData = response.data {
+                        let userProfileResponse = JSON(responseData)
+                        let customerMeta = userProfileResponse["meta"]
+                        
+                        if let appDataJSONString = customerMeta["app_data"].string,
+                           let appData = appDataJSONString.convertToDictionary() {
+    
+                            сompletion(appData, nil)
+                            return
+                        }
+                        
+                        // set default ad settings
+                        сompletion(["favourites": [], "ad_setting": 1], nil)
+                    }
+                    
+                    case .failure(_):
+                        сompletion(nil, .cantGetSettings)
+                }
+            }
+    }
+    
     func getUserProfile(сompletion: @escaping Completion) {
         let getUserProfileURL = RouterUser.getUserProfile(token: UserModel.sharedInstance.token)
         
@@ -427,15 +464,39 @@ extension Server {
     // check user token
     func checkUserToken(сompletion: @escaping Completion) {
         let checkUserTokenURL = RouterUser.checkUserToken
+        
         Alamofire.request(checkUserTokenURL)
             .validate()
             .responseObject { (response: DataResponse<CheckUserTokenResponse>) in
                 
+                let responseValue = response.result.value
+                print(#file, #line, responseValue?.data ?? "")
+                print(#file, #line, response.response ?? "")
+                print(#file, #line, response.request ?? "")
+                print(#file, #line, response.result.value?.response?.status ?? "")
+                
                 switch response.result {
                 case .success(_):
-                    сompletion(200, nil)
-                    return
-                
+                    if let responseData = response.data {
+                        let tokenRefreshResponse = JSON(responseData)
+                        let userModel = UserModel.sharedInstance
+                        
+                        if let token = tokenRefreshResponse["access_token"].string {
+                            print(token)
+                            userModel.token = token
+                            
+                            // save userModel
+                            let data = NSKeyedArchiver.archivedData(withRootObject: userModel)
+                            UserDefaults.standard.set(data, forKey: kUDSharedUserModel)
+                            UserDefaults.standard.synchronize()
+                            
+                            сompletion(200, nil)
+                            return
+                        }
+                        
+                        сompletion(401, nil)
+                    }
+                    
                 case .failure(_):
                     сompletion(401, nil)
                     return
