@@ -254,9 +254,32 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 case .Favoriten:
                     if UserModel.sharedInstance.isLoggedIn {
                         if let ids = pages.filter({ $0.title == "Favoriten"}).first?.filters?.first?.map({ return $0.ids }) {
-                            if ids.count > firstRowItemIndex {
-                                let filterIds = ids[firstRowItemIndex]
-                                loadDeals(.favoriten, param: filterIds)
+                            
+                            guard let favorites = favorites else {
+                                quitDealLoadProcess()
+                                return
+                            }
+
+                            if favorites.isEmpty {
+                                quitDealLoadProcess()
+                                return
+                            }
+                            
+                            var include: [Int] = []
+                            
+                            include = favorites.map { Int($0)! }
+                            
+                            if ids.count > firstRowItemIndex, firstRowItemIndex > 0 {
+                                var categoryFilter: [Int] = []
+                                
+                                if let filterIds = ids[firstRowItemIndex] {
+                                    categoryFilter = filterIds
+                                }
+                                
+                                loadDeals(.my, param: ["filters": "\"filters\":{\"include\": \(include), \"category\": \(categoryFilter)}"])
+                            }
+                            else {
+                                loadDeals(.my, param: ["filters": "\"filters\":{\"include\": \(include)}"])
                             }
                         }
                     } else {
@@ -437,6 +460,14 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         }
     }
     
+    func quitDealLoadProcess() {
+        stopLoading()
+        
+        UIView.animate(withDuration: 0.5) {
+            self.dealsView.alpha = 1.0
+        }
+    }
+    
     func loadDeals(_ type: DealRequest, param: Any? = nil) {
         if isConnectedToNetwork(repeatedFunction: {
             self.loadDeals(type, param: param)
@@ -497,7 +528,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                     }
                     else {
                         if let settings = settings as? [String: Any] {
-                            if let favoritesString = settings["favourites"] as? String {
+                            if let favoritesString = settings["favourites"] as? String, !favoritesString.isEmpty {
                                 let favoriteIds = favoritesString.components(separatedBy: ",")
                                 self.favorites = Set(favoriteIds)
                                 self.appSettings = settings
@@ -746,8 +777,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 if let dealId = deal.id, favorites != nil {
                     if favorites!.contains("\(dealId)") {
                         favorites!.remove("\(dealId)")
-                        updateFavorites(indexPath: indexPath)
-                        //deleteFavorite(id: dealId, indexPath: indexPath)
+                        updateFavorites(indexPath: indexPath, action: "delete")
                     } else {
                         favorites!.insert("\(dealId)")
                         updateFavorites(indexPath: indexPath)
@@ -759,7 +789,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
         }
     }
     
-    func updateFavorites(indexPath: IndexPath) {
+    func updateFavorites(indexPath: IndexPath, action: String = "add") {
         var favoritesString = ""
         
         if let favorites = favorites {
@@ -781,6 +811,10 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                         if error != nil {
                             self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
                             return
+                        }
+                        
+                        if self.dealType == .Favoriten && action == "delete" {
+                            self.deals.remove(at: indexPath.section)
                         }
                         
                         // update success
