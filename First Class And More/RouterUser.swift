@@ -130,6 +130,7 @@ enum RouterUser: URLRequestConvertible {
         let userModel = UserModel.sharedInstance
         
         if !userModel.token.isEmpty {
+            print(userModel.token)
             urlRequest.setValue("Bearer \(userModel.token)",
                                 forHTTPHeaderField: "Authorization")
         }

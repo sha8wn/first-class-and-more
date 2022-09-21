@@ -31,6 +31,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
     var expiredDealsBtn: UIButton?
     var applyFilters: Bool = true
     var dealsLoaded: Bool = false
+    var favorites: [String: String]?
 
     var expiredDealsEnabled: Bool {
         get {
@@ -66,7 +67,9 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 }
             }
             
-            getDeals()
+            if favorites == nil {
+                getFavorites()
+            }
         }
     }
     
@@ -474,6 +477,34 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                     }
                     UIView.animate(withDuration: 0.5) {
                         self.dealsView.alpha = 1.0
+                    }
+                }
+            }
+        }
+    }
+    
+    func getFavorites() {
+        if isConnectedToNetwork(repeatedFunction: getFavorites) {
+            startLoading()
+            
+            Server.shared.getFavorites { settings, error in
+                DispatchQueue.main.async {
+                    
+                    if error != nil {
+                        self.stopLoading()
+                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                    }
+                    else {
+                        if let settings = settings as? [String: Any],
+                            let favoritesString = settings["favourites"] as? String {
+                            let favoriteIds = favoritesString.components(separatedBy: ",")
+                            self.favorites = Dictionary.init(uniqueKeysWithValues: favoriteIds.map { ($0, "") })
+                            self.getDeals()
+                        }
+                        else {
+                            self.stopLoading()
+                            self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                        }
                     }
                 }
             }
