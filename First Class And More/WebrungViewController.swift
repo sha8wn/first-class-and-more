@@ -108,7 +108,7 @@ class WebrungViewController: SFSidebarViewController {
                     }
                     else {
                         if let settings = settings as? [String: Any],
-                            let adSetting = settings["ad_setting"] as? Int {
+                            let adSetting = settings["ad_settings"] as? Int {
                             self.selectedPromotionsType = PromotionsType.type(adSetting)
                             self.setupUI()
                             self.appSettings = settings
@@ -128,7 +128,7 @@ class WebrungViewController: SFSidebarViewController {
         
         selectedPromotionsType = type
         selectRadioButton(for: type)
-        appSettings["ad_setting"] = type.apiParameter
+        appSettings["ad_settings"] = type.apiParameter
     }
     
     @IBAction func saveButtonPressed() {

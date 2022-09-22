@@ -233,7 +233,7 @@ extension Server {
                         }
                         
                         // set default ad settings
-                        сompletion(["favourites": [], "ad_setting": 1], nil)
+                        сompletion(["favourites": [], "ad_settings": 1], nil)
                     }
                     
                     case .failure(_):
@@ -270,7 +270,7 @@ extension Server {
                         }
                         
                         // set default ad settings
-                        сompletion(["favourites": [], "ad_setting": 1], nil)
+                        сompletion(["favourites": [], "ad_settings": 1], nil)
                     }
                     
                     case .failure(_):
