@@ -534,6 +534,7 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                                 self.appSettings = settings
                             }
                             else {
+                                self.appSettings = settings
                                 self.favorites = []
                             }
                             

@@ -107,11 +107,20 @@ class WebrungViewController: SFSidebarViewController {
                         self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
                     }
                     else {
-                        if let settings = settings as? [String: Any],
-                            let adSetting = settings["ad_setting"] as? Int {
-                            self.selectedPromotionsType = PromotionsType.type(adSetting)
+                        if let settings = settings as? [String: Any] {
+                            if let adSetting = settings["ad_settings"] as? Int {
+                                self.selectedPromotionsType = PromotionsType.type(adSetting)
+                                self.appSettings = settings
+                            }
+                            else {
+                                self.selectedPromotionsType = PromotionsType.type(1)
+                                self.appSettings = settings
+                            }
+                            
                             self.setupUI()
-                            self.appSettings = settings
+                        }
+                        else {
+                            self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
                         }
                     }
                 }
@@ -128,7 +137,7 @@ class WebrungViewController: SFSidebarViewController {
         
         selectedPromotionsType = type
         selectRadioButton(for: type)
-        appSettings["ad_setting"] = type.apiParameter
+        appSettings["ad_settings"] = type.apiParameter
     }
     
     @IBAction func saveButtonPressed() {
