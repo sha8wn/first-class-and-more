@@ -131,7 +131,7 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
             pageLoaded = true
             loadNeededPage()
             
-            if appSettings.isEmpty {
+            if UserModel.sharedInstance.isLoggedIn && appSettings.isEmpty {
                 getFavorites()
             }
             else {
