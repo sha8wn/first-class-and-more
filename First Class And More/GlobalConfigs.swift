@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-let fcamBlue = UIColor.init(red: 0.0/255.0, green: 96.0/255.0, blue: 153.0/255.0, alpha: 1.0)
+let fcamBlue = UIColor.init(red: 10.0/255.0, green: 19.0/255.0, blue: 59.0/255.0, alpha: 1.0)
 let fcamLightGrey = UIColor.init(red: 230.0/255.0, green: 231.0/255.0, blue: 232.0/255.0, alpha: 1.0)
 let fcamDarkGrey = UIColor.init(red: 109.0/255.0, green: 110.0/255.0, blue: 113.0/255.0, alpha: 1.0)
-let fcamGold = UIColor.init(red: 218.0/255.0, green: 165.0/255.0, blue: 31.0/255.0, alpha: 1.0)
+let fcamGold = UIColor.init(red: 219.0/255.0, green: 177.0/255.0, blue: 72.0/255.0, alpha: 1.0)
 let fcamDarkGold = UIColor.init(red: 183.0/255.0, green: 139.0/255.0, blue: 29.0/255.0, alpha: 1.0)
 
 enum DealType: Int
