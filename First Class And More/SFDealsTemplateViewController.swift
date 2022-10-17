@@ -68,8 +68,11 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                 }
             }
             
-            if favorites == nil {
+            if UserModel.sharedInstance.isLoggedIn && favorites == nil {
                 getFavorites()
+            }
+            else {
+                getDeals()
             }
         }
     }
