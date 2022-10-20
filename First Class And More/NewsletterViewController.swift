@@ -61,6 +61,39 @@ class NewsletterViewController: UIViewController {
             return
         }
         startLoading()
+        
+        if isConnectedToNetwork(repeatedFunction: subscribeBtnPressed) {
+            startLoading(message: String(.loading))
+            
+            Server.shared.checkSubscriber(email: email) { userStatus, error in
+                self.stopLoading()
+                
+                if let error = error {
+                    if error.description == "Email address not available." {
+                        self.performSubscription(withEmail: email)
+                    }
+                    else {
+                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..",
+                                             message: error.description,
+                                             cancelBtn: false) { }
+                    }
+                    
+                    return
+                }
+                
+                switch userStatus as? SubscriberType {
+                    
+                    default:
+                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..",
+                                             message: "E-Mail-Adresse bereits registriert",
+                                             cancelBtn: false) { }
+                    }
+            }
+        }
+    }
+    
+    func performSubscription(withEmail email: String) {
+        startLoading(message: String(.loading))
         if isConnectedToNetwork(repeatedFunction: subscribeBtnPressed) {
             Server.shared.subscribeToNewsletter (email: email) { success, error in
                 DispatchQueue.main.async {

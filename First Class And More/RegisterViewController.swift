@@ -245,7 +245,7 @@ class RegisterViewController: UIViewController {
                 self.stopLoading()
                 
                 if let _ = error {
-                    self.showPopupDialog(title: "Error", message: "E-Mail-Adresse unbekannt", cancelBtn: false) {
+                    self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "E-Mail-Adresse unbekannt", cancelBtn: false) {
                         //self.dismiss(animated: true, completion: nil)
                     }
                     return
