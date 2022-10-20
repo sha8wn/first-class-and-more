@@ -240,20 +240,24 @@ class RegisterViewController: UIViewController {
 		}
         if isConnectedToNetwork(repeatedFunction: signInBtnPressed) {
             startLoading(message: String(.loading))
-            Server.shared.subscribeToNewsletter (email: email) { success, error in
-                DispatchQueue.main.async {
-                    self.stopLoading()
-					if let error = error {
-						self.showPopupDialog(title: String(.errorOccured), message: error.description, cancelBtn: false)
-						return
-					}
+            
+            Server.shared.checkSubscriber(email: email) { userStatus, error in
+                self.stopLoading()
+                
+                if let _ = error {
+                    self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: "E-Mail-Adresse unbekannt", cancelBtn: false) {
+                        //self.dismiss(animated: true, completion: nil)
+                    }
+                    return
+                }
+                
+                switch userStatus as? SubscriberType {
                     
-                    if let success = success as? Bool, success {
+                    default:
                         UserModel.sharedInstance.isSubscribed = true
                         UserDefaults.standard.set(true, forKey: kUDUserRegistered)
                         self.performSegue(withIdentifier: "showHome", sender: nil)
                     }
-                }
             }
         }
     }

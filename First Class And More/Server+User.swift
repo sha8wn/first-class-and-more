@@ -155,7 +155,7 @@ extension Server {
                         
                         if let errorString = errorResponse["error"].string,
                            errorString == "Email address not available." {
-                            сompletion(SubscriberType.unsubscribed, nil)
+                            сompletion(SubscriberType.unsubscribed, .custom(errorString))
                             return
                         }
                         
