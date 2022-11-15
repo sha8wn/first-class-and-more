@@ -18,7 +18,7 @@ enum SubscriberType {
 
 enum RouterUser: URLRequestConvertible {
     case getPasswordSalt(email: String)
-    case login(email: String, password: String)
+    case login(email: String, password: String, fcmToken: String)
     case register(salutation: Int, email: String, surname: String, wantSubscribe: Bool)
     case subscribeNewsletter(email: String)
     case checkSubscriber(email: String)
@@ -48,10 +48,11 @@ enum RouterUser: URLRequestConvertible {
             return [
                 "email": email
             ]
-        case .login(let email, let password):
+        case .login(let email, let password, let fcmToken):
             return [
                 "email": email,
-                "password": password
+                "password": password,
+                "device_token": fcmToken
             ]
         case .register(let salutation, let email, let surname, let wantSubscribe):
             return [

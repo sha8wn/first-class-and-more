@@ -15,7 +15,11 @@ extension Server {
     
     func login(email: String, password: String, сompletion: @escaping Completion) {
         
-        let loginURL = RouterUser.login(email: email, password: password)
+        let defaults = UserDefaults.standard
+        let fcmToken = defaults.string(forKey: kUDFCMToken) ?? ""
+        
+        let loginURL = RouterUser.login(email: email, password: password, fcmToken: fcmToken)
+        
         Alamofire.request(loginURL).responseObject { (response: DataResponse<StringResponse>) in
             
             let responseValue = response.result.value
