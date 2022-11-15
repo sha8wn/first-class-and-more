@@ -218,7 +218,7 @@ extension Server {
             }
     }
     
-    func getAdSettings(сompletion: @escaping Completion) {
+    func getMarketingSettings(сompletion: @escaping Completion) {
         let getUserProfileURL = RouterUser.getUserProfile(token: UserModel.sharedInstance.token)
         
         Alamofire.request(getUserProfileURL)
@@ -245,8 +245,8 @@ extension Server {
                             return
                         }
                         
-                        // set default ad settings
-                        сompletion(["favourites": [], "ad_settings": 1], nil)
+                        // set defaults
+                        сompletion(["favourites": [], "ad_settings": 1, "push_settings": 1], nil)
                     }
                     
                     case .failure(_):
@@ -282,8 +282,8 @@ extension Server {
                             return
                         }
                         
-                        // set default ad settings
-                        сompletion(["favourites": [], "ad_settings": 1], nil)
+                        // set defaults
+                        сompletion(["favourites": [], "ad_settings": 1, "push_settings": 1], nil)
                     }
                     
                     case .failure(_):
