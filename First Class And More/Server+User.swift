@@ -56,7 +56,14 @@ extension Server {
     
     // register
     func register(salutation: Int, email: String, surname: String, wantSubscribe: Bool, сompletion: @escaping Completion) {
-        let registerURL = RouterUser.register(salutation: salutation, email: email, surname: surname, wantSubscribe: wantSubscribe)
+        let fcmToken = UserDefaults.standard.string(forKey: kUDFCMToken) ?? ""
+        
+        let registerURL = RouterUser.register(salutation: salutation,
+                                              email: email,
+                                              surname: surname,
+                                              wantSubscribe: wantSubscribe,
+                                              fcmToken: fcmToken)
+        
         Alamofire.request(registerURL)
             .validate()
             .responseObject { (response: DataResponse<StringResponse>) in
@@ -87,7 +94,9 @@ extension Server {
     }
     
     func subscribeToNewsletter(email: String, сompletion: @escaping Completion) {
-        let newsletterSubscribeURL = RouterUser.subscribeNewsletter(email: email)
+        let fcmToken = UserDefaults.standard.string(forKey: kUDFCMToken) ?? ""
+        
+        let newsletterSubscribeURL = RouterUser.subscribeNewsletter(email: email, fcmToken: fcmToken)
         Alamofire.request(newsletterSubscribeURL)
             .validate()
             .responseObject { (response: DataResponse<StringResponse>) in
