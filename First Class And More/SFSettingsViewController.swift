@@ -21,11 +21,17 @@ class SFSettingsViewController: SFSidebarViewController, UNUserNotificationCente
 
     var status: UNAuthorizationStatus = .notDetermined
     
+    var appSettings: [String: Any] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         checkNotificationSettings()
-        setupView()
         NotificationCenter.default.addObserver(self, selector: #selector(checkNotificationSettings), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        getPushSettings()
     }
     
     @objc private func checkNotificationSettings() {
@@ -34,6 +40,39 @@ class SFSettingsViewController: SFSidebarViewController, UNUserNotificationCente
         center.getNotificationSettings { settings in
             DispatchQueue.main.async {
                 self.status = settings.authorizationStatus
+            }
+        }
+    }
+    
+    func getPushSettings() {
+        if isConnectedToNetwork(repeatedFunction: getPushSettings) {
+            startLoading(message: "Wird geladen..")
+            
+            Server.shared.getMarketingSettings { settings, error in
+                DispatchQueue.main.async {
+                    self.stopLoading()
+                    
+                    if error != nil {
+                        self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                    }
+                    else {
+                        if let settings = settings as? [String: Any] {
+                            if let pushSetting = settings["push_settings"] as? Int {
+                                UserModel.sharedInstance.notificationSetting = pushSetting
+                                self.appSettings = settings
+                            }
+                            else {
+                                UserModel.sharedInstance.notificationSetting = 1
+                                self.appSettings = settings
+                            }
+                            
+                            self.setupView()
+                        }
+                        else {
+                            self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+                        }
+                    }
+                }
             }
         }
     }
@@ -91,36 +130,74 @@ class SFSettingsViewController: SFSidebarViewController, UNUserNotificationCente
 		options.forEach { $0.isSelected = false }
 		sender.isSelected = true
 		selectedOptionIndex = (options.index(of: sender) ?? 0)
+        appSettings["push_settings"] = (self.options.index(of: sender) ?? 0) + 1
     }
 	
 	@IBAction func saveButtonPressed(_ sender: UIButton) {
 		updatePushNotificationSettings(with: selectedOptionIndex + 1)
 	}
 
-    func updatePushNotificationSettings(with setting: Int) {
-        guard isConnectedToNetwork(repeatedFunction: {
+//    func updatePushNotificationSettings(with setting: Int) {
+//        guard isConnectedToNetwork(repeatedFunction: {
+//            self.updatePushNotificationSettings(with: setting)
+//        }) else { return }
+//        startLoading()
+//        Server.shared.updatePushNotificationSettings(setting: setting) { success, error in
+//            DispatchQueue.main.async {
+//                self.stopLoading()
+//                if error != nil {
+//                    self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
+//                    self.options.forEach { $0.isSelected = false }
+//                } else {
+//                    if let success = success as? Bool, success {
+//                        let user = UserModel.sharedInstance
+//                        user.notificationSetting = setting
+//                        let data = NSKeyedArchiver.archivedData(withRootObject: user)
+//                        UserDefaults.standard.set(data, forKey: kUDSharedUserModel)
+//                        UserDefaults.standard.synchronize()
+//
+//                        self.showPopupDialog(title: "Push Nachrichten", message: "Ihre Push-Nachrichten Einstellungen wurden gespeichert.") {
+//                            self.goHome()
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
+    private func updatePushNotificationSettings(with setting: Int) {
+        if isConnectedToNetwork(repeatedFunction: {
             self.updatePushNotificationSettings(with: setting)
-        }) else { return }
-        startLoading()
-        Server.shared.updatePushNotificationSettings(setting: setting) { success, error in
-            DispatchQueue.main.async {
-                self.stopLoading()
-                if error != nil {
-                    self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: error!.description)
-                    self.options.forEach { $0.isSelected = false }
-                } else {
-                    if let success = success as? Bool, success {
-                        let user = UserModel.sharedInstance
-                        user.notificationSetting = setting
-                        let data = NSKeyedArchiver.archivedData(withRootObject: user)
-                        UserDefaults.standard.set(data, forKey: kUDSharedUserModel)
-                        UserDefaults.standard.synchronize()
+        }) {
+            startLoading()
+            
+            do {
+                let userSettings = try appSettings.toJson()
+                
+                Server.shared.changeUserSettings(userSettings) { response, error in
+                    DispatchQueue.main.async {
+                        self.stopLoading()
                         
-                        self.showPopupDialog(title: "Push Nachrichten", message: "Ihre Push-Nachrichten Einstellungen wurden gespeichert.") {
-                            self.goHome()
+                        if let description = error?.description {
+                            self.showPopupDialog(title: "Ein Fehler ist aufgetreten..", message: description)
+                        }
+                        else {
+                            let user = UserModel.sharedInstance
+                            user.notificationSetting = setting
+                            let data = NSKeyedArchiver.archivedData(withRootObject: user)
+                            UserDefaults.standard.set(data, forKey: kUDSharedUserModel)
+                            UserDefaults.standard.synchronize()
+                            
+                            self.showPopupDialog(title: "Push Nachrichten", message: "Ihre Push-Nachrichten Einstellungen wurden gespeichert.") {
+                                self.goHome()
+                            }
                         }
                     }
                 }
+            }
+            catch {
+                self.showPopupDialog(title: "Ein Fehler ist aufgetreten...",
+                                     message: "Vorgang konnte nicht abgeschlossen werden. Versuche es erneut.")
             }
         }
     }

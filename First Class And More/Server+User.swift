@@ -15,7 +15,11 @@ extension Server {
     
     func login(email: String, password: String, сompletion: @escaping Completion) {
         
-        let loginURL = RouterUser.login(email: email, password: password)
+        let defaults = UserDefaults.standard
+        let fcmToken = defaults.string(forKey: kUDFCMToken) ?? ""
+        
+        let loginURL = RouterUser.login(email: email, password: password, fcmToken: fcmToken)
+        
         Alamofire.request(loginURL).responseObject { (response: DataResponse<StringResponse>) in
             
             let responseValue = response.result.value
@@ -52,7 +56,14 @@ extension Server {
     
     // register
     func register(salutation: Int, email: String, surname: String, wantSubscribe: Bool, сompletion: @escaping Completion) {
-        let registerURL = RouterUser.register(salutation: salutation, email: email, surname: surname, wantSubscribe: wantSubscribe)
+        let fcmToken = UserDefaults.standard.string(forKey: kUDFCMToken) ?? ""
+        
+        let registerURL = RouterUser.register(salutation: salutation,
+                                              email: email,
+                                              surname: surname,
+                                              wantSubscribe: wantSubscribe,
+                                              fcmToken: fcmToken)
+        
         Alamofire.request(registerURL)
             .validate()
             .responseObject { (response: DataResponse<StringResponse>) in
@@ -83,7 +94,9 @@ extension Server {
     }
     
     func subscribeToNewsletter(email: String, сompletion: @escaping Completion) {
-        let newsletterSubscribeURL = RouterUser.subscribeNewsletter(email: email)
+        let fcmToken = UserDefaults.standard.string(forKey: kUDFCMToken) ?? ""
+        
+        let newsletterSubscribeURL = RouterUser.subscribeNewsletter(email: email, fcmToken: fcmToken)
         Alamofire.request(newsletterSubscribeURL)
             .validate()
             .responseObject { (response: DataResponse<StringResponse>) in
@@ -205,7 +218,7 @@ extension Server {
             }
     }
     
-    func getAdSettings(сompletion: @escaping Completion) {
+    func getMarketingSettings(сompletion: @escaping Completion) {
         let getUserProfileURL = RouterUser.getUserProfile(token: UserModel.sharedInstance.token)
         
         Alamofire.request(getUserProfileURL)
@@ -232,8 +245,8 @@ extension Server {
                             return
                         }
                         
-                        // set default ad settings
-                        сompletion(["favourites": [], "ad_settings": 1], nil)
+                        // set defaults
+                        сompletion(["favourites": [], "ad_settings": 1, "push_settings": 1], nil)
                     }
                     
                     case .failure(_):
@@ -269,8 +282,8 @@ extension Server {
                             return
                         }
                         
-                        // set default ad settings
-                        сompletion(["favourites": [], "ad_settings": 1], nil)
+                        // set defaults
+                        сompletion(["favourites": [], "ad_settings": 1, "push_settings": 1], nil)
                     }
                     
                     case .failure(_):

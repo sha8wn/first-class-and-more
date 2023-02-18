@@ -99,7 +99,7 @@ class WebrungViewController: SFSidebarViewController {
         if isConnectedToNetwork(repeatedFunction: getAdSettings) {
             startLoading(message: "Wird geladen..")
             
-            Server.shared.getAdSettings { settings, error in
+            Server.shared.getMarketingSettings { settings, error in
                 DispatchQueue.main.async {
                     self.stopLoading()
                     
