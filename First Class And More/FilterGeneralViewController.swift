@@ -89,6 +89,11 @@ class FilterGeneralViewController: SFSidebarViewController {
             defaults.set(Array(unselectedIdentifiers), forKey: kUDUnselectedFilters)
             defaults.synchronize()
         }
+        else {
+            // Clear filters
+            defaults.set([], forKey: kUDUnselectedFilters)
+            defaults.synchronize()
+        }
         saveData()
         let user = UserModel.sharedInstance
         if !user.isGold && user.isLoggedIn {
