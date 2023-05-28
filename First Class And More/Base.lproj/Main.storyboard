@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="CaC-F3-NwM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="CaC-F3-NwM">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -102,7 +102,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="4D3-8R-BeR">
                                                 <rect key="frame" x="49" y="453" width="277.5" height="84"/>
                                                 <subviews>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gCy-9b-bUR">
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gCy-9b-bUR">
                                                         <rect key="frame" x="0.0" y="0.0" width="277.5" height="36"/>
                                                         <color key="backgroundColor" red="0.85490196078431369" green="0.6470588235294118" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -121,7 +121,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                                             <action selector="continueBtnPressed" destination="OQ7-0s-hog" eventType="touchUpInside" id="5T5-qK-Za2"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lwk-Ll-dFC">
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lwk-Ll-dFC">
                                                         <rect key="frame" x="0.0" y="48" width="277.5" height="36"/>
                                                         <color key="backgroundColor" red="1" green="0.3803921569" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
@@ -249,13 +249,13 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                 <color key="separatorColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="QMY-b4-Egu">
-                                    <rect key="frame" x="0.0" y="110" width="347" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="121" width="347" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="filterRowCell" rowHeight="54" id="vj2-Un-K0c" customClass="FilterGeneralTableViewCell" customModule="First_Class_And_More" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="347" height="54"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="347" height="54"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vj2-Un-K0c" id="SLk-SF-Hfl">
                                             <rect key="frame" x="0.0" y="0.0" width="347" height="54"/>
@@ -320,7 +320,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E3Z-F3-QSX">
                                 <rect key="frame" x="0.0" y="523" width="375" height="124"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpW-G8-lHq">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpW-G8-lHq">
                                         <rect key="frame" x="49" y="44" width="277.5" height="36"/>
                                         <color key="backgroundColor" red="0.85490196080000003" green="0.64705882349999999" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -417,13 +417,13 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                 <color key="separatorColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="ahP-BD-4gY">
-                                    <rect key="frame" x="0.0" y="164" width="347" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="175" width="347" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="filterRowCell" rowHeight="54" id="DOF-dW-3sO" customClass="FilterGeneralTableViewCell" customModule="First_Class_And_More" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="347" height="54"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="347" height="54"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DOF-dW-3sO" id="Evb-Qs-R2c">
                                             <rect key="frame" x="0.0" y="0.0" width="347" height="54"/>
@@ -480,14 +480,14 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" accessoryType="detailButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="buttonCell" rowHeight="54" id="R4q-Wm-jsh" customClass="FilterButtonCell" customModule="First_Class_And_More" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="82" width="347" height="54"/>
+                                        <rect key="frame" x="0.0" y="98.5" width="347" height="54"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R4q-Wm-jsh" id="nb1-N4-jaT">
-                                            <rect key="frame" x="0.0" y="0.0" width="308" height="54"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="310.5" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KEINE AIRLINE AUSWÄHLEN" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcl-yn-e5U">
-                                                    <rect key="frame" x="58.5" y="17" width="191.5" height="20"/>
+                                                    <rect key="frame" x="59.5" y="17" width="191.5" height="20"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -516,7 +516,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="5dQ-JR-Sze">
                                         <rect key="frame" x="49" y="23" width="277.5" height="36"/>
                                         <subviews>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eAW-WT-Ra6">
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eAW-WT-Ra6">
                                                 <rect key="frame" x="0.0" y="0.0" width="132.5" height="36"/>
                                                 <color key="backgroundColor" red="0.85490196080000003" green="0.64705882349999999" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -535,7 +535,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                                     <action selector="saveBtnPressed" destination="QvP-3F-QKQ" eventType="touchUpInside" id="KzI-Y7-304"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoq-5k-Yi4">
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoq-5k-Yi4">
                                                 <rect key="frame" x="144.5" y="0.0" width="133" height="36"/>
                                                 <color key="backgroundColor" red="0.85490196080000003" green="0.64705882349999999" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -692,7 +692,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                                     <outlet property="delegate" destination="ev9-wZ-giL" id="41e-BZ-giH"/>
                                                 </connections>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xFw-nq-yBF">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xFw-nq-yBF">
                                                 <rect key="frame" x="164" y="0.0" width="87" height="32"/>
                                                 <color key="backgroundColor" red="0.85490196078431369" green="0.6470588235294118" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="11"/>
@@ -820,7 +820,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <constraint firstAttribute="height" constant="32" id="QQL-ir-7rz"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dZd-QY-7x3">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dZd-QY-7x3">
                                         <rect key="frame" x="58" y="217.5" width="77" height="44"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="22"/>
                                         <state key="normal" title="1">
@@ -830,7 +830,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <action selector="digitBtnPressed:" destination="6Z0-do-WQ2" eventType="touchUpInside" id="zR4-ho-iUm"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbp-SS-Hkt">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbp-SS-Hkt">
                                         <rect key="frame" x="135" y="217.5" width="77" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="FkJ-AM-rt0"/>
@@ -844,7 +844,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <action selector="digitBtnPressed:" destination="6Z0-do-WQ2" eventType="touchUpInside" id="K6j-ns-yhH"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqi-vo-uOx">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqi-vo-uOx">
                                         <rect key="frame" x="212" y="217.5" width="77" height="44"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="22"/>
                                         <state key="normal" title="3">
@@ -854,7 +854,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <action selector="digitBtnPressed:" destination="6Z0-do-WQ2" eventType="touchUpInside" id="auW-0n-nO6"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sg-jm-ToK">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sg-jm-ToK">
                                         <rect key="frame" x="58" y="261.5" width="77" height="44"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="22"/>
                                         <state key="normal" title="4">
@@ -864,7 +864,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <action selector="digitBtnPressed:" destination="6Z0-do-WQ2" eventType="touchUpInside" id="7Ua-Ys-9xW"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8K6-3I-SRI">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8K6-3I-SRI">
                                         <rect key="frame" x="135" y="261.5" width="77" height="44"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="22"/>
                                         <state key="normal" title="5">
@@ -874,7 +874,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <action selector="digitBtnPressed:" destination="6Z0-do-WQ2" eventType="touchUpInside" id="0OB-jk-jUT"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nez-6W-kLl">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nez-6W-kLl">
                                         <rect key="frame" x="212" y="261.5" width="77" height="44"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="22"/>
                                         <state key="normal" title="6">
@@ -884,7 +884,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <action selector="digitBtnPressed:" destination="6Z0-do-WQ2" eventType="touchUpInside" id="H6e-me-M7Y"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Qe-GS-JrC">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Qe-GS-JrC">
                                         <rect key="frame" x="58" y="305.5" width="77" height="44"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="22"/>
                                         <state key="normal" title="7">
@@ -894,7 +894,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <action selector="digitBtnPressed:" destination="6Z0-do-WQ2" eventType="touchUpInside" id="9jd-qO-iG0"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTv-2W-Znl">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTv-2W-Znl">
                                         <rect key="frame" x="135" y="305.5" width="77" height="44"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="22"/>
                                         <state key="normal" title="8">
@@ -904,7 +904,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <action selector="digitBtnPressed:" destination="6Z0-do-WQ2" eventType="touchUpInside" id="dmf-H5-zeg"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNW-S1-g80">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNW-S1-g80">
                                         <rect key="frame" x="212" y="305.5" width="77" height="44"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="22"/>
                                         <state key="normal" title="9">
@@ -923,7 +923,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                             <action selector="deleteBtnPressed" destination="6Z0-do-WQ2" eventType="touchUpInside" id="cTq-dV-wHS"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwJ-WR-cI0">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwJ-WR-cI0">
                                         <rect key="frame" x="135" y="349.5" width="77" height="44"/>
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="22"/>
                                         <state key="normal" title="0">
@@ -1101,13 +1101,13 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.84313725490000002" green="0.84313725490000002" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Qee-Mc-Yo7">
-                                    <rect key="frame" x="0.0" y="126" width="375" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="137" width="375" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DestinationFilterTableCell" rowHeight="70" id="kEq-Rf-Co7" customClass="DestinationFilterTableViewCell" customModule="First_Class_And_More" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kEq-Rf-Co7" id="Tqh-Rc-taH">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
@@ -1173,7 +1173,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alH-Ux-DGO">
                                 <rect key="frame" x="0.0" y="523" width="375" height="124"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRD-PW-h8b">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRD-PW-h8b">
                                         <rect key="frame" x="49" y="44" width="277.5" height="36"/>
                                         <color key="backgroundColor" red="0.85490196080000003" green="0.64705882349999999" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1362,7 +1362,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                     <action selector="optionBtnPressed:" destination="2zM-BG-TeY" eventType="touchUpInside" id="oEf-3T-DXq"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQY-ks-CwV">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQY-ks-CwV">
                                 <rect key="frame" x="49" y="591" width="277.5" height="36"/>
                                 <color key="backgroundColor" red="0.85490196080000003" green="0.64705882349999999" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -1462,7 +1462,7 @@ Sie können die Einstellungen auch jederzeit nachträglich wieder ändern.</stri
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                             </textView>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEn-NS-usf">
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEn-NS-usf">
                                                 <rect key="frame" x="49" y="170" width="277.5" height="36"/>
                                                 <color key="backgroundColor" red="0.85490196080000003" green="0.64705882349999999" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -1688,7 +1688,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                     </button>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPv-4Y-XIC">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPv-4Y-XIC">
                                 <rect key="frame" x="49" y="591" width="277.5" height="36"/>
                                 <color key="backgroundColor" red="0.85490196080000003" green="0.64705882349999999" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -1814,7 +1814,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfz-DD-XOR">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfz-DD-XOR">
                                         <rect key="frame" x="24.5" y="238.5" width="277" height="51.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="51.5" id="Apb-3D-ndF"/>
@@ -2125,7 +2125,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                             <constraint firstAttribute="height" constant="32" id="Xd9-O5-Lv4"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afe-pu-ZLG">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afe-pu-ZLG">
                                         <rect key="frame" x="87" y="205" width="173.5" height="30"/>
                                         <color key="backgroundColor" red="0.85490196080000003" green="0.64705882349999999" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -2225,7 +2225,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rxO-gS-3Sc">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cgv-D2-erD">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cgv-D2-erD">
                                 <rect key="frame" x="62.5" y="589" width="250" height="45"/>
                                 <color key="backgroundColor" red="0.85490196080000003" green="0.64705882349999999" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -2425,7 +2425,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                     <constraint firstAttribute="height" constant="350" id="mJo-zM-4vG"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjG-FG-Zbm">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjG-FG-Zbm">
                                 <rect key="frame" x="329" y="621" width="30" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.79652718320000004" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -2710,7 +2710,7 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
                                                     <constraint firstItem="Qjc-Q6-QYJ" firstAttribute="width" secondItem="DmK-RJ-T42" secondAttribute="width" id="KTG-Te-4vV"/>
                                                 </constraints>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHE-AD-gaf">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHE-AD-gaf">
                                                 <rect key="frame" x="87" y="488" width="173.5" height="30"/>
                                                 <color key="backgroundColor" red="0.85490196080000003" green="0.64705882349999999" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -2794,6 +2794,9 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
             <point key="canvasLocation" x="936.79999999999995" y="2263.7181409295354"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="nbC-qP-wv2"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="SwitchOff" width="21" height="21"/>
         <image name="SwitchOn" width="21" height="21"/>
@@ -2810,7 +2813,4 @@ Alternativ können Sie die Promotion Pop-ups aber auch vollständig deaktivieren
         <image name="previous" width="87.5" height="87.5"/>
         <image name="repeat" width="87.5" height="87.5"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="LhH-We-wZs"/>
-    </inferredMetricsTieBreakers>
 </document>

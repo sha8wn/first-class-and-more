@@ -42,22 +42,6 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
         isDisplayingPromotion = true
     }
     
-    override func viewSafeAreaInsetsDidChange() {
-        
-        if #available(iOS 11.0, *) {
-            
-            if toolBar == nil {
-                toolBar = UIToolbar()
-            }
-            
-            print(self.view.safeAreaInsets.bottom)
-            toolBar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - self.view.safeAreaInsets.bottom - 64.0 - toolBar.frame.height, width: UIScreen.main.bounds.width, height: toolBar.frame.height)
-            
-        }
-        
-        
-    }
-    
     func setupUI() {
         
         // https://stackoverflow.com/questions/25977764/wkwebkit-no-datadetectortypes-parameter
@@ -81,13 +65,7 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
         toolBar.isTranslucent = true
         toolBar.tintColor     = fcamBlue
         toolBar.sizeToFit()
-        
-        if #available(iOS 11.0, *) {
-            
-        } else {
-            // Fallback on earlier versions
-            toolBar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - 64.0 - toolBar.frame.height, width: UIScreen.main.bounds.width, height: toolBar.frame.height)
-        }
+        toolBar.translatesAutoresizingMaskIntoConstraints = false
         
         var navigationBarHeight = self.navigationController?.navigationBar.frame.height
         
@@ -97,7 +75,6 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
                     navigationBarHeight! += UIApplication.shared.statusBarFrame.height
                 }
         
-        toolBar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - navigationBarHeight! - toolBar.frame.height, width: UIScreen.main.bounds.width, height: toolBar.frame.height)
         backBarButton     = UIBarButtonItem(image: #imageLiteral(resourceName: "chevron-left"), style: .plain, target: self, action: #selector(backBtnPressed))
         forwardBarButton  = UIBarButtonItem(image: #imageLiteral(resourceName: "chevron-right"), style: .plain, target: self, action: #selector(forwardBtnPressed))
         reloadBarButton   = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshBtnPressed))
@@ -105,11 +82,13 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
         toolBar.setItems([backBarButton, forwardBarButton, flexibleWidth, reloadBarButton], animated: false)
         view.addSubview(toolBar)
         
-        /* To check URL
-        urlAdd = UILabel.init(frame: CGRect.init(x: 0, y: 100, width: UIScreen.main.bounds.width, height: 100))
-        urlAdd.textColor = .black
-        urlAdd.numberOfLines = 0
-        view.addSubview(urlAdd)*/
+        let height = toolBar.frame.height + view.safeAreaInsets.bottom
+        
+        NSLayoutConstraint.activate([
+            toolBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            toolBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            toolBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -138,7 +117,6 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
                 configureFavoritesButton()
             }
         }
-        //self.urlAdd.text = urlString
     }
 
     override func viewWillDisappear(_ animated: Bool) {
