@@ -82,8 +82,6 @@ class WKWebViewController: SFSidebarViewController, WKNavigationDelegate {
         toolBar.setItems([backBarButton, forwardBarButton, flexibleWidth, reloadBarButton], animated: false)
         view.addSubview(toolBar)
         
-        let height = toolBar.frame.height + view.safeAreaInsets.bottom
-        
         NSLayoutConstraint.activate([
             toolBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             toolBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
