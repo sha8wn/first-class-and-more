@@ -310,30 +310,37 @@ class SFDealsTemplateViewController: SFSidebarViewController, UITableViewDelegat
                             var secondFilterIds: [Int] = []
                             
                             if let mainFilterId = firstRowIds.first,
-                                let mainFilterId = mainFilterId {
+                               let mainFilterId = mainFilterId {
                                 firstFilterIds = mainFilterId
                             }
                             
                             if firstRowItemIndex >= 1, let firstFilters = firstRowIds[firstRowItemIndex] {
                                 firstFilterIds.append(contentsOf: firstFilters)
                             }
-                                
+                            
                             if secondRowItemIndex > 0 {
                                 secondFilterIds = secondRowIds[secondRowItemIndex] ?? []
                             }
-                                
+                            
                             var filteredDestinationIds: [Int] = []
-                                
+                            
                             if let destinations = self.destinations {
                                 filteredDestinationIds = destinations.filter({ !$0.selected }).compactMap({ $0.id })
-                                
                                 filteredDestinationIds = destinations.filter({ !$0.selected }).isEmpty ? [] : filteredDestinationIds
                             }
-                               
-                            let combinedCategoryFilter = firstFilterIds + secondFilterIds
                             
-                            loadDeals(.category, param: ["filters": "\"filters\":{\"exclude\": %@, \"category\": \(combinedCategoryFilter), \"destinations\": \(filteredDestinationIds)}"])
+                            
+                            
+                            // If every filter has one id, the pass everything in the category parameter
+                            // If a filter item on the second row of filters has 2 ids, then send it in the category_or parameter
+                            if secondFilterIds.count > 1 {
+                                loadDeals(.category, param: ["filters": "\"filters\":{\"exclude\": %@, \"category\": \(firstFilterIds), \"category_or\": \(secondFilterIds), \"destinations\": \(filteredDestinationIds)}"])
                             }
+                            else {
+                                let combinedCategoryFilter = firstFilterIds + secondFilterIds
+                                loadDeals(.category, param: ["filters": "\"filters\":{\"exclude\": %@, \"category\": \(combinedCategoryFilter), \"destinations\": \(filteredDestinationIds)}"])
+                            }
+                        }
                     }
                 case .Meilen_Programme:
                     if let ids = pages.filter({ $0.title == "Meilenprogramme"}).first?.filters?.first?.map({ return $0.ids }) {
