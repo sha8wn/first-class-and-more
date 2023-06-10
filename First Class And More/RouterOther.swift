@@ -101,7 +101,7 @@ enum RouterOther: URLRequestConvertible {
         case .updatePushNotificationSettings:
             return "/notifications/"
         case .getAdvertisements:
-            return "/app/promo"
+            return "/self/promo"
         case .getProfilesAndTests:
             return "/category-deals/"
         case .subscribeNewsletter:
